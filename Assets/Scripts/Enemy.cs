@@ -14,7 +14,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] private int _maxDamage;
     [SerializeField] private int _corruptionDrop;
     [SerializeField] private int _goldDrop;
-    [SerializeField] private List<GameObject> _lootDrops;
+    [SerializeField] private List<ScriptableObject> _lootDrops;
 
 
     void Start(){
@@ -26,7 +26,8 @@ public class Enemy : MonoBehaviour
         _maxDamage = _enemyData.maxDamage;
         _corruptionDrop = _enemyData.corruptionDrop;
         _goldDrop = _enemyData.goldDrop;
-        _lootDrops = _enemyData.lootDrops;
+        _lootDrops.AddRange(_enemyData.meleeDrops);
+        _lootDrops.AddRange(_enemyData.rangedDrops);
     }
 
 

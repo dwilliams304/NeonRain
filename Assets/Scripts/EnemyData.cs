@@ -14,5 +14,7 @@ public class EnemyData : ScriptableObject
 
     public int corruptionDrop;
     public int goldDrop;
-    public List<GameObject> lootDrops;
+    public List<MeleeWeaponData> meleeDrops;
+    public List<RangedWeaponData> rangedDrops;
+    public List<GameObject> itemDrops;
 }
