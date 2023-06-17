@@ -16,8 +16,10 @@ public class PlayerStats : MonoBehaviour
     
     private int _currentLevel = 1;
     private int _currentPlayerXP = 0;
+    private int _maxExperience;
     public int CurrentLevel => _currentLevel;  
     public int CurrentPlayerXP => _currentPlayerXP;
+    public int MaxExperience => _maxExperience;
 
 
     private int _playerCorruptionLevel = 0;

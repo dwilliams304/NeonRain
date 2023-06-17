@@ -26,8 +26,7 @@ public class Enemy : MonoBehaviour
         _maxDamage = _enemyData.maxDamage;
         _corruptionDrop = _enemyData.corruptionDrop;
         _goldDrop = _enemyData.goldDrop;
-        _lootDrops.AddRange(_enemyData.meleeDrops);
-        _lootDrops.AddRange(_enemyData.rangedDrops);
+        _lootDrops.AddRange(_enemyData.lootDrops);
     }
 
 

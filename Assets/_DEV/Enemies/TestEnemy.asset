@@ -19,4 +19,5 @@ MonoBehaviour:
   maxDamage: 0
   corruptionDrop: 10
   goldDrop: 10
-  lootDrops: []
+  lootDrops:
+  - {fileID: 11400000, guid: 1b591fe8c8cd00247ba2c0038193e7a2, type: 2}
