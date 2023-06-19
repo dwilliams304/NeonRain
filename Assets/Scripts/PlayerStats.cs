@@ -7,6 +7,12 @@ public class PlayerStats : MonoBehaviour
     private float baseSpeed = 7f;
     private float _currentMoveSpeed;
     public float MoveSpeed => _currentMoveSpeed;
+    private float _dashSpeed = 20f;
+    private float _dashDuration = .2f;
+    private float _dashCooldown = 1f;
+    public float DashSpeed => _dashSpeed;
+    public float DashCoolDown => _dashCooldown;
+    public float DashDuration => _dashDuration;
 
     private int _playerMaxHealth = 100;
     private int _currentHealth;
@@ -28,7 +34,7 @@ public class PlayerStats : MonoBehaviour
     private int _playerGold = 1;
     public int PlayerGold => _playerGold;
 
-    void Start(){
+    void Awake(){
         _currentMoveSpeed = baseSpeed;
         _currentHealth = _playerMaxHealth;
     }

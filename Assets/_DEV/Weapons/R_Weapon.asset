@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fireRate: 0
   reloadSpeed: 0
-  projectileSpeed: 0
+  projectileSpeed: 25
   damage: 0
   weaponRange: 0
   isCorrupted: 0
@@ -22,4 +22,4 @@ MonoBehaviour:
   weaponSprite: {fileID: 0}
   type: 0
   rarity: 0
-  dropChance: 0
+  dropChance: 10000

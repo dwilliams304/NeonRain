@@ -6,6 +6,8 @@ public class Combat : MonoBehaviour
 {
     [SerializeField] private MeleeWeaponData _meeleeWeapon;
     [SerializeField] private RangedWeaponData _rangedWeapon;
+    [SerializeField] private GameObject _bulletPrefab;
+    [SerializeField] private Transform _firePoint;
 
     public Inventory _inventory;
 
@@ -34,6 +36,7 @@ public class Combat : MonoBehaviour
         }
     }
 
+
     void AssingWeaponStats(MeleeWeaponData meleeWeapon, RangedWeaponData rangedWeapon){
         _meleeSwingSpeed = meleeWeapon.swingSpeed;
         _meleeSwingRange = meleeWeapon.swingRange;
@@ -48,6 +51,12 @@ public class Combat : MonoBehaviour
 
     void CorruptedWeaponMod(int corruptionGain){
 
+    }
+
+
+    public void Shoot(){
+        GameObject bullet = Instantiate(_bulletPrefab, _firePoint.position, _firePoint.rotation);
+        bullet.GetComponent<Rigidbody2D>().AddForce(_firePoint.up * _rangedProjectileSpeed, ForceMode2D.Impulse);
     }
     
 }

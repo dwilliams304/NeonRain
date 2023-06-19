@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Enemy : MonoBehaviour
 {
@@ -16,6 +17,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] private int _goldDrop;
     [SerializeField] private List<ScriptableObject> _lootDrops;
 
+    private FloatingHealthBar _healthBar;
 
     void Start(){
         _enemyName = _enemyData.enemyName;
@@ -27,11 +29,16 @@ public class Enemy : MonoBehaviour
         _corruptionDrop = _enemyData.corruptionDrop;
         _goldDrop = _enemyData.goldDrop;
         _lootDrops.AddRange(_enemyData.lootDrops);
+        _healthBar = GetComponentInChildren<FloatingHealthBar>();
     }
 
 
     public void ReceiveDamage(int damage){
+        _healthBar.UpdateHealthBar(_currentHealth, _maxHealth);
         _currentHealth -= damage;
+        if(_currentHealth <= 0){
+            Destroy(gameObject);
+        }
     }
 
 }
