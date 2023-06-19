@@ -6,8 +6,9 @@ using UnityEngine;
 public class MeleeWeaponData : ScriptableObject
 {
     public float swingSpeed;
-    public float swingRange;
+    public int swingRange;
     public float damage;
+    public float critChance;
     public bool isCorrupted;
     public int corruptionGain;
 

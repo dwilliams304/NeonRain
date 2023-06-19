@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerStats : MonoBehaviour
 {
+
+    public static PlayerStats playerStats;
     private float baseSpeed = 7f;
     private float _currentMoveSpeed;
     public float MoveSpeed => _currentMoveSpeed;
@@ -34,9 +36,15 @@ public class PlayerStats : MonoBehaviour
     private int _playerGold = 1;
     public int PlayerGold => _playerGold;
 
+    private int _baseCritChance = 10;
+    private float _critDamageMod = 3f;
+    public int BaseCritChance => _baseCritChance;
+    public float CritDamageMod => _critDamageMod;
+
     void Awake(){
         _currentMoveSpeed = baseSpeed;
         _currentHealth = _playerMaxHealth;
+        playerStats = this;
     }
 
 

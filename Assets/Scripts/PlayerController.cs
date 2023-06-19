@@ -19,8 +19,8 @@ public class PlayerController : MonoBehaviour
     private bool _canDash;
 
     void Awake(){
-        _playerStats = GetComponent<PlayerStats>();
-        _combat = GetComponent<Combat>();
+        _playerStats = PlayerStats.playerStats;
+        _combat = Combat.combat;
         _moveSpeed = _playerStats.MoveSpeed;
         _canDash = true;
     }

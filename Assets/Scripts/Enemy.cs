@@ -8,8 +8,8 @@ public class Enemy : MonoBehaviour
     [SerializeField] private EnemyData _enemyData;
     
     [SerializeField] private string _enemyName;
-    [SerializeField] private int _maxHealth;
-    [SerializeField] private int _currentHealth;
+    [SerializeField] private float _maxHealth;
+    [SerializeField] private float _currentHealth;
     [SerializeField] private float _moveSpeed;
     [SerializeField] private int _minDamage;
     [SerializeField] private int _maxDamage;
@@ -18,6 +18,8 @@ public class Enemy : MonoBehaviour
     [SerializeField] private List<ScriptableObject> _lootDrops;
 
     private FloatingHealthBar _healthBar;
+    [SerializeField] private PlayerStats _playerStats;
+
 
     void Start(){
         _enemyName = _enemyData.enemyName;
@@ -30,12 +32,13 @@ public class Enemy : MonoBehaviour
         _goldDrop = _enemyData.goldDrop;
         _lootDrops.AddRange(_enemyData.lootDrops);
         _healthBar = GetComponentInChildren<FloatingHealthBar>();
+        _playerStats = FindObjectOfType<PlayerStats>();
     }
 
 
-    public void ReceiveDamage(int damage){
-        _healthBar.UpdateHealthBar(_currentHealth, _maxHealth);
+    public void ReceiveDamage(float damage){
         _currentHealth -= damage;
+        _healthBar.UpdateHealthBar(_currentHealth, _maxHealth);
         if(_currentHealth <= 0){
             Destroy(gameObject);
         }
