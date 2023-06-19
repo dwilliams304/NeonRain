@@ -11,4 +11,6 @@ public class Bullet : MonoBehaviour
             enemyComponent.ReceiveDamage(Combat.combat.CalculateRangedDamage());
         }
     }
+
+
 }

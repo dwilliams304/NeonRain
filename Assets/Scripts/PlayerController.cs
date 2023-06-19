@@ -43,6 +43,9 @@ public class PlayerController : MonoBehaviour
         if(Input.GetButtonDown("Fire1")){
             _combat.Shoot();
         }
+        if(Input.GetButtonDown("Fire2")){
+            _combat.MeleeAttack();
+        }
 
         if(Input.GetButtonDown("Jump") && _canDash){
             StartCoroutine(Dash());

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class Enemy : MonoBehaviour
 {
@@ -19,6 +20,7 @@ public class Enemy : MonoBehaviour
 
     private FloatingHealthBar _healthBar;
     [SerializeField] private PlayerStats _playerStats;
+    [SerializeField] private GameObject floatingDmgTextPref;
 
 
     void Start(){
@@ -37,10 +39,20 @@ public class Enemy : MonoBehaviour
 
 
     public void ReceiveDamage(float damage){
+        ShowDamage(damage.ToString());
         _currentHealth -= damage;
         _healthBar.UpdateHealthBar(_currentHealth, _maxHealth);
         if(_currentHealth <= 0){
             Destroy(gameObject);
+        }
+    }
+
+
+    void ShowDamage(string text){
+        if(floatingDmgTextPref){
+            Vector3 offset = new Vector3(Random.Range(-1, 2), 1, 0);
+            GameObject prefab = Instantiate(floatingDmgTextPref, transform.position + offset, Quaternion.identity);
+            prefab.GetComponentInChildren<TMP_Text>().text = text;
         }
     }
 

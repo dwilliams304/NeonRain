@@ -6,49 +6,36 @@ public class PlayerStats : MonoBehaviour
 {
 
     public static PlayerStats playerStats;
-    private float baseSpeed = 7f;
-    private float _currentMoveSpeed;
-    public float MoveSpeed => _currentMoveSpeed;
-    private float _dashSpeed = 20f;
-    private float _dashDuration = .2f;
-    private float _dashCooldown = 1f;
-    public float DashSpeed => _dashSpeed;
-    public float DashCoolDown => _dashCooldown;
-    public float DashDuration => _dashDuration;
+    public float BaseSpeed = 7f;
+    public float MoveSpeed;
+    public float DashSpeed = 20f;
+    public float DashDuration = .2f;
+    public float DashCoolDown = 1f;
 
-    private int _playerMaxHealth = 100;
-    private int _currentHealth;
-    public int PlayerMaxHealth => _playerMaxHealth;
-    public int CurrentHealth => _currentHealth;
+    public int PlayerMaxHealth = 100;
+    public int CurrentHealth;
+
 
     
-    private int _currentLevel = 1;
-    private int _currentPlayerXP = 0;
-    private int _maxExperience;
-    public int CurrentLevel => _currentLevel;  
-    public int CurrentPlayerXP => _currentPlayerXP;
-    public int MaxExperience => _maxExperience;
+    public int CurrentLevel = 1;
+    public int CurrentPlayerXP = 0;
+    public int MaxExperience;
 
+    public int PlayerCorruptionLevel = 0;
 
-    private int _playerCorruptionLevel = 0;
-    public int PlayerCorruptionLevel => _playerCorruptionLevel;
+    public int PlayerGold = 1;
 
-    private int _playerGold = 1;
-    public int PlayerGold => _playerGold;
-
-    private int _baseCritChance = 10;
-    private float _critDamageMod = 3f;
-    public int BaseCritChance => _baseCritChance;
-    public float CritDamageMod => _critDamageMod;
+    public int BaseCritChance = 10;
+    public float CritDamageMod = 3f;
 
     void Awake(){
-        _currentMoveSpeed = baseSpeed;
-        _currentHealth = _playerMaxHealth;
+        MoveSpeed = BaseSpeed;
+        CurrentHealth = PlayerMaxHealth;
         playerStats = this;
     }
 
 
     public void ModifyMoveSpeed(float mod){
-        _currentMoveSpeed += mod;
+        MoveSpeed += mod;
     }
 }

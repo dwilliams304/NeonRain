@@ -8,7 +8,8 @@ public class RangedWeaponData : ScriptableObject
     public float fireRate;
     public float reloadSpeed;
     public int projectileSpeed;
-    public float damage;
+    public float minDamage;
+    public float maxDamage;
     public float critChance;
     public int weaponRange;
     public bool isCorrupted;

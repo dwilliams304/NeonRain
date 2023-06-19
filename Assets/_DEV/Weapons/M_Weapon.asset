@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: M_Weapon
   m_EditorClassIdentifier: 
   swingSpeed: 3
-  swingRange: 3
-  damage: 2
-  critChance: 5
+  swingRange: 1
+  minDamage: 1
+  maxDamage: 5
+  critChance: 25
   isCorrupted: 0
   corruptionGain: 0
   weaponSprite: {fileID: 0}

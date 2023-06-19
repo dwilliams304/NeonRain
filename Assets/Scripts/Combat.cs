@@ -10,6 +10,8 @@ public class Combat : MonoBehaviour
     [SerializeField] private RangedWeaponData _rangedWeapon;
     [SerializeField] private GameObject _bulletPrefab;
     [SerializeField] private Transform _firePoint;
+    [SerializeField] private Transform _meleeAttackPoint;
+    [SerializeField] private LayerMask _enemyLayers;
 
     public Inventory _inventory;
 
@@ -18,13 +20,15 @@ public class Combat : MonoBehaviour
 
     private float _meleeSwingSpeed;
     private int _meleeSwingRange;
-    private float _meleeWeaponDamage;
+    private float _meleeMinDmg;
+    private float _meleeMaxDmg;
     private float _meleeCritChance;
 
     private float _rangedFireRate;
     private float _rangedReloadSpeed;
     private float _rangedProjectileSpeed;
-    private float _rangedDamage;
+    private float _rangedMinDmg;
+    private float _rangedMaxDmg;
     private int _rangedWeaponRange;
     private float _rangedCritChance;
 
@@ -50,13 +54,15 @@ public class Combat : MonoBehaviour
     void AssingWeaponStats(MeleeWeaponData meleeWeapon, RangedWeaponData rangedWeapon){
         _meleeSwingSpeed = meleeWeapon.swingSpeed;
         _meleeSwingRange = meleeWeapon.swingRange;
-        _meleeWeaponDamage = meleeWeapon.damage;
+        _meleeMinDmg = meleeWeapon.minDamage;
+        _meleeMaxDmg = meleeWeapon.maxDamage;
         _meleeCritChance = meleeWeapon.critChance;
 
         _rangedFireRate = rangedWeapon.fireRate;
         _rangedReloadSpeed = rangedWeapon.reloadSpeed;
         _rangedProjectileSpeed = rangedWeapon.projectileSpeed;
-        _rangedDamage = rangedWeapon.damage;
+        _rangedMinDmg = rangedWeapon.minDamage;
+        _rangedMaxDmg = rangedWeapon.maxDamage;
         _rangedWeaponRange = rangedWeapon.weaponRange;
         _rangedCritChance = rangedWeapon.critChance;
     }
@@ -66,25 +72,7 @@ public class Combat : MonoBehaviour
     }
 
 
-    public float CalculateMeleeDamage(){
-        int critRoll = Random.Range(0, 100);
-        float damage = _meleeWeaponDamage;
-        if(critRoll <= _baseCritChance + _meleeCritChance){
-            damage *= _critDamageMod;
-        }
-        return damage;
-    }
 
-    public float CalculateRangedDamage(){
-        int critRoll = Random.Range(0, 100);
-        float damage = _rangedDamage;
-        if(critRoll <= _baseCritChance + _rangedCritChance){
-            Debug.Log("Crit!");
-            damage *= _critDamageMod;
-        }
-        Debug.Log("Damge calc: " + damage);
-        return damage;
-    }
 
     public void Shoot(){
         GameObject bullet = BulletPooler.current.GetPooledBullet();
@@ -95,4 +83,42 @@ public class Combat : MonoBehaviour
         bullet.GetComponent<Rigidbody2D>().AddForce(_firePoint.up * _rangedProjectileSpeed, ForceMode2D.Impulse);
     }
     
+    public void MeleeAttack(){
+        Collider2D[] enemiesHit = Physics2D.OverlapCircleAll(_meleeAttackPoint.position, _meleeSwingRange, _enemyLayers);
+        foreach(Collider2D enemy in enemiesHit){
+            Debug.Log("Enemy meleed");
+            enemy.GetComponent<Enemy>().ReceiveDamage(CalculateMeleeDamage());
+            
+        }
+        
+    }
+
+    void OnDrawGizmosSelected(){
+        Gizmos.DrawWireSphere(_meleeAttackPoint.position, _meleeSwingRange);
+        
+    }
+
+    public float CalculateMeleeDamage(){
+        int critRoll = Random.Range(0, 100);
+        float dmgRoll = Random.Range(_meleeMinDmg, _meleeMaxDmg);
+        if(critRoll <= _baseCritChance + _meleeCritChance){
+            float returnVal = Mathf.Ceil(dmgRoll *= _critDamageMod);
+            Debug.Log("Crit! Dmg calc: " + returnVal);
+            return returnVal;
+        }
+        Debug.Log("No crit! Dmg calc: " + Mathf.Ceil(dmgRoll));
+        return Mathf.Ceil(dmgRoll);
+    }
+
+    public float CalculateRangedDamage(){
+        int critRoll = Random.Range(0, 100);
+        float dmgRoll = Random.Range(_rangedMinDmg, _rangedMaxDmg);
+        if(critRoll <= _baseCritChance + _rangedCritChance){
+            float returnVal = Mathf.Ceil(dmgRoll *= _critDamageMod);
+            Debug.Log("Crit! Dmg calc: " + returnVal);
+            return returnVal;
+        }
+        Debug.Log("No crit! Dmg calc: " + Mathf.Ceil(dmgRoll));
+        return Mathf.Ceil(dmgRoll);
+    }
 }

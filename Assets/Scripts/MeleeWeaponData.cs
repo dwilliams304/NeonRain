@@ -7,7 +7,8 @@ public class MeleeWeaponData : ScriptableObject
 {
     public float swingSpeed;
     public int swingRange;
-    public float damage;
+    public float minDamage;
+    public float maxDamage;
     public float critChance;
     public bool isCorrupted;
     public int corruptionGain;
