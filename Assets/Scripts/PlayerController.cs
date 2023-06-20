@@ -18,6 +18,7 @@ public class PlayerController : MonoBehaviour
     private bool _isDashing;
     private bool _canDash;
 
+
     void Awake(){
         //_playerStats = PlayerStats.playerStats;
         //_combat = Combat.combat;
@@ -40,7 +41,7 @@ public class PlayerController : MonoBehaviour
         float moveY = Input.GetAxis("Vertical");
 
 
-        if(Input.GetButtonDown("Fire1")){
+        if(Input.GetButton("Fire1")){
             _combat.Shoot();
         }
         else if(Input.GetButtonDown("Fire2")){

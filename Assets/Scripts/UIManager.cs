@@ -40,4 +40,7 @@ public class UIManager : MonoBehaviour
     public void UpdateAmmo(int currentAmmo, int magSize){
         _playerAmmo.text = $"{currentAmmo} / {magSize}";
     }
+    public void ReloadBar(float speed){
+        
+    }
 }

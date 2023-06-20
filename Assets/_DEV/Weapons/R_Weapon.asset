@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc0f0c7824ad3544ab614e9d9f6a0730, type: 3}
   m_Name: R_Weapon
   m_EditorClassIdentifier: 
-  fireRate: 5
+  fireRate: 0.1
   reloadSpeed: 0.5
+  magSize: 25
   projectileSpeed: 25
   minDamage: 2
   maxDamage: 5

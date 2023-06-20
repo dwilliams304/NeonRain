@@ -35,6 +35,10 @@ public class Combat : MonoBehaviour
     private int _rangedWeaponRange;
     private float _rangedCritChance;
 
+
+
+    private float lastShot;
+
     void Awake(){
         combat = this;
     }
@@ -74,7 +78,6 @@ public class Combat : MonoBehaviour
         _rangedMaxDmg = rangedWeapon.maxDamage;
         _rangedWeaponRange = rangedWeapon.weaponRange;
         _rangedCritChance = rangedWeapon.critChance;
-
     }
     void CorruptedWeaponMod(int corruptionGain){
 
@@ -85,14 +88,17 @@ public class Combat : MonoBehaviour
 
     public void Shoot(){
         if(_currentAmmo > 0){
-            GameObject bullet = BulletPooler.current.GetPooledBullet();
-            if(bullet == null) return;
-            bullet.transform.position = _firePoint.position;
-            bullet.transform.rotation = _firePoint.rotation;
-            bullet.SetActive(true);
-            bullet.GetComponent<Rigidbody2D>().AddForce(_firePoint.up * _rangedProjectileSpeed, ForceMode2D.Impulse);
-            _currentAmmo--;
-            uiManager.UpdateAmmo(_currentAmmo, _magSize);
+            if(Time.time > lastShot + _rangedFireRate){
+                lastShot = Time.time;
+                GameObject bullet = BulletPooler.current.GetPooledBullet();
+                if(bullet == null) return;
+                bullet.transform.position = _firePoint.position;
+                bullet.transform.rotation = _firePoint.rotation;
+                bullet.SetActive(true);
+                bullet.GetComponent<Rigidbody2D>().AddForce(_firePoint.up * _rangedProjectileSpeed, ForceMode2D.Impulse);
+                _currentAmmo--;
+                uiManager.UpdateAmmo(_currentAmmo, _magSize);
+            }
         }
     }
 
