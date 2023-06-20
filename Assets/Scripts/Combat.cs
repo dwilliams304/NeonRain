@@ -6,6 +6,7 @@ public class Combat : MonoBehaviour
 {
 
     public static Combat combat;
+    [SerializeField] private UIManager uiManager;
     [SerializeField] private MeleeWeaponData _meeleeWeapon;
     [SerializeField] private RangedWeaponData _rangedWeapon;
     [SerializeField] private GameObject _bulletPrefab;
@@ -26,6 +27,8 @@ public class Combat : MonoBehaviour
 
     private float _rangedFireRate;
     private float _rangedReloadSpeed;
+    private int _magSize;
+    private int _currentAmmo;
     private float _rangedProjectileSpeed;
     private float _rangedMinDmg;
     private float _rangedMaxDmg;
@@ -41,7 +44,8 @@ public class Combat : MonoBehaviour
         _critDamageMod = PlayerStats.playerStats.CritDamageMod;
         _meeleeWeapon = _inventory.meleeWeapon;
         _rangedWeapon = _inventory.rangedWeapon;
-        AssingWeaponStats(_meeleeWeapon, _rangedWeapon);
+        AssignMeleeStats(_meeleeWeapon);
+        AssingRangedStats(_rangedWeapon);
         if(_meeleeWeapon.isCorrupted){
             CorruptedWeaponMod(_meeleeWeapon.corruptionGain);
         }
@@ -51,22 +55,27 @@ public class Combat : MonoBehaviour
     }
 
 
-    void AssingWeaponStats(MeleeWeaponData meleeWeapon, RangedWeaponData rangedWeapon){
+    void AssignMeleeStats(MeleeWeaponData meleeWeapon){
         _meleeSwingSpeed = meleeWeapon.swingSpeed;
         _meleeSwingRange = meleeWeapon.swingRange;
         _meleeMinDmg = meleeWeapon.minDamage;
         _meleeMaxDmg = meleeWeapon.maxDamage;
         _meleeCritChance = meleeWeapon.critChance;
 
+    }
+
+    void AssingRangedStats(RangedWeaponData rangedWeapon){
         _rangedFireRate = rangedWeapon.fireRate;
         _rangedReloadSpeed = rangedWeapon.reloadSpeed;
+        _magSize = rangedWeapon.magSize;
+        _currentAmmo = _magSize;
         _rangedProjectileSpeed = rangedWeapon.projectileSpeed;
         _rangedMinDmg = rangedWeapon.minDamage;
         _rangedMaxDmg = rangedWeapon.maxDamage;
         _rangedWeaponRange = rangedWeapon.weaponRange;
         _rangedCritChance = rangedWeapon.critChance;
-    }
 
+    }
     void CorruptedWeaponMod(int corruptionGain){
 
     }
@@ -75,12 +84,23 @@ public class Combat : MonoBehaviour
 
 
     public void Shoot(){
-        GameObject bullet = BulletPooler.current.GetPooledBullet();
-        if(bullet == null) return;
-        bullet.transform.position = _firePoint.position;
-        bullet.transform.rotation = _firePoint.rotation;
-        bullet.SetActive(true);
-        bullet.GetComponent<Rigidbody2D>().AddForce(_firePoint.up * _rangedProjectileSpeed, ForceMode2D.Impulse);
+        if(_currentAmmo > 0){
+            GameObject bullet = BulletPooler.current.GetPooledBullet();
+            if(bullet == null) return;
+            bullet.transform.position = _firePoint.position;
+            bullet.transform.rotation = _firePoint.rotation;
+            bullet.SetActive(true);
+            bullet.GetComponent<Rigidbody2D>().AddForce(_firePoint.up * _rangedProjectileSpeed, ForceMode2D.Impulse);
+            _currentAmmo--;
+            uiManager.UpdateAmmo(_currentAmmo, _magSize);
+        }
+    }
+
+
+    public IEnumerator Reload(){
+        yield return new WaitForSeconds(_rangedReloadSpeed);
+        _currentAmmo = _magSize;
+        uiManager.UpdateAmmo(_currentAmmo, _magSize);
     }
     
     public void MeleeAttack(){

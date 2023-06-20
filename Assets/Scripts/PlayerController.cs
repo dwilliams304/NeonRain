@@ -21,11 +21,11 @@ public class PlayerController : MonoBehaviour
     void Awake(){
         //_playerStats = PlayerStats.playerStats;
         //_combat = Combat.combat;
-        _moveSpeed = _playerStats.MoveSpeed;
-        _canDash = true;
     }
 
     void Start(){
+        _moveSpeed = _playerStats.MoveSpeed;
+        _canDash = true;
         
     }
 
@@ -43,8 +43,11 @@ public class PlayerController : MonoBehaviour
         if(Input.GetButtonDown("Fire1")){
             _combat.Shoot();
         }
-        if(Input.GetButtonDown("Fire2")){
+        else if(Input.GetButtonDown("Fire2")){
             _combat.MeleeAttack();
+        }
+        else if(Input.GetButtonDown("Fire3")){
+            StartCoroutine(_combat.Reload());
         }
 
         if(Input.GetButtonDown("Jump") && _canDash){

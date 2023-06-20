@@ -11,6 +11,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] TMP_Text _playerLevel;
     [SerializeField] Slider _playerHealthBar;
     [SerializeField] Slider _playerXP;
+    [SerializeField] TMP_Text _playerAmmo;
 
 
     [Header("Boss UI")]
@@ -34,5 +35,9 @@ public class UIManager : MonoBehaviour
 
     public void UpdateHealthBar(float damage){
 
+    }
+
+    public void UpdateAmmo(int currentAmmo, int magSize){
+        _playerAmmo.text = $"{currentAmmo} / {magSize}";
     }
 }

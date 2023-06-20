@@ -7,6 +7,7 @@ public class RangedWeaponData : ScriptableObject
 {
     public float fireRate;
     public float reloadSpeed;
+    public int magSize;
     public int projectileSpeed;
     public float minDamage;
     public float maxDamage;

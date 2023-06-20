@@ -12,13 +12,13 @@ public class LootManager : MonoBehaviour
 
 
 
-    public int commonWeight = 55;
-    public int uncommonWeight = 30;
-    public int rareWeight = 10;
-    public int legendaryWeight = 1;
-    public int uniqueCorruptedWeight = 4;
+    public int commonWeight = 550;
+    public int uncommonWeight = 300;
+    public int rareWeight = 100;
+    public int legendaryWeight = 10;
+    public int uniqueCorruptedWeight = 40;
 
-    [SerializeField] private int _totalWeights;
+    //[SerializeField] private int _totalWeights;
     [SerializeField] private int commonPct;
     [SerializeField] private int uncommonPct;
     [SerializeField] private int rarePct;
@@ -27,11 +27,11 @@ public class LootManager : MonoBehaviour
     
 
     void Start(){
-        _totalWeights = commonWeight + uncommonWeight + rareWeight + legendaryWeight + uniqueCorruptedWeight;
+        //_totalWeights = commonWeight + uncommonWeight + rareWeight + legendaryWeight + uniqueCorruptedWeight;
         CalculateLootDrop();
     }
     public void CalculateLootDrop(){
-        int rarity = Random.Range(0, _totalWeights);
+        int rarity = Random.Range(0, 1001);
         
         Debug.Log("Calculation: " + rarity);
     }
