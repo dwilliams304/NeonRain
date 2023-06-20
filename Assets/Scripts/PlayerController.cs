@@ -8,8 +8,8 @@ public class PlayerController : MonoBehaviour
     public Rigidbody2D rb;
     public Camera mainCam;
 
-    private PlayerStats _playerStats;
-    private Combat _combat;
+    [SerializeField] private PlayerStats _playerStats;
+    [SerializeField] private Combat _combat;
 
     Vector2 moveDir;
     Vector2 mousePos;
@@ -19,8 +19,8 @@ public class PlayerController : MonoBehaviour
     private bool _canDash;
 
     void Awake(){
-        _playerStats = PlayerStats.playerStats;
-        _combat = Combat.combat;
+        //_playerStats = PlayerStats.playerStats;
+        //_combat = Combat.combat;
         _moveSpeed = _playerStats.MoveSpeed;
         _canDash = true;
     }
