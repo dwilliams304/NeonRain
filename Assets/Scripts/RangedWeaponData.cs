@@ -15,6 +15,7 @@ public class RangedWeaponData : ScriptableObject
     public int weaponRange;
     public bool isCorrupted;
     public int corruptionGain;
+    public int currentWepTier;
 
     public Sprite weaponSprite;
     

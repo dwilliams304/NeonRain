@@ -15,14 +15,15 @@ MonoBehaviour:
   fireRate: 0.1
   reloadSpeed: 0.5
   magSize: 25
-  projectileSpeed: 25
-  minDamage: 2
-  maxDamage: 5
-  critChance: 25
+  projectileSpeed: 30
+  minDamage: 8
+  maxDamage: 10
+  critChance: 50
   weaponRange: 25
   isCorrupted: 0
   corruptionGain: 0
+  currentWepTier: 0
   weaponSprite: {fileID: 0}
-  type: 0
+  type: 1
   rarity: 4
   dropChance: 10000

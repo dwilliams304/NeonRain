@@ -14,6 +14,7 @@ public class MeleeWeaponData : ScriptableObject
     public int corruptionGain;
 
     public Sprite weaponSprite;
+    public int currentWepTier;
     
         public enum Rarity{
         common,

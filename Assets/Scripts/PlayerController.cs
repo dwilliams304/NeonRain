@@ -18,7 +18,7 @@ public class PlayerController : MonoBehaviour
     private bool _isDashing;
     private bool _canDash;
 
-
+    public bool isReloading = false;
     void Awake(){
         //_playerStats = PlayerStats.playerStats;
         //_combat = Combat.combat;
@@ -41,7 +41,7 @@ public class PlayerController : MonoBehaviour
         float moveY = Input.GetAxis("Vertical");
 
 
-        if(Input.GetButton("Fire1")){
+        if(Input.GetButton("Fire1") && !isReloading){
             _combat.Shoot();
         }
         else if(Input.GetButtonDown("Fire2")){
