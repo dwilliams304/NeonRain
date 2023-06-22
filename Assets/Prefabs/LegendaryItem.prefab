@@ -92,6 +92,8 @@ GameObject:
   m_Component:
   - component: {fileID: 663069786566895815}
   - component: {fileID: 663069786566895814}
+  - component: {fileID: 9013120788175233903}
+  - component: {fileID: -3074769506717326727}
   m_Layer: 0
   m_Name: LegendaryItem
   m_TagString: Untagged
@@ -157,6 +159,35 @@ MonoBehaviour:
   - {x: 0.5, y: -0.5, z: 0}
   - {x: 0.5, y: 0.5, z: 0}
   - {x: -0.5, y: 0.5, z: 0}
+--- !u!114 &9013120788175233903
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 663069786566895813}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ec4c156f139b2d46af71026bade9942, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponData: {fileID: 11400000, guid: ebc39dd1af9b36346b97635ad7c38a15, type: 2}
+--- !u!58 &-3074769506717326727
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 663069786566895813}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 1
 --- !u!1 &663069787312803042
 GameObject:
   m_ObjectHideFlags: 0

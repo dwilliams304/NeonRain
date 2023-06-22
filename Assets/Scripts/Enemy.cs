@@ -16,6 +16,8 @@ public class Enemy : MonoBehaviour
     [SerializeField] private int _maxDamage;
     [SerializeField] private int _corruptionDrop;
     [SerializeField] private int _goldDrop;
+    [SerializeField] private int _dropChance;
+    [SerializeField] private float baseLuck;
     [SerializeField] private List<ScriptableObject> _lootDrops;
 
     private FloatingHealthBar _healthBar;
@@ -32,6 +34,7 @@ public class Enemy : MonoBehaviour
         _maxDamage = _enemyData.maxDamage;
         _corruptionDrop = _enemyData.corruptionDrop;
         _goldDrop = _enemyData.goldDrop;
+        _dropChance = _enemyData.dropChance;
         _lootDrops.AddRange(_enemyData.lootDrops);
         _healthBar = GetComponentInChildren<FloatingHealthBar>();
         _playerStats = FindObjectOfType<PlayerStats>();
@@ -43,6 +46,10 @@ public class Enemy : MonoBehaviour
         _currentHealth -= damage;
         _healthBar.UpdateHealthBar(_currentHealth, _maxHealth);
         if(_currentHealth <= 0){
+            int rollDice = Random.Range(0, 101);
+            if(rollDice <= _dropChance){
+                LootManager.lootManager.DropLoot(transform.position, transform.rotation, baseLuck);
+            }
             Destroy(gameObject);
         }
     }

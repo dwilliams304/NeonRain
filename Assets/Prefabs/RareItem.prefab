@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 5778755221502515525}
   - component: {fileID: 5778755221502515524}
+  - component: {fileID: -985002107580408275}
+  - component: {fileID: -5454371379152100949}
   m_Layer: 0
   m_Name: RareItem
   m_TagString: Untagged
@@ -75,6 +77,35 @@ MonoBehaviour:
   - {x: 0.5, y: -0.5, z: 0}
   - {x: 0.5, y: 0.5, z: 0}
   - {x: -0.5, y: 0.5, z: 0}
+--- !u!114 &-985002107580408275
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5778755221502515523}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ec4c156f139b2d46af71026bade9942, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponData: {fileID: 11400000, guid: 1bbd1aa8081c59a44ae8259af5320242, type: 2}
+--- !u!58 &-5454371379152100949
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5778755221502515523}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 1
 --- !u!1 &5778755221687006113
 GameObject:
   m_ObjectHideFlags: 0

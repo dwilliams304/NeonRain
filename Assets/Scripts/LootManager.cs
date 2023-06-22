@@ -5,108 +5,100 @@ using TMPro;
 
 public class LootManager : MonoBehaviour
 {
-    public List<GameObject> CommonDrops;
-    public List<GameObject> UncommonDrops;
-    public List<GameObject> RareDrops;
-    public List<GameObject> LegendaryDrops;
-    public List<GameObject> UniqueCorruptedDrops;
-    public GameObject uniqueWeapon;
+    public static LootManager lootManager;
+    [Header("Loot Pool")]
+    [SerializeField] private List<Weapon> CommonDrops;
+    [SerializeField] private List<Weapon> UncommonDrops;
+    [SerializeField] private List<Weapon> RareDrops;
+    [SerializeField] private List<Weapon> LegendaryDrops;
+    [SerializeField] private List<Weapon> UniqueCorruptedDrops;
+    [SerializeField] private Weapon uniqueWeapon;
+
+
+    [Header("Loot Drop Prefabs")]
+    [SerializeField] private GameObject commonPrefab;
+    [SerializeField] private GameObject uncommonPrefab;
+    [SerializeField] private GameObject rarePrefab;
+    [SerializeField] private GameObject corruptedPrefab;
+    [SerializeField] private GameObject legendaryPrefab;
+    private GameObject lootPrefab;
 
     public GameObject _dev_Panel;
 
 
-    private int commonDropChance = 10000;
-    private int uncommonDropChance = 4000;
-    private int rareDropChance = 1500;
+    private int commonDropChance = 100000;
+    private int uncommonDropChance = 40000;
+    private int rareDropChance = 12500;
     private int legendaryDropChance = 250;
-    private int corruptedDropChance = 500;
+    private int corruptedDropChance = 2500;
     private int uniqueDropChance = 1;
-    
-    [SerializeField] private TMP_Text _dev_CommonText;
-    [SerializeField] private TMP_Text _dev_UncommonText;
-    [SerializeField] private TMP_Text _dev_RareText;
-    [SerializeField] private TMP_Text _dev_CorruptedText;
-    [SerializeField] private TMP_Text _dev_LegendaryText;
-    [SerializeField] private TMP_Text _dev_Unique;
-    [SerializeField] private TMP_Text _dev_TotalRolls;
-
-    private float _dev_CommonDrops = 0;
-    private float _dev_UncommonDrops = 0;
-    private float _dev_RareDrops = 0;
-    private float _dev_CorruptedDrops = 0;
-    private float _dev_LegendaryDrops = 0;
-    private float _dev_UniqueDrops = 0;
 
 
-    float commAvg;
-    float uncommAvg;
-    float rareAvg;
-    float corruptAvg;
-    float legendAvg;
-    float uniqueAvg;
+    private DEVTools _DEVTOOLS_;
 
-    bool debugEnabled = false;
 
-    private float _dev_TimesPressed = 0;
+    void Awake(){
+        lootManager = this;
+    }
     void Start(){
-        //_totalWeights = commonWeight + uncommonWeight + rareWeight + legendaryWeight + uniqueCorruptedWeight;
-        _dev_TimesPressed++;
-        CalculateLootDrop();
+        lootPrefab = new GameObject();
+        _DEVTOOLS_ = DEVTools.__DEV;
     }
 
-    void Update(){
-        if(debugEnabled){
-            if(Input.GetKey(KeyCode.F)){
-                _dev_TimesPressed++;
-                CalculateLootDrop();
-            }
-        }
-        if(Input.GetKeyDown(KeyCode.BackQuote)){
-            debugEnabled = !debugEnabled;
-            OpenPanel();
-        }
-    }
-    public void CalculateLootDrop(){
-        commAvg = _dev_CommonDrops / _dev_TimesPressed * 100;
-        uncommAvg = _dev_UncommonDrops / _dev_TimesPressed * 100;
-        rareAvg = _dev_RareDrops / _dev_TimesPressed * 100;
-        corruptAvg = _dev_CorruptedDrops / _dev_TimesPressed * 100;
-        legendAvg = _dev_LegendaryDrops / _dev_TimesPressed * 100;
-        uniqueAvg = _dev_UniqueDrops / _dev_TimesPressed * 100;
-        _dev_CommonText.text = $"Common: {_dev_CommonDrops} -> Avg: {commAvg}%";
-        _dev_UncommonText.text = $"Uncommon: {_dev_UncommonDrops} -> Avg: {uncommAvg}%";
-        _dev_RareText.text = $"Rare: {_dev_RareDrops} -> Avg: {rareAvg}%";
-        _dev_CorruptedText.text = $"Corrupted: {_dev_CorruptedDrops} -> Avg: {corruptAvg}%";
-        _dev_LegendaryText.text = $"Legendary: {_dev_LegendaryDrops} -> Avg: {legendAvg}%";
-        _dev_Unique.text = $"Unique: {_dev_UniqueDrops} -> Avg: {uniqueAvg}%";
-        int rarity = Random.Range(0, 10001);
-        //Debug.Log("Calculation: " + rarity);
-        _dev_TotalRolls.text = $"Total drops: {_dev_TimesPressed}";
+    public void DropLoot(Vector3 whereToDrop, Quaternion rotation, float additionalLuck){
+        _DEVTOOLS_.totalRolls++;
+
+        LootObject lootObj;
+        float rarity = Random.Range(0, 100001);
+        Debug.Log("Before additiona luck: " + rarity);
+        rarity = Mathf.Ceil(rarity / additionalLuck);
+        Debug.Log("After additonal luck: " + rarity);
         if(rarity <= commonDropChance && rarity > uncommonDropChance){
-            _dev_CommonDrops++;
+            int i = Random.Range(0, CommonDrops.Count);
+            lootPrefab = commonPrefab;
+            lootObj = lootPrefab.GetComponent<LootObject>();
+            lootObj.weaponData = CommonDrops[i];
+            //DEV ONLY
+            _DEVTOOLS_.amntCommonDrops++;
         }
         else if(rarity <= uncommonDropChance && rarity > rareDropChance){
-            _dev_UncommonDrops++;
+            int i = Random.Range(0, UncommonDrops.Count);
+            lootPrefab = uncommonPrefab;
+            lootObj = lootPrefab.GetComponent<LootObject>();
+            lootObj.weaponData = UncommonDrops[i];
+            //DEV ONLY
+            _DEVTOOLS_.amntUncommonDrops++;
         }
         else if(rarity <= rareDropChance && rarity > corruptedDropChance){
-            _dev_RareDrops++;
+            int i = Random.Range(0, RareDrops.Count);
+            lootPrefab = rarePrefab;
+            lootObj = lootPrefab.GetComponent<LootObject>();
+            lootObj.weaponData = RareDrops[i];
+            //DEV ONLY
+            _DEVTOOLS_.amntRareDrops++;
         }
         else if(rarity <= corruptedDropChance && rarity > legendaryDropChance){
-            _dev_CorruptedDrops++;
+            int i = Random.Range(0, UniqueCorruptedDrops.Count);
+            lootPrefab = corruptedPrefab;
+            lootObj = lootPrefab.GetComponent<LootObject>();
+            lootObj.weaponData = UniqueCorruptedDrops[i];
+            //DEV ONLY
+            _DEVTOOLS_.amntCorruptDrops++;
         }
         else if(rarity <= legendaryDropChance && rarity != uniqueDropChance){
-            _dev_LegendaryDrops++;
+            int i = Random.Range(0, LegendaryDrops.Count);
+            lootPrefab = legendaryPrefab;
+            lootObj = lootPrefab.GetComponent<LootObject>();
+            lootObj.weaponData = LegendaryDrops[i];
+            //DEV ONLY
+            _DEVTOOLS_.amntLegendaryDrops++;
         }
-        else if(rarity == uniqueDropChance){
-            _dev_UniqueDrops++;
-        }
+        SpawnLootObject(lootPrefab, whereToDrop, rotation);
+        
     }
-
-    void OpenPanel(){
-        _dev_Panel.SetActive(debugEnabled);
-    }
-    public void DropGold(int minAmnt, int maxAmnt){
-
+    //GameObject prefab, Weapon weaponDrop, Vector3 whereToDrop, Quaternion rotation
+    void SpawnLootObject(GameObject lootPrefab, Vector3 whereToSpawn, Quaternion spawnRotation){
+        Instantiate(lootPrefab, whereToSpawn, spawnRotation);
     }
 
 }

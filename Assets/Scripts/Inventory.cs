@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Inventory : MonoBehaviour
 {
-    public RangedWeaponData rangedWeapon;
-    public MeleeWeaponData meleeWeapon;
+    public Weapon weapon;
     public ScriptableObject usableItems;
 }

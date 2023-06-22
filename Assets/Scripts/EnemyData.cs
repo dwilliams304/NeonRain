@@ -12,6 +12,7 @@ public class EnemyData : ScriptableObject
     public int minDamage;
     public int maxDamage;
 
+    public int dropChance;
     public int corruptionDrop;
     public int goldDrop;
     public List<ScriptableObject> lootDrops;

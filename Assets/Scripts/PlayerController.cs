@@ -44,9 +44,6 @@ public class PlayerController : MonoBehaviour
         if(Input.GetButton("Fire1") && !isReloading){
             _combat.Shoot();
         }
-        else if(Input.GetButtonDown("Fire2")){
-            _combat.MeleeAttack();
-        }
         else if(Input.GetButtonDown("Fire3")){
             StartCoroutine(_combat.Reload());
         }

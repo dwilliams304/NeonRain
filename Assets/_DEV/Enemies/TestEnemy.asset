@@ -17,6 +17,7 @@ MonoBehaviour:
   moveSpeed: 4
   minDamage: 0
   maxDamage: 0
+  dropChance: 50
   corruptionDrop: 10
   goldDrop: 10
   lootDrops:
