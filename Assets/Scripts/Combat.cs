@@ -47,7 +47,7 @@ public class Combat : MonoBehaviour
     }
 
     //Assign all the ranged weapon data
-    void AssignWeaponStats(Weapon weapon){
+    public void AssignWeaponStats(Weapon weapon){
         _rangedFireRate = _weapon.fireRate;
         _rangedReloadSpeed = _weapon.reloadSpeed;
         _magSize = _weapon.magSize;

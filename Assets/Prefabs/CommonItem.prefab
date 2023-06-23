@@ -90,17 +90,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponData: {fileID: 11400000, guid: 007b02371bf1cf74d89d2b419985c0cb, type: 2}
-  weaponToolTip: {fileID: 1393771997767177947, guid: c18db7559ee9c6a47993166a72dd24e7, type: 3}
-  offset: {x: 0, y: 0, z: 0}
-  weaponName: {fileID: 0}
-  weaponDmg: {fileID: 0}
-  weaponCritChance: {fileID: 0}
-  weaponFireRate: {fileID: 0}
-  weaponReloadSpeed: {fileID: 0}
-  weaponMagSize: {fileID: 0}
-  weaponType: {fileID: 0}
-  weaponTier: {fileID: 0}
-  weaponImg: {fileID: 0}
 --- !u!58 &4148131586434900565
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -116,7 +105,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 1
+  m_Radius: 2.5
 --- !u!1 &2365016943714768611
 GameObject:
   m_ObjectHideFlags: 0

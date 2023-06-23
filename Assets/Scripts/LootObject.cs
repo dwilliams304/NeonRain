@@ -15,7 +15,7 @@ public class LootObject : MonoBehaviour
     }
 
     IEnumerator DestroyThis(){
-        yield return new WaitForSeconds(15f);
+        yield return new WaitForSeconds(3f);
         Destroy(gameObject);
     }
 
@@ -25,6 +25,15 @@ public class LootObject : MonoBehaviour
             _uiMng.ShowWeaponToolTip(weaponData);
         }
         //weaponToolTip.SetActive(true);
+    }
+
+    void OnTriggerStay2D(Collider2D coll){
+        if(Input.GetKey(KeyCode.E)){
+            coll.TryGetComponent<Inventory>(out Inventory inventory);
+            inventory.SwapWeapon(weaponData);
+            StopCoroutine(DestroyThis());
+            Destroy(gameObject);
+        }
     }
     void OnTriggerExit2D(Collider2D coll){
         if(coll.CompareTag("Player")){
