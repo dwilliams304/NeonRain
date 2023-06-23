@@ -6,19 +6,17 @@ using TMPro;
 
 public class Enemy : MonoBehaviour
 {
-    [SerializeField] private EnemyData _enemyData;
+    public EnemyData enemyData;
     
     [SerializeField] private string _enemyName;
     [SerializeField] private float _maxHealth;
     [SerializeField] private float _currentHealth;
-    [SerializeField] private float _moveSpeed;
     [SerializeField] private int _minDamage;
     [SerializeField] private int _maxDamage;
     [SerializeField] private int _corruptionDrop;
     [SerializeField] private int _goldDrop;
     [SerializeField] private int _dropChance;
     [SerializeField] private float baseLuck;
-    [SerializeField] private List<ScriptableObject> _lootDrops;
 
     private FloatingHealthBar _healthBar;
     [SerializeField] private PlayerStats _playerStats;
@@ -26,20 +24,21 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float dmgNumberYOffset;
 
 
+    public Transform target;
+
     void Start(){
-        _enemyName = _enemyData.enemyName;
-        _maxHealth = _enemyData.maxHealth;
+        _enemyName = enemyData.enemyName;
+        _maxHealth = enemyData.maxHealth;
         _currentHealth = _maxHealth;
-        _moveSpeed = _enemyData.moveSpeed;
-        _minDamage = _enemyData.minDamage;
-        _maxDamage = _enemyData.maxDamage;
-        _corruptionDrop = _enemyData.corruptionDrop;
-        _goldDrop = _enemyData.goldDrop;
-        _dropChance = _enemyData.dropChance;
-        _lootDrops.AddRange(_enemyData.lootDrops);
+        _minDamage = enemyData.minDamage;
+        _maxDamage = enemyData.maxDamage;
+        _corruptionDrop = enemyData.corruptionDrop;
+        _goldDrop = enemyData.goldDrop;
+        _dropChance = enemyData.dropChance;
         _healthBar = GetComponentInChildren<FloatingHealthBar>();
         _playerStats = PlayerStats.playerStats;
     }
+
 
 
     public void ReceiveDamage(float damage){
@@ -51,10 +50,17 @@ public class Enemy : MonoBehaviour
             if(rollDice <= _dropChance){
                 LootManager.lootManager.DropLoot(transform.position, transform.rotation, baseLuck);
             }
+            _playerStats.AddGold(_goldDrop);
+            _playerStats.AddCorruption(_corruptionDrop);
             Destroy(gameObject);
         }
     }
 
+
+    public float DoDamage(){
+        float dmgRoll = Mathf.Ceil(Random.Range(_minDamage, _maxDamage));
+        return dmgRoll;
+    }
 
     void ShowDamage(string text){
         if(floatingDmgTextPref){
@@ -62,6 +68,14 @@ public class Enemy : MonoBehaviour
             GameObject prefab = Instantiate(floatingDmgTextPref, transform.position + offset, Quaternion.identity);
             TMP_Text textComponent = prefab.GetComponentInChildren<TMP_Text>();
             textComponent.text = text;
+            if(Combat.combat.didCrit){
+                textComponent.color = Color.red;
+                textComponent.fontSize = 12;
+            }
+            else{
+                textComponent.color = Color.yellow;
+                textComponent.fontSize = 8;
+            }
         }
     }
 

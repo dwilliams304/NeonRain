@@ -14,10 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyName: 
   maxHealth: 2000
-  moveSpeed: 0
-  minDamage: 0
-  maxDamage: 0
+  moveSpeed: 2.5
+  minDamage: 15
+  maxDamage: 30
+  attackSpeed: 5
+  attackRange: 5
   dropChance: 100
-  corruptionDrop: 0
-  goldDrop: 0
+  corruptionDrop: 150
+  goldDrop: 500
   lootDrops: []

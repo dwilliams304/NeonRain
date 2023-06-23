@@ -14,9 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyName: Test Enemy
   maxHealth: 150
-  moveSpeed: 4
-  minDamage: 0
-  maxDamage: 0
+  moveSpeed: 10
+  minDamage: 2
+  maxDamage: 5
+  attackSpeed: 0.4
+  attackRange: 2
   dropChance: 50
   corruptionDrop: 10
   goldDrop: 10

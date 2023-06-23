@@ -28,6 +28,11 @@ public class GameManager : MonoBehaviour
         playerStats = PlayerStats.playerStats;
     }
 
+    public void LoseGame(){
+        Time.timeScale = 0;
+        UIManager.uiManagement.LoseGameUI();
+    }
+
     public void CheckCorruptionTier(){
         int currentCorruption = playerStats.PlayerCorruptionLevel;
         if(currentCorruption >= tier5Breakpoint){

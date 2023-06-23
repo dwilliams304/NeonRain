@@ -12,7 +12,6 @@ public class Combat : MonoBehaviour
     [SerializeField] private Inventory _inventory;
     [SerializeField] private PlayerController _playerController;
     [SerializeField] private PlayerStats _playerStats;
-    [SerializeField] private Weapon _weapon;
     [SerializeField] private GameObject _bulletPrefab;
     [SerializeField] private Transform _firePoint;
     [SerializeField] private LayerMask _enemyLayers;
@@ -40,8 +39,7 @@ public class Combat : MonoBehaviour
         _inventory = GetComponent<Inventory>();
         _playerController = GetComponent<PlayerController>();
         _playerStats = PlayerStats.playerStats;
-        _weapon = _inventory.weapon;
-        AssignWeaponStats(_weapon);
+        AssignWeaponStats(_inventory.weapon);
     }
 
     //Assign all the ranged weapon data
@@ -89,7 +87,6 @@ public class Combat : MonoBehaviour
         currentAmmo = magSize; //Set our ammo to be equal to the max magazine size for the weapon
         _playerController.isReloading = false; //They can reload again!
         uiManager.UpdateAmmo(currentAmmo, magSize); //Update UI
-        uiManager.ReloadBar(rangedReloadSpeed);
     }
     
     //This is the same as the melee damage calculation, just for ranged weapon

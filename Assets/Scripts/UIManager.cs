@@ -14,7 +14,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] Slider _playerHealthBar;
     [SerializeField] Slider _playerXP;
     [SerializeField] TMP_Text _playerAmmo;
-    [SerializeField] GameObject _reloadBar;
+    [SerializeField] TMP_Text _goldAmount;
 
 
     [Header("Boss UI")]
@@ -43,6 +43,7 @@ public class UIManager : MonoBehaviour
     [Header("Other UI")]
     [SerializeField] TMP_Text _corruptionTierText;
     [SerializeField] Image _corruptionTierIcon;
+    [SerializeField] private GameObject loseUIPanel;
 
 
     [SerializeField] private PlayerStats _playerStats;
@@ -55,19 +56,25 @@ public class UIManager : MonoBehaviour
         _playerLevel.text = "Lv. " + _playerStats.CurrentLevel.ToString();
         _playerHealthBar.maxValue = _playerStats.PlayerMaxHealth;
         _playerHealthBar.value = _playerStats.PlayerMaxHealth;
+        UpdateGoldUI(0);
     }
 
-    public void UpdateHealthBar(float damage){
-
+    public void UpdateHealthBar(){
+        _playerHealthBar.value = _playerStats.CurrentHealth;
     }
 
     public void UpdateAmmo(int currentAmmo, int magSize){
         _playerAmmo.text = $"{currentAmmo} / {magSize}";
     }
-    public void ReloadBar(float speed){
-        _reloadBar.transform.localScale = new Vector3(1, 1, 1);
-        _reloadBar.transform.localScale = Vector3.Lerp(Vector3.one, new Vector3(0, 1, 1), speed);
+
+    public void UpdateGoldUI(float playerGold){
+        _goldAmount.text = $"Gold: {playerGold}";
     }
+
+    public void LoseGameUI(){
+        loseUIPanel.SetActive(true);
+    }
+
 
     public void ShowWeaponToolTip(Weapon weaponData){
         weaponToolTipPanel.SetActive(true);

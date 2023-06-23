@@ -332,6 +332,7 @@ GameObject:
   - component: {fileID: 6880701594337292252}
   - component: {fileID: 6880701594337292254}
   - component: {fileID: 6880701594337292253}
+  - component: {fileID: 3155485245730692347}
   m_Layer: 0
   m_Name: EnemyBase
   m_TagString: Enemy
@@ -433,11 +434,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fabc7c8c3f59e7546ac4ca771d0e955c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyData: {fileID: 11400000, guid: e0938ffa1c178e44f915f9717154985c, type: 2}
+  enemyData: {fileID: 11400000, guid: e0938ffa1c178e44f915f9717154985c, type: 2}
   _enemyName: 
   _maxHealth: 0
   _currentHealth: 0
-  _moveSpeed: 0
   _minDamage: 0
   _maxDamage: 0
   _corruptionDrop: 0
@@ -448,3 +448,20 @@ MonoBehaviour:
   _playerStats: {fileID: 0}
   floatingDmgTextPref: {fileID: 1801837051691845774, guid: f9db660384cd000428f77b2483f47893, type: 3}
   dmgNumberYOffset: 1
+  target: {fileID: 0}
+--- !u!114 &3155485245730692347
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6880701594337292255}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1b85fcadf6504348a511ed19c5857b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyData: {fileID: 0}
+  moveSpeed: 0
+  target: {fileID: 0}
+  minimumDistance: 0

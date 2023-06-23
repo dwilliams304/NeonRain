@@ -14,8 +14,8 @@ public class PlayerStats : MonoBehaviour
     public float DashCoolDown = 1f;
 
     [Header("Health")]
-    public int PlayerMaxHealth = 100;
-    public int CurrentHealth;
+    public float PlayerMaxHealth = 100;
+    public float CurrentHealth;
 
 
     [Header("PlayerXP")]
@@ -25,7 +25,8 @@ public class PlayerStats : MonoBehaviour
 
     [Header("Corruption/Gold")]
     public int PlayerCorruptionLevel = 0;
-    public int PlayerGold = 1;
+    public float PlayerGold = 0;
+    public float AdditionalGoldMod = 1f;
 
 
     [Header("Base stats")]
@@ -67,5 +68,18 @@ public class PlayerStats : MonoBehaviour
         if(PlayerCorruptionLevel >= tier5BreakPoint){
             tier = CorruptionTier.Tier5;
         }
+    }
+
+    public void AddGold(int amount){
+        PlayerGold += Mathf.Ceil(amount * AdditionalGoldMod);
+        UIManager.uiManagement.UpdateGoldUI(PlayerGold);
+    }
+
+    public void TakeDamage(float damage){
+        CurrentHealth -= Mathf.Ceil(damage * BaseDamageTaken);
+        if(CurrentHealth <= 0){
+            GameManager.gameManager.LoseGame();
+        }
+        UIManager.uiManagement.UpdateHealthBar();
     }
 }

@@ -11,9 +11,10 @@ public class EnemyData : ScriptableObject
     public float moveSpeed;
     public int minDamage;
     public int maxDamage;
+    public float attackSpeed;
+    public float attackRange;
 
     public int dropChance;
     public int corruptionDrop;
     public int goldDrop;
-    public List<ScriptableObject> lootDrops;
 }
