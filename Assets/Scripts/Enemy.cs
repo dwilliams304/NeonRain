@@ -23,6 +23,7 @@ public class Enemy : MonoBehaviour
     private FloatingHealthBar _healthBar;
     [SerializeField] private PlayerStats _playerStats;
     [SerializeField] private GameObject floatingDmgTextPref;
+    [SerializeField] private float dmgNumberYOffset;
 
 
     void Start(){
@@ -37,7 +38,7 @@ public class Enemy : MonoBehaviour
         _dropChance = _enemyData.dropChance;
         _lootDrops.AddRange(_enemyData.lootDrops);
         _healthBar = GetComponentInChildren<FloatingHealthBar>();
-        _playerStats = FindObjectOfType<PlayerStats>();
+        _playerStats = PlayerStats.playerStats;
     }
 
 
@@ -57,9 +58,10 @@ public class Enemy : MonoBehaviour
 
     void ShowDamage(string text){
         if(floatingDmgTextPref){
-            Vector3 offset = new Vector3(Random.Range(-1, 2), 1, 0);
+            Vector3 offset = new Vector3(Random.Range(-1f, 2f), dmgNumberYOffset, 0);
             GameObject prefab = Instantiate(floatingDmgTextPref, transform.position + offset, Quaternion.identity);
-            prefab.GetComponentInChildren<TMP_Text>().text = text;
+            TMP_Text textComponent = prefab.GetComponentInChildren<TMP_Text>();
+            textComponent.text = text;
         }
     }
 

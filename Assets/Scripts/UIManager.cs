@@ -8,6 +8,7 @@ using TMPro;
 public class UIManager : MonoBehaviour
 {
     public static UIManager uiManagement;
+    [SerializeField] Inventory inventory;
     [Header("Player UI")]
     [SerializeField] TMP_Text _playerLevel;
     [SerializeField] Slider _playerHealthBar;
@@ -32,6 +33,12 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TMP_Text weaponType;
     [SerializeField] private TMP_Text weaponTier;
     [SerializeField] private Sprite weaponImg;
+    [Header("Weapon ToolTip UI -> Differences")]
+    [SerializeField] private TMP_Text dmgDiff;
+    [SerializeField] private TMP_Text critDiff;
+    [SerializeField] private TMP_Text fireRateDiff;
+    [SerializeField] private TMP_Text reloadSpeedDiff;
+    [SerializeField] private TMP_Text magSizeDiff;
 
     [Header("Other UI")]
     [SerializeField] TMP_Text _corruptionTierText;
@@ -70,53 +77,141 @@ public class UIManager : MonoBehaviour
         weaponFireRate.text = $"Fire rate: {weaponData.fireRate}";
         weaponReloadSpeed.text = $"Reload speed: {weaponData.reloadSpeed}";
         weaponMagSize.text = $"Magazine size: {weaponData.magSize}";
+        CheckDifferences(weaponData);
         if(weaponData.rarity == Weapon.Rarity.common){
-            weaponName.color = Color.white;
-            weaponDmg.color = Color.white;
-            weaponCritChance.color = Color.white;
-            weaponFireRate.color = Color.white;
-            weaponReloadSpeed.color = Color.white;
-            weaponMagSize.color = Color.white;
+            CommonWeaponColorSwap();
         }else if(weaponData.rarity == Weapon.Rarity.uncommon){
-            weaponName.color = Color.green;
-            weaponDmg.color = Color.green;
-            weaponCritChance.color = Color.green;
-            weaponFireRate.color = Color.green;
-            weaponReloadSpeed.color = Color.green;
-            weaponMagSize.color = Color.green;
+            UncommonWeaponColorSwap();
         }else if(weaponData.rarity == Weapon.Rarity.rare){
-            weaponName.color = Color.blue;
-            weaponDmg.color = Color.blue;
-            weaponCritChance.color = Color.blue;
-            weaponFireRate.color = Color.blue;
-            weaponReloadSpeed.color = Color.blue;
-            weaponMagSize.color = Color.blue;
+            RareWeaponColorSwap();
         }else if(weaponData.rarity == Weapon.Rarity.corrupted){
-            weaponName.color = Color.red;
-            weaponDmg.color = Color.red;
-            weaponCritChance.color = Color.red;
-            weaponFireRate.color = Color.red;
-            weaponReloadSpeed.color = Color.red;
-            weaponMagSize.color = Color.red;
+            CorruptedWeaponColorSwap();
         }else if(weaponData.rarity == Weapon.Rarity.legendary){
-            weaponName.color = Color.yellow;
-            weaponDmg.color = Color.yellow;
-            weaponCritChance.color = Color.yellow;
-            weaponFireRate.color = Color.yellow;
-            weaponReloadSpeed.color = Color.yellow;
-            weaponMagSize.color = Color.yellow;
-        }else{
-            weaponName.color = Color.magenta;
-            weaponDmg.color = Color.magenta;
-            weaponCritChance.color = Color.magenta;
-            weaponFireRate.color = Color.magenta;
-            weaponReloadSpeed.color = Color.magenta;
-            weaponMagSize.color = Color.magenta;
+            LegendaryWeaponColorSwap();
         }
         LeanTween.scaleX(weaponToolTipPanel, 1f, 0.15f);
         LeanTween.scaleY(weaponToolTipPanel, 1f, 0.15f);
     }
 
+    //WIll CHANGE!!!
+    //ALL VERY NASTY CODE!
+    void CheckDifferences(Weapon w){
+        Weapon wep = inventory.weapon;
+        float dmgDifference = w.maxDamage - wep.maxDamage;
+        float critDifference = w.critChance - wep.critChance;
+        float fireRateDiff = w.fireRate - wep.fireRate;
+        float reloadSpeedDiff = w.reloadSpeed - wep.reloadSpeed;
+        int magSizeDifference = w.magSize - wep.magSize;
+        //UI ELEMENTS
+        if(dmgDifference > 0){
+            DamDifferentUI(dmgDifference, Color.green, "+");
+        }else if(dmgDifference == 0){
+            DamDifferentUI(dmgDifference, Color.yellow, "");
+       }
+        else if(dmgDifference < 0){
+            DamDifferentUI(dmgDifference, Color.red, "");
+        }
+
+        if(critDifference > 0){
+            CritDifferentUI(critDifference, Color.green, "+");
+        }else if(critDifference == 0){
+            CritDifferentUI(critDifference, Color.yellow, "");
+        }
+        else if(critDifference < 0){
+            CritDifferentUI(critDifference, Color.red, "");
+        }
+
+        if(fireRateDiff > 0){
+            FireRateDifferentUI(fireRateDiff, Color.red, "");
+        }else if(fireRateDiff == 0){
+            FireRateDifferentUI(fireRateDiff, Color.yellow, "");
+        }
+        else if(fireRateDiff < 0){
+            FireRateDifferentUI(fireRateDiff, Color.green, "+");
+        }
+
+        if(reloadSpeedDiff > 0){
+            ReloadSpeedDifferentUI(reloadSpeedDiff, Color.red, "");
+        }else if(reloadSpeedDiff == 0){
+            ReloadSpeedDifferentUI(reloadSpeedDiff, Color.yellow, "");
+        }
+        else if(reloadSpeedDiff < 0){
+            ReloadSpeedDifferentUI(reloadSpeedDiff, Color.green, "+");
+        }
+
+        if(magSizeDifference > 0){
+            MagSizeDifferentUI(magSizeDifference, Color.green, "+");
+        }else if(magSizeDifference == 0){
+            MagSizeDifferentUI(magSizeDifference, Color.yellow, "");
+        }
+        else if(magSizeDifference < 0){
+            MagSizeDifferentUI(magSizeDifference, Color.red, "");
+        }
+    }
+    void DamDifferentUI(float value, Color color, string pm){
+        dmgDiff.text = $"{pm}{value}";
+        dmgDiff.color = color;
+    }
+    void CritDifferentUI(float value, Color color, string pm){
+        critDiff.text = $"{pm}{value}";
+        critDiff.color = color;
+    }
+    void FireRateDifferentUI(float value, Color color, string pm){
+        fireRateDiff.text = $"{pm}{value}";
+        fireRateDiff.color = color;
+    }
+    void ReloadSpeedDifferentUI(float value, Color color, string pm){
+        reloadSpeedDiff.text = $"{pm}{value}";
+        reloadSpeedDiff.color = color;
+    }
+    void MagSizeDifferentUI(float value, Color color, string pm){
+        magSizeDiff.text = $"{pm}{value}";
+        magSizeDiff.color = color;
+    }
+#region ChangeUI Colors based off weapon rarity
+    void CommonWeaponColorSwap(){
+        weaponName.color = Color.white;
+        weaponDmg.color = Color.white;
+        weaponCritChance.color = Color.white;
+        weaponFireRate.color = Color.white;
+        weaponReloadSpeed.color = Color.white;
+        weaponMagSize.color = Color.white;
+    }
+    void UncommonWeaponColorSwap(){
+        weaponName.color = Color.green;
+        weaponDmg.color = Color.green;
+        weaponCritChance.color = Color.green;
+        weaponFireRate.color = Color.green;
+        weaponReloadSpeed.color = Color.green;
+        weaponMagSize.color = Color.green;
+    }
+    void RareWeaponColorSwap(){
+        weaponName.color = Color.blue;
+        weaponDmg.color = Color.blue;
+        weaponCritChance.color = Color.blue;
+        weaponFireRate.color = Color.blue;
+        weaponReloadSpeed.color = Color.blue;
+        weaponMagSize.color = Color.blue;
+    }
+    void CorruptedWeaponColorSwap(){
+        weaponName.color = Color.red;
+        weaponDmg.color = Color.red;
+        weaponCritChance.color = Color.red;
+        weaponFireRate.color = Color.red;
+        weaponReloadSpeed.color = Color.red;
+        weaponMagSize.color = Color.red;
+    }
+    void LegendaryWeaponColorSwap(){
+        weaponName.color = Color.yellow;
+        weaponDmg.color = Color.yellow;
+        weaponCritChance.color = Color.yellow;
+        weaponFireRate.color = Color.yellow;
+        weaponReloadSpeed.color = Color.yellow;
+        weaponMagSize.color = Color.yellow;
+    }
+#endregion
+    
+    
     public void HideWeaponToolTip(){
         LeanTween.scaleX(weaponToolTipPanel, 0f, .05f);
         LeanTween.scaleY(weaponToolTipPanel, 0f, .05f);

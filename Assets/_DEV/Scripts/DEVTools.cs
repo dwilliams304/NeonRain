@@ -49,7 +49,6 @@ public class DEVTools : MonoBehaviour
     void Start(){
         _lootManager = LootManager.lootManager;
         _playerStats = PlayerStats.playerStats;
-        _combat = Combat.combat;
         mainCam = Camera.main;
     }
 

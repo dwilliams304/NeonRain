@@ -34,6 +34,23 @@ public class PlayerStats : MonoBehaviour
     public float BaseDamageTaken = 1f;
     public float CritDamageMod = 3f;
 
+
+    public enum CorruptionTier{
+        Tier0,
+        Tier1,
+        Tier2,
+        Tier3,
+        Tier4,
+        Tier5
+    }
+    public int tier1BreakPoint = 100;
+    public int tier2BreakPoint = 200;
+    public int tier3BreakPoint = 300;
+    public int tier4BreakPoint = 400;
+    public int tier5BreakPoint = 500;
+
+    public CorruptionTier tier;
+
     void Awake(){
         MoveSpeed = BaseSpeed;
         CurrentHealth = PlayerMaxHealth;
@@ -47,5 +64,8 @@ public class PlayerStats : MonoBehaviour
 
     public void AddCorruption(int amount){
         PlayerCorruptionLevel += amount;
+        if(PlayerCorruptionLevel >= tier5BreakPoint){
+            tier = CorruptionTier.Tier5;
+        }
     }
 }

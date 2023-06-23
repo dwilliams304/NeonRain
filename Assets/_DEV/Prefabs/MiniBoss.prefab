@@ -7,6 +7,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 7780500752725996112, guid: 95247c156437f034e80f4197a39273ca, type: 3}
+      propertyPath: offset.y
+      value: 1.25
+      objectReference: {fileID: 0}
     - target: {fileID: 7780500753536605989, guid: 95247c156437f034e80f4197a39273ca, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -83,6 +87,10 @@ PrefabInstance:
       propertyPath: _enemyData
       value: 
       objectReference: {fileID: 11400000, guid: f1f83a49afd66b548a4ff59ea5b4c819, type: 2}
+    - target: {fileID: 7780500753536606011, guid: 95247c156437f034e80f4197a39273ca, type: 3}
+      propertyPath: dmgNumberYOffset
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 7780500753609395840, guid: 95247c156437f034e80f4197a39273ca, type: 3}
       propertyPath: m_Color.b
       value: 0

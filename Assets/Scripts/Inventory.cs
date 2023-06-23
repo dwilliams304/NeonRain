@@ -6,10 +6,15 @@ public class Inventory : MonoBehaviour
 {
     public Weapon weapon;
     public ScriptableObject usableItems;
+    private Combat combat;
+    void Start(){
+        combat = GetComponent<Combat>();
+    }
+
 
 
     public void SwapWeapon(Weapon swap){
+        combat.AssignWeaponStats(swap);
         weapon = swap;
-        Combat.combat.AssignWeaponStats(swap);
     }
 }

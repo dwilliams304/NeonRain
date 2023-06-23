@@ -13,15 +13,15 @@ MonoBehaviour:
   m_Name: CorruptedWeapon
   m_EditorClassIdentifier: 
   weaponName: Corrupted Weapon
-  minDamage: 0
-  maxDamage: 0
-  critChance: 0
+  minDamage: 15
+  maxDamage: 25
+  critChance: 30
   isCorrupted: 0
   weaponSprite: {fileID: 0}
-  fireRate: 0
-  reloadSpeed: 0
-  magSize: 0
-  projectileSpeed: 0
+  fireRate: 0.05
+  reloadSpeed: 0.05
+  magSize: 50
+  projectileSpeed: 30
   weaponRange: 0
   corruptionGain: 0
   currentWepTier: 0

@@ -13,15 +13,15 @@ MonoBehaviour:
   m_Name: LegendaryWeapon
   m_EditorClassIdentifier: 
   weaponName: Legendary Weapon
-  minDamage: 0
-  maxDamage: 0
-  critChance: 0
+  minDamage: 75
+  maxDamage: 95
+  critChance: 5
   isCorrupted: 0
   weaponSprite: {fileID: 0}
-  fireRate: 0
-  reloadSpeed: 0
-  magSize: 0
-  projectileSpeed: 0
+  fireRate: 0.05
+  reloadSpeed: 0.1
+  magSize: 10
+  projectileSpeed: 30
   weaponRange: 0
   corruptionGain: 0
   currentWepTier: 0

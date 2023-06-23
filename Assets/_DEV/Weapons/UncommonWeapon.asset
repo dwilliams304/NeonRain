@@ -13,15 +13,15 @@ MonoBehaviour:
   m_Name: UncommonWeapon
   m_EditorClassIdentifier: 
   weaponName: Uncommon Weapon
-  minDamage: 0
-  maxDamage: 0
-  critChance: 0
+  minDamage: 5
+  maxDamage: 10
+  critChance: 10
   isCorrupted: 0
   weaponSprite: {fileID: 0}
-  fireRate: 0
-  reloadSpeed: 0
-  magSize: 0
-  projectileSpeed: 0
+  fireRate: 0.4
+  reloadSpeed: 0.2
+  magSize: 25
+  projectileSpeed: 30
   weaponRange: 0
   corruptionGain: 0
   currentWepTier: 0

@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: Testing
   m_EditorClassIdentifier: 
   weaponName: 
-  minDamage: 22
-  maxDamage: 100
-  critChance: 15
+  minDamage: 5
+  maxDamage: 15
+  critChance: 5
   isCorrupted: 0
   weaponSprite: {fileID: 0}
-  fireRate: 0.05
+  fireRate: 0.1
   reloadSpeed: 0.25
   magSize: 150
   projectileSpeed: 40

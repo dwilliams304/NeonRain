@@ -21,7 +21,7 @@ MonoBehaviour:
   fireRate: 0.2
   reloadSpeed: 0.6
   magSize: 35
-  projectileSpeed: 0
+  projectileSpeed: 30
   weaponRange: 0
   corruptionGain: 0
   currentWepTier: 0
