@@ -16,11 +16,7 @@ public class LootObject : MonoBehaviour
 
     IEnumerator DestroyThis(){
         yield return new WaitForSeconds(10f);
-        Destroy(gameObject);
-    }
-
-    IEnumerator SwapDestroy(){
-        yield return new WaitForSeconds(0.15f);
+        _uiMng.HideWeaponToolTip();
         Destroy(gameObject);
     }
 
@@ -36,7 +32,8 @@ public class LootObject : MonoBehaviour
             coll.TryGetComponent<Inventory>(out Inventory inventory);
             inventory.SwapWeapon(weaponData);
             StopCoroutine(DestroyThis());
-            StartCoroutine(SwapDestroy());
+            _uiMng.HideWeaponToolTip();
+            Destroy(gameObject);
         }
     }
     void OnTriggerExit2D(Collider2D coll){

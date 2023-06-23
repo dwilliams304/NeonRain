@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f2ad264402bb9674f9f3c408d9f744f7, type: 3}
-  m_Name: TestEnemy
+  m_Name: FastEnemy
   m_EditorClassIdentifier: 
-  enemyName: Test Enemy
+  enemyName: Fast Enemy
   maxHealth: 150
   moveSpeed: 10
   minDamage: 2
@@ -22,5 +22,3 @@ MonoBehaviour:
   dropChance: 50
   corruptionDrop: 10
   goldDrop: 10
-  lootDrops:
-  - {fileID: 11400000, guid: 1b591fe8c8cd00247ba2c0038193e7a2, type: 2}
