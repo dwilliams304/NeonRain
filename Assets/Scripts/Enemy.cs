@@ -26,6 +26,10 @@ public class Enemy : MonoBehaviour
 
     public Transform target;
 
+    void OnEnable(){
+        
+    }
+
     void Start(){
         _enemyName = enemyData.enemyName;
         _maxHealth = enemyData.maxHealth;
@@ -48,7 +52,7 @@ public class Enemy : MonoBehaviour
         if(_currentHealth <= 0){
             int rollDice = Random.Range(0, 101);
             if(rollDice <= _dropChance){
-                LootManager.lootManager.DropLoot(transform.position, transform.rotation, baseLuck);
+                LootManager.lootManager.DropLoot(transform.position, baseLuck);
             }
             _playerStats.AddGold(_goldDrop);
             _playerStats.AddCorruption(_corruptionDrop);

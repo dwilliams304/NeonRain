@@ -65,11 +65,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7780500753536606009, guid: 95247c156437f034e80f4197a39273ca, type: 3}
       propertyPath: m_Name
-      value: MiniBoss
+      value: MiniBoss 1
       objectReference: {fileID: 0}
     - target: {fileID: 7780500753536606010, guid: 95247c156437f034e80f4197a39273ca, type: 3}
       propertyPath: m_Color.b
-      value: 0.9712162
+      value: 0.2091527
       objectReference: {fileID: 0}
     - target: {fileID: 7780500753536606010, guid: 95247c156437f034e80f4197a39273ca, type: 3}
       propertyPath: m_Color.g

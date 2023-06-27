@@ -9,7 +9,6 @@ public class PlayerController : MonoBehaviour
     public Camera mainCam;
 
     [SerializeField] private PlayerStats _playerStats;
-    [SerializeField] private Combat _combat;
 
     Vector2 moveDir;
     Vector2 mousePos;
@@ -40,13 +39,6 @@ public class PlayerController : MonoBehaviour
         float moveX = Input.GetAxisRaw("Horizontal");
         float moveY = Input.GetAxis("Vertical");
 
-
-        if(Input.GetButton("Fire1") && !isReloading){
-            _combat.Shoot();
-        }
-        else if(Input.GetButtonDown("Fire3")){
-            StartCoroutine(_combat.Reload());
-        }
 
         if(Input.GetButtonDown("Jump") && _canDash){
             StartCoroutine(Dash());

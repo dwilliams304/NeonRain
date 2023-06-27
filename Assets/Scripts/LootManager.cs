@@ -6,6 +6,8 @@ using TMPro;
 public class LootManager : MonoBehaviour
 {
     public static LootManager lootManager;
+    //public delegate void DropLoot(Vector3 position, float additionalLuck);
+    //public DropLoot dropLoot;
     [Header("Loot Pool")]
     [SerializeField] private List<Weapon> CommonDrops;
     [SerializeField] private List<Weapon> UncommonDrops;
@@ -43,9 +45,10 @@ public class LootManager : MonoBehaviour
     void Start(){
         lootPrefab = new GameObject();
         _DEVTOOLS_ = DEVTools.__DEV;
+        //dropLoot = SpawnLoot;
     }
 
-    public void DropLoot(Vector3 whereToDrop, Quaternion rotation, float additionalLuck){
+    public void DropLoot(Vector3 position, float additionalLuck){
         _DEVTOOLS_.totalRolls++;
 
         LootObject lootObj;
@@ -93,12 +96,12 @@ public class LootManager : MonoBehaviour
             //DEV ONLY
             _DEVTOOLS_.amntLegendaryDrops++;
         }
-        SpawnLootObject(lootPrefab, whereToDrop, rotation);
+        SpawnLootObject(lootPrefab, position);
         
     }
     //GameObject prefab, Weapon weaponDrop, Vector3 whereToDrop, Quaternion rotation
-    void SpawnLootObject(GameObject lootPrefab, Vector3 whereToSpawn, Quaternion spawnRotation){
-        Instantiate(lootPrefab, whereToSpawn, spawnRotation);
+    void SpawnLootObject(GameObject lootPrefab, Vector3 whereToSpawn){
+        Instantiate(lootPrefab, whereToSpawn, Quaternion.identity);
     }
 
 }

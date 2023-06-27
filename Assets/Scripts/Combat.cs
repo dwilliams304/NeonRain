@@ -10,7 +10,6 @@ public class Combat : MonoBehaviour
     #region Other variables
     [SerializeField] private UIManager uiManager;
     [SerializeField] private Inventory _inventory;
-    [SerializeField] private PlayerController _playerController;
     [SerializeField] private PlayerStats _playerStats;
     [SerializeField] private GameObject _bulletPrefab;
     [SerializeField] private Transform _firePoint;
@@ -30,6 +29,8 @@ public class Combat : MonoBehaviour
     public float rangedCritChance;
     #endregion
 
+
+    private bool isReloading;
     public bool didCrit = false;
     
     void Awake(){
@@ -37,9 +38,18 @@ public class Combat : MonoBehaviour
     }
     void Start(){
         _inventory = GetComponent<Inventory>();
-        _playerController = GetComponent<PlayerController>();
         _playerStats = PlayerStats.playerStats;
         AssignWeaponStats(_inventory.weapon);
+    }
+
+
+    void Update(){
+        if(Input.GetButton("Fire1") && !isReloading){
+            Shoot();
+        }
+        else if(Input.GetButtonDown("Fire3")){
+            StartCoroutine(Reload());
+        }
     }
 
     //Assign all the ranged weapon data
@@ -82,10 +92,10 @@ public class Combat : MonoBehaviour
 
 
     public IEnumerator Reload(){
-        _playerController.isReloading = true; //Can't shoot while reloading, prevent that!
+        isReloading = true; //Can't shoot while reloading, prevent that!
         yield return new WaitForSeconds(rangedReloadSpeed); //Wait as long as the weapon's reload speed is
         currentAmmo = magSize; //Set our ammo to be equal to the max magazine size for the weapon
-        _playerController.isReloading = false; //They can reload again!
+        isReloading = false; //They can reload again!
         uiManager.UpdateAmmo(currentAmmo, magSize); //Update UI
     }
     

@@ -13,7 +13,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1692722354173444746, guid: cd42f063af77ed84dbe356bc119a2ff9, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.02
+      value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: 1692722354173444746, guid: cd42f063af77ed84dbe356bc119a2ff9, type: 3}
       propertyPath: m_LocalScale.y
@@ -61,7 +61,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6324006630446484118, guid: cd42f063af77ed84dbe356bc119a2ff9, type: 3}
       propertyPath: m_Name
-      value: Bullet
+      value: Bullet Variant
       objectReference: {fileID: 0}
     - target: {fileID: 8341933856450202289, guid: cd42f063af77ed84dbe356bc119a2ff9, type: 3}
       propertyPath: m_Sprite

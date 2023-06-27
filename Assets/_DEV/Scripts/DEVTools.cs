@@ -65,8 +65,8 @@ public class DEVTools : MonoBehaviour
             if(Input.GetKeyDown(KeyCode.Alpha1)){
                 SpawnEnemy(enemyPrefab, mousePos);
             }
-            if(Input.GetKeyDown(KeyCode.R)){
-                _lootManager.DropLoot(mousePos, Quaternion.identity, 1);
+            if(Input.GetKey(KeyCode.R)){
+                _lootManager.DropLoot(mousePos, 1);
                 UpdateLootUIPanel();
             }
         }
