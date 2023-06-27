@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public enum CorruptionTier{
-        Tier0,
+    private enum CorruptionTier{
         Tier1,
         Tier2,
         Tier3,
         Tier4,
         Tier5
     }
+    private CorruptionTier corruptionTier;
 
     private int tier1Breakpoint = 100;
     private int tier2Breakpoint = 200;
@@ -33,60 +33,26 @@ public class GameManager : MonoBehaviour
         UIManager.uiManagement.LoseGameUI();
     }
 
-    public void CheckCorruptionTier(){
-        int currentCorruption = playerStats.PlayerCorruptionLevel;
-        if(currentCorruption >= tier5Breakpoint){
-            CorruptionTierFive();
-        }
-        else if(currentCorruption >= tier4Breakpoint){
-            CorruptionTierFour();
-        }
-        else if(currentCorruption >= tier3Breakpoint){
-            CorruptionTierThree();
-        }
-        else if(currentCorruption >= tier2Breakpoint){
-            CorruptionTierTwo();
-        }
-        else if(currentCorruption >= tier1Breakpoint){
-            CorruptionTierOne();
-        }
-        else{
-            CorruptionTierZero();
+    void Update(){
+        switch(corruptionTier){
+            case CorruptionTier.Tier1:
+                break;
+            case CorruptionTier.Tier2:
+                break;
+            case CorruptionTier.Tier3:
+                break;
+            case CorruptionTier.Tier4:
+                break;
+            case CorruptionTier.Tier5:
+                break;
+            
         }
     }
 
-
-    public void CorruptionTierZero(){
-        Debug.Log("Corruption Tier 0!");
+    void CheckCorruptionTier(int corruptionAmount){
+        
     }
-
-    public void CorruptionTierOne(){
-        Debug.Log("Corruption Tier 1!");
-
-    }
-
-    public void CorruptionTierTwo(){
-        Debug.Log("Corruption Tier 2!");
-
-    }
-
-    public void CorruptionTierThree(){
-        Debug.Log("Corruption Tier 3!");
-
-    }
-
-    public void CorruptionTierFour(){
-        Debug.Log("Corruption Tier 4!");
-
-    }
-
-    public void CorruptionTierFive(){
-        Debug.Log("Corruption Tier 5!");
-
-    }
-
     
-    
-    
+
 }
 

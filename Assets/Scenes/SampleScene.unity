@@ -5871,7 +5871,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 301694775}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 5.25, y: 0, z: 0}
   m_LocalScale: {x: 2.5, y: 2.5, z: 1}
   m_Children:
   - {fileID: 1362757796}
@@ -7111,7 +7111,8 @@ MonoBehaviour:
   CurrentHealth: 0
   CurrentLevel: 1
   CurrentPlayerXP: 0
-  MaxExperience: 0
+  ExperienceToNextLevel: 100
+  XPModifier: 1
   PlayerCorruptionLevel: 0
   PlayerGold: 0
   AdditionalGoldMod: 2
@@ -7119,12 +7120,6 @@ MonoBehaviour:
   BaseDamageDone: 1
   BaseDamageTaken: 1
   CritDamageMod: 3
-  tier1BreakPoint: 100
-  tier2BreakPoint: 200
-  tier3BreakPoint: 300
-  tier4BreakPoint: 400
-  tier5BreakPoint: 500
-  tier: 0
 --- !u!114 &585255327
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12587,6 +12582,7 @@ MonoBehaviour:
   _playerLevel: {fileID: 2065219609}
   _playerHealthBar: {fileID: 90039919}
   _playerXP: {fileID: 187404919}
+  _playerLevelText: {fileID: 2065219609}
   _playerAmmo: {fileID: 1434758526}
   _goldAmount: {fileID: 196085554}
   _bossName: {fileID: 0}

@@ -19,7 +19,7 @@ MonoBehaviour:
   maxDamage: 30
   attackSpeed: 5
   attackRange: 5
+  xpAmount: 500
   dropChance: 100
   corruptionDrop: 150
   goldDrop: 500
-  lootDrops: []

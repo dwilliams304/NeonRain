@@ -11,19 +11,21 @@ public class Enemy : MonoBehaviour
     [SerializeField] private string _enemyName;
     [SerializeField] private float _maxHealth;
     [SerializeField] private float _currentHealth;
-    [SerializeField] private int _minDamage;
-    [SerializeField] private int _maxDamage;
+    [SerializeField] private float _minDamage;
+    [SerializeField] private float _maxDamage;
     [SerializeField] private int _corruptionDrop;
     [SerializeField] private int _goldDrop;
     [SerializeField] private int _dropChance;
     [SerializeField] private float baseLuck;
+    [SerializeField] private float _xpAmount;
 
     private FloatingHealthBar _healthBar;
     [SerializeField] private PlayerStats _playerStats;
     [SerializeField] private GameObject floatingDmgTextPref;
     [SerializeField] private float dmgNumberYOffset;
 
-
+    public float EnemyHealthModifier = 1f; //For scaling enemy health with level
+    public float EnemyDamageModifier = 1f;
     public Transform target;
 
     void OnEnable(){
@@ -32,10 +34,11 @@ public class Enemy : MonoBehaviour
 
     void Start(){
         _enemyName = enemyData.enemyName;
-        _maxHealth = enemyData.maxHealth;
+        _maxHealth = enemyData.maxHealth * EnemyHealthModifier;
         _currentHealth = _maxHealth;
-        _minDamage = enemyData.minDamage;
-        _maxDamage = enemyData.maxDamage;
+        _minDamage = enemyData.minDamage * EnemyDamageModifier;
+        _maxDamage = enemyData.maxDamage * EnemyDamageModifier;
+        _xpAmount = enemyData.xpAmount;
         _corruptionDrop = enemyData.corruptionDrop;
         _goldDrop = enemyData.goldDrop;
         _dropChance = enemyData.dropChance;
@@ -50,14 +53,19 @@ public class Enemy : MonoBehaviour
         _currentHealth -= damage;
         _healthBar.UpdateHealthBar(_currentHealth, _maxHealth);
         if(_currentHealth <= 0){
-            int rollDice = Random.Range(0, 101);
+            EnemyDeath();
+        }
+    }
+
+    void EnemyDeath(){
+        int rollDice = Random.Range(0, 101);
             if(rollDice <= _dropChance){
                 LootManager.lootManager.DropLoot(transform.position, baseLuck);
             }
             _playerStats.AddGold(_goldDrop);
             _playerStats.AddCorruption(_corruptionDrop);
+            XPManager.Instance.AddExperience(Mathf.CeilToInt(_xpAmount));
             Destroy(gameObject);
-        }
     }
 
 

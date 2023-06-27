@@ -6,6 +6,8 @@ public class PlayerStats : MonoBehaviour
 {
 
     public static PlayerStats playerStats;
+    public delegate void AddExperience();
+    public static AddExperience addExperience;
     [Header("Movement")]
     public float BaseSpeed = 7f;
     public float MoveSpeed;
@@ -21,7 +23,8 @@ public class PlayerStats : MonoBehaviour
     [Header("PlayerXP")]
     public int CurrentLevel = 1;
     public int CurrentPlayerXP = 0;
-    public int MaxExperience;
+    public int ExperienceToNextLevel = 100;
+    public float XPModifier = 1f;
 
     [Header("Corruption/Gold")]
     public int PlayerCorruptionLevel = 0;
@@ -36,21 +39,6 @@ public class PlayerStats : MonoBehaviour
     public float CritDamageMod = 3f;
 
 
-    public enum CorruptionTier{
-        Tier0,
-        Tier1,
-        Tier2,
-        Tier3,
-        Tier4,
-        Tier5
-    }
-    public int tier1BreakPoint = 100;
-    public int tier2BreakPoint = 200;
-    public int tier3BreakPoint = 300;
-    public int tier4BreakPoint = 400;
-    public int tier5BreakPoint = 500;
-
-    public CorruptionTier tier;
 
     void Awake(){
         MoveSpeed = BaseSpeed;
@@ -58,6 +46,13 @@ public class PlayerStats : MonoBehaviour
         playerStats = this;
     }
 
+    void OnEnable(){
+        XPManager.Instance.onXPChange += IncrementExperience;
+    }
+
+    void Start(){
+        UIManager.uiManagement.UpdateXPBar(ExperienceToNextLevel, CurrentPlayerXP, CurrentLevel);
+    }
 
     public void ModifyMoveSpeed(float mod){
         MoveSpeed += mod;
@@ -65,14 +60,31 @@ public class PlayerStats : MonoBehaviour
 
     public void AddCorruption(int amount){
         PlayerCorruptionLevel += amount;
-        if(PlayerCorruptionLevel >= tier5BreakPoint){
-            tier = CorruptionTier.Tier5;
-        }
     }
 
     public void AddGold(int amount){
         PlayerGold += Mathf.Ceil(amount * AdditionalGoldMod);
         UIManager.uiManagement.UpdateGoldUI(PlayerGold);
+    }
+
+    public void IncrementExperience(int xpAmnt){
+        CurrentPlayerXP += Mathf.CeilToInt(xpAmnt * XPModifier);
+        if(CurrentPlayerXP >= ExperienceToNextLevel){
+            int overflow = CurrentPlayerXP - ExperienceToNextLevel;
+            IncreaseLevel(overflow);
+        }
+        UIManager.uiManagement.UpdateXPBar(ExperienceToNextLevel, CurrentPlayerXP, CurrentLevel);
+    }
+
+    void IncreaseLevel(int xpOverflow){
+        PlayerMaxHealth += 10;
+        CurrentHealth = PlayerMaxHealth;
+        BaseDamageDone += 0.01f;
+        BaseCritChance += 1;
+        CurrentLevel++;
+        CurrentPlayerXP = xpOverflow;
+        ExperienceToNextLevel *= 2;
+        UIManager.uiManagement.UpdateHealthBar();
     }
 
     public void TakeDamage(float damage){

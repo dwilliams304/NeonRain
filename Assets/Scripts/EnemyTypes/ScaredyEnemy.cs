@@ -30,6 +30,9 @@ public class ScaredyEnemy : EnemyAI
         }else if(Vector2.Distance(transform.position, player.position) >= attackRange){
             if(Time.time > lastAttack + attackSpeed){
                 lastAttack = Time.time;
+                //TO-DO:
+                //Create pool of enemy bullets to improve performance.
+                //Potentially change damage output.
                 GameObject temp = Instantiate(bullet, _firePoint.position, _firePoint.rotation);
                 temp.GetComponent<EnemyProjectile>().damage = enemy.DoDamage();
                 temp.GetComponent<Rigidbody2D>().AddForce(_firePoint.up * projectileSpeed, ForceMode2D.Impulse);

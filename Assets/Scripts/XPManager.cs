@@ -4,15 +4,20 @@ using UnityEngine;
 
 public class XPManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+    public static XPManager Instance;
+
+    public delegate void XPChangeHandler(int amount);
+    public event XPChangeHandler onXPChange;
+
+    void Awake(){
+        if(Instance != null & Instance != this){
+            Destroy(this);
+        }else{
+            Instance = this;
+        }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+    public void AddExperience(int amount){
+        onXPChange?.Invoke(amount);
     }
 }

@@ -13,6 +13,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] TMP_Text _playerLevel;
     [SerializeField] Slider _playerHealthBar;
     [SerializeField] Slider _playerXP;
+    [SerializeField] TMP_Text _playerLevelText;
     [SerializeField] TMP_Text _playerAmmo;
     [SerializeField] TMP_Text _goldAmount;
 
@@ -60,7 +61,13 @@ public class UIManager : MonoBehaviour
     }
 
     public void UpdateHealthBar(){
+        _playerHealthBar.maxValue = _playerStats.PlayerMaxHealth;
         _playerHealthBar.value = _playerStats.CurrentHealth;
+    }
+    public void UpdateXPBar(float toNextLevel, float currentXPAmnt, int level){
+        _playerXP.maxValue = toNextLevel;
+        _playerXP.value = currentXPAmnt;
+        _playerLevelText.text = $"Lvl. {level}";
     }
 
     public void UpdateAmmo(int currentAmmo, int magSize){
