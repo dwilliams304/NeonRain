@@ -53,9 +53,7 @@ public class LootManager : MonoBehaviour
 
         LootObject lootObj;
         float rarity = Random.Range(0, 100001);
-        Debug.Log("Before additiona luck: " + rarity);
         rarity = Mathf.Ceil(rarity / additionalLuck);
-        Debug.Log("After additonal luck: " + rarity);
         if(rarity <= commonDropChance && rarity > uncommonDropChance){
             int i = Random.Range(0, CommonDrops.Count);
             lootPrefab = commonPrefab;

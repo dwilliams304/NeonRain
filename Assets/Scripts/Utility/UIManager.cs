@@ -44,10 +44,16 @@ public class UIManager : MonoBehaviour
     [Header("Other UI")]
     [SerializeField] TMP_Text _corruptionTierText;
     [SerializeField] Image _corruptionTierIcon;
+    
+    [Header("Pop-Up Panels")]
     [SerializeField] private GameObject loseUIPanel;
+    [SerializeField] private GameObject pauseGamePanel;
+    [SerializeField] private GameObject abilityUpgradePanel;
 
+    bool isPaused = false;
+    bool upgradePanelActive = false;
 
-    [SerializeField] private PlayerStats _playerStats;
+    private PlayerStats _playerStats;
 
     void Awake(){
         uiManagement = this;
@@ -58,6 +64,15 @@ public class UIManager : MonoBehaviour
         _playerHealthBar.maxValue = _playerStats.PlayerMaxHealth;
         _playerHealthBar.value = _playerStats.PlayerMaxHealth;
         UpdateGoldUI(0);
+    }
+
+    void Update(){
+        if(Input.GetKeyDown(KeyCode.Escape)){
+            PauseGame();
+        }
+        else if(Input.GetKeyDown(KeyCode.Tab)){
+            AbilityUpgrades();
+        }
     }
 
     public void UpdateHealthBar(){
@@ -80,6 +95,25 @@ public class UIManager : MonoBehaviour
 
     public void LoseGameUI(){
         loseUIPanel.SetActive(true);
+    }
+
+    void PauseGame(){
+        isPaused = !isPaused;
+        if(isPaused){
+            Time.timeScale = 0;
+        }else{
+            Time.timeScale = 1;
+        }
+        pauseGamePanel.SetActive(isPaused);
+    }
+    void AbilityUpgrades(){
+        upgradePanelActive = !upgradePanelActive;
+        if(upgradePanelActive){
+            Time.timeScale = 0;
+        }else{
+            Time.timeScale = 1;
+        }
+        abilityUpgradePanel.SetActive(upgradePanelActive);
     }
 
 
@@ -136,21 +170,21 @@ public class UIManager : MonoBehaviour
         }
 
         if(fireRateDiff > 0){
-            FireRateDifferentUI(fireRateDiff, Color.red, "");
+            FireRateDifferentUI(fireRateDiff, Color.red, "+");
         }else if(fireRateDiff == 0){
             FireRateDifferentUI(fireRateDiff, Color.yellow, "");
         }
         else if(fireRateDiff < 0){
-            FireRateDifferentUI(fireRateDiff, Color.green, "+");
+            FireRateDifferentUI(fireRateDiff, Color.green, "");
         }
 
         if(reloadSpeedDiff > 0){
-            ReloadSpeedDifferentUI(reloadSpeedDiff, Color.red, "");
+            ReloadSpeedDifferentUI(reloadSpeedDiff, Color.red, "+");
         }else if(reloadSpeedDiff == 0){
             ReloadSpeedDifferentUI(reloadSpeedDiff, Color.yellow, "");
         }
         else if(reloadSpeedDiff < 0){
-            ReloadSpeedDifferentUI(reloadSpeedDiff, Color.green, "+");
+            ReloadSpeedDifferentUI(reloadSpeedDiff, Color.green, "");
         }
 
         if(magSizeDifference > 0){

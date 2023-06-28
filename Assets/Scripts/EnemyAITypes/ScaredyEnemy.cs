@@ -10,6 +10,7 @@ public class ScaredyEnemy : EnemyAI
 
     public GameObject bullet;
     public float projectileSpeed = 40f;
+    public float maxDistance = 15f;
 
     private Transform player;
     [SerializeField] private Transform _firePoint;
@@ -27,7 +28,10 @@ public class ScaredyEnemy : EnemyAI
         RotateTowards(player.position);
         if(Vector2.Distance(transform.position, player.position) < attackRange){
             transform.position = Vector2.MoveTowards(transform.position, player.position, -moveSpeed * Time.deltaTime);
-        }else if(Vector2.Distance(transform.position, player.position) >= attackRange){
+        }else if(Vector2.Distance(transform.position, player.position) >= maxDistance){
+            transform.position = Vector2.MoveTowards(transform.position, player.position, moveSpeed * Time.deltaTime);
+        }
+        else if(Vector2.Distance(transform.position, player.position) >= attackRange && Vector2.Distance(transform.position, player.position) <= maxDistance){
             if(Time.time > lastAttack + attackSpeed){
                 lastAttack = Time.time;
                 //TO-DO:

@@ -76,6 +76,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6880701594337292253, guid: ba5dd639dd62fba4a831e84f82ca3b7e, type: 3}
+      propertyPath: enemyData
+      value: 
+      objectReference: {fileID: 11400000, guid: b480ba73393cbd448ad426afdcd4125a, type: 2}
+    - target: {fileID: 6880701594337292253, guid: ba5dd639dd62fba4a831e84f82ca3b7e, type: 3}
       propertyPath: dmgNumberYOffset
       value: 1
       objectReference: {fileID: 0}

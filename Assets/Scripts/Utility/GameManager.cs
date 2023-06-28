@@ -13,19 +13,23 @@ public class GameManager : MonoBehaviour
     }
     private CorruptionTier corruptionTier;
 
-    private int tier1Breakpoint = 100;
-    private int tier2Breakpoint = 200;
-    private int tier3Breakpoint = 300;
-    private int tier4Breakpoint = 400;
-    private int tier5Breakpoint = 500;
+    // private int tier1Breakpoint = 100;
+    // private int tier2Breakpoint = 200;
+    // private int tier3Breakpoint = 300;
+    // private int tier4Breakpoint = 400;
+    // private int tier5Breakpoint = 500;
     
-    private PlayerStats playerStats;
     public static GameManager gameManager;
     void Awake(){
         gameManager = this;
+        Time.timeScale = 1;
     }
-    void Start(){
-        playerStats = PlayerStats.playerStats;
+    
+    void OnEnable(){
+        PlayerStats.onPlayerDeath += LoseGame;
+    }
+    void OnDisable(){
+        PlayerStats.onPlayerDeath -= LoseGame;
     }
 
     public void LoseGame(){

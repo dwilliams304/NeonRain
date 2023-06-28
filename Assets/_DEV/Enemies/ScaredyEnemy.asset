@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: ScaredyEnemy
   m_EditorClassIdentifier: 
   enemyName: 
-  maxHealth: 150
-  moveSpeed: 15
-  minDamage: 10
-  maxDamage: 15
-  attackSpeed: 0.5
+  maxHealth: 75
+  moveSpeed: 6
+  minDamage: 5
+  maxDamage: 10
+  attackSpeed: 1.5
   attackRange: 7
-  xpAmount: 75
-  dropChance: 25
+  xpAmount: 20
+  dropChance: 15
   corruptionDrop: 0
   goldDrop: 150

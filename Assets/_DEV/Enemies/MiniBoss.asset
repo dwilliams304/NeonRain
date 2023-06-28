@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: MiniBoss
   m_EditorClassIdentifier: 
   enemyName: 
-  maxHealth: 2000
+  maxHealth: 1000
   moveSpeed: 2.5
-  minDamage: 15
-  maxDamage: 30
+  minDamage: 20
+  maxDamage: 26
   attackSpeed: 5
   attackRange: 5
-  xpAmount: 500
+  xpAmount: 250
   dropChance: 100
   corruptionDrop: 150
   goldDrop: 500

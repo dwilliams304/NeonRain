@@ -24,7 +24,6 @@ public class MeleeEnemy : EnemyAI
             if(Time.time > lastAttack + attackSpeed){
                 lastAttack = Time.time;
                 float dmgToDo = enemy.DoDamage();
-                Debug.Log(dmgToDo);
                 PlayerStats.playerStats.TakeDamage(dmgToDo);
             }
         }

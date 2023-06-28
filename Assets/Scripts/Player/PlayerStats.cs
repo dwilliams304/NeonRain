@@ -6,8 +6,10 @@ public class PlayerStats : MonoBehaviour
 {
 
     public static PlayerStats playerStats;
-    public delegate void AddExperience();
-    public static AddExperience addExperience;
+    public delegate void HandleLevelIncrease();
+    public delegate void HandlePlayerDeath();
+    public static HandleLevelIncrease handleLevelIncrease;
+    public static HandlePlayerDeath onPlayerDeath;
     [Header("Movement")]
     public float BaseSpeed = 7f;
     public float MoveSpeed;
@@ -25,6 +27,7 @@ public class PlayerStats : MonoBehaviour
     public int CurrentPlayerXP = 0;
     public int ExperienceToNextLevel = 100;
     public float XPModifier = 1f;
+    [SerializeField] private AnimationCurve xpScaling;
 
     [Header("Corruption/Gold")]
     public int PlayerCorruptionLevel = 0;
@@ -77,21 +80,27 @@ public class PlayerStats : MonoBehaviour
     }
 
     void IncreaseLevel(int xpOverflow){
-        PlayerMaxHealth += 10;
+        PlayerMaxHealth += 25;
         CurrentHealth = PlayerMaxHealth;
-        BaseDamageDone += 0.01f;
+        BaseDamageDone += 0.02f;
         BaseCritChance += 1;
         CurrentLevel++;
         CurrentPlayerXP = xpOverflow;
-        ExperienceToNextLevel *= 2;
+        ExperienceToNextLevel = Mathf.RoundToInt(xpScaling.Evaluate(CurrentLevel));
         UIManager.uiManagement.UpdateHealthBar();
+        handleLevelIncrease?.Invoke();
     }
 
     public void TakeDamage(float damage){
         CurrentHealth -= Mathf.Ceil(damage * BaseDamageTaken);
         if(CurrentHealth <= 0){
-            GameManager.gameManager.LoseGame();
+            PlayerDied();
         }
         UIManager.uiManagement.UpdateHealthBar();
+    }
+
+
+    void PlayerDied(){
+        onPlayerDeath?.Invoke();
     }
 }

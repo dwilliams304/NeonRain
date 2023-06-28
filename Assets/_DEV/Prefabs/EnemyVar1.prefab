@@ -140,5 +140,6 @@ MonoBehaviour:
   attackRange: 0
   attackSpeed: 0
   bullet: {fileID: 4376058686335652830, guid: e48eea4393e43bf4b93ab5362bf90b17, type: 3}
-  projectileSpeed: 15
+  projectileSpeed: 10
+  maxDistance: 15
   _firePoint: {fileID: 8549999836928166531}

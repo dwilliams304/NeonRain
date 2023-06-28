@@ -23,21 +23,15 @@ public class Enemy : MonoBehaviour
     [SerializeField] private PlayerStats _playerStats;
     [SerializeField] private GameObject floatingDmgTextPref;
     [SerializeField] private float dmgNumberYOffset;
-
-    public float EnemyHealthModifier = 1f; //For scaling enemy health with level
-    public float EnemyDamageModifier = 1f;
     public Transform target;
 
-    void OnEnable(){
-        
-    }
 
     void Start(){
         _enemyName = enemyData.enemyName;
-        _maxHealth = enemyData.maxHealth * EnemyHealthModifier;
+        _maxHealth = Mathf.Ceil(enemyData.maxHealth * LevelScaler.Instance.EnemyHealthModifier);
         _currentHealth = _maxHealth;
-        _minDamage = enemyData.minDamage * EnemyDamageModifier;
-        _maxDamage = enemyData.maxDamage * EnemyDamageModifier;
+        _minDamage = Mathf.Ceil(enemyData.minDamage * LevelScaler.Instance.EnemyDamageModifier);
+        _maxDamage = Mathf.Ceil(enemyData.maxDamage * LevelScaler.Instance.EnemyDamageModifier);
         _xpAmount = enemyData.xpAmount;
         _corruptionDrop = enemyData.corruptionDrop;
         _goldDrop = enemyData.goldDrop;

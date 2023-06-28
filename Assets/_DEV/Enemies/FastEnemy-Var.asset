@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f2ad264402bb9674f9f3c408d9f744f7, type: 3}
-  m_Name: FastEnemy
+  m_Name: FastEnemy-Var
   m_EditorClassIdentifier: 
-  enemyName: Fast Enemy
-  maxHealth: 100
-  moveSpeed: 10
-  minDamage: 3
-  maxDamage: 6
-  attackSpeed: 0.4
-  attackRange: 2
+  enemyName: Fast Enemy-Var
+  maxHealth: 30
+  moveSpeed: 15
+  minDamage: 1
+  maxDamage: 3
+  attackSpeed: 0.2
+  attackRange: 1
   xpAmount: 15
   dropChance: 10
   corruptionDrop: 10

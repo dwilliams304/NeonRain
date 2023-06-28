@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class Spawner : MonoBehaviour
+public class InteractableSpawner : MonoBehaviour
 {
     public List<GameObject> enemyPrefabs;
     public List<GameObject> miniBossPrefabs;
@@ -39,14 +39,14 @@ public class Spawner : MonoBehaviour
         int i = Random.Range(0, enemyPrefabs.Count);
         GameObject toSpawn = enemyPrefabs[i];
         yield return new WaitForSeconds(spawnInterval);
-        Instantiate(toSpawn, new Vector3(Random.Range(-5f, 5f), Random.Range(-5f, 5f), 0), Quaternion.identity);
+        Instantiate(toSpawn, new Vector3(currentPos.x + Random.Range(-5f, 5f), currentPos.y + Random.Range(-5f, 5f), 0), Quaternion.identity);
         alreadySpawned++;
         if(alreadySpawned != amountToSpawn){
             StartCoroutine(SpawnEnemies());
         }
         else if(alreadySpawned == amountToSpawn){
             GameObject miniBoss = miniBossPrefabs[Random.Range(0, miniBossPrefabs.Count)];
-            Instantiate(miniBoss, new Vector3(Random.Range(-5f, 5f), Random.Range(-5f, 5f), 0), Quaternion.identity);
+            Instantiate(miniBoss, new Vector3(currentPos.x + Random.Range(-5f, 5f), currentPos.y + Random.Range(-5f, 5f), 0), Quaternion.identity);
             spawnerText.text = "Mini boss incoming!";
             StopCoroutine(SpawnEnemies());
         }
