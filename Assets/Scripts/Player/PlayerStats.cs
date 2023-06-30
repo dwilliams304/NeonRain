@@ -11,8 +11,7 @@ public class PlayerStats : MonoBehaviour
     public static HandleLevelIncrease handleLevelIncrease;
     public static HandlePlayerDeath onPlayerDeath;
     [Header("Movement")]
-    public float BaseSpeed = 7f;
-    public float MoveSpeed;
+    public float MoveSpeed = 7f;
     public float DashSpeed = 20f;
     public float DashDuration = .2f;
     public float DashCoolDown = 1f;
@@ -26,25 +25,23 @@ public class PlayerStats : MonoBehaviour
     public int CurrentLevel = 1;
     public int CurrentPlayerXP = 0;
     public int ExperienceToNextLevel = 100;
-    public float XPModifier = 1f;
     [SerializeField] private AnimationCurve xpScaling;
 
-    [Header("Corruption/Gold")]
-    public int PlayerCorruptionLevel = 0;
-    public float PlayerGold = 0;
-    public float AdditionalGoldMod = 1f;
+    [Header("Gold")]
+    [SerializeField] private int PlayerGold = 0;
 
 
-    [Header("Base stats")]
-    public int BaseCritChance = 10;
-    public float BaseDamageDone = 1f;
-    public float BaseDamageTaken = 1f;
+    [Header("Base modifiers")]
+    public int CritChanceMod = 10;
+    public float DamageDoneMod = 1f;
+    public float DamageTakenMod = 1f;
     public float CritDamageMod = 3f;
-
-
+    public float MoveSpeedMod = 1f;
+    public float XPModifier = 1f;
+    public float AdditionalGoldMod = 1f;
+    
 
     void Awake(){
-        MoveSpeed = BaseSpeed;
         CurrentHealth = PlayerMaxHealth;
         playerStats = this;
     }
@@ -58,15 +55,11 @@ public class PlayerStats : MonoBehaviour
     }
 
     public void ModifyMoveSpeed(float mod){
-        MoveSpeed += mod;
-    }
-
-    public void AddCorruption(int amount){
-        PlayerCorruptionLevel += amount;
+        MoveSpeed *= mod;
     }
 
     public void AddGold(int amount){
-        PlayerGold += Mathf.Ceil(amount * AdditionalGoldMod);
+        PlayerGold += Mathf.CeilToInt(amount * AdditionalGoldMod);
         UIManager.uiManagement.UpdateGoldUI(PlayerGold);
     }
 
@@ -82,8 +75,8 @@ public class PlayerStats : MonoBehaviour
     void IncreaseLevel(int xpOverflow){
         PlayerMaxHealth += 25;
         CurrentHealth = PlayerMaxHealth;
-        BaseDamageDone += 0.02f;
-        BaseCritChance += 1;
+        DamageDoneMod += 0.02f;
+        CritChanceMod += 1;
         CurrentLevel++;
         CurrentPlayerXP = xpOverflow;
         ExperienceToNextLevel = Mathf.RoundToInt(xpScaling.Evaluate(CurrentLevel));
@@ -92,7 +85,7 @@ public class PlayerStats : MonoBehaviour
     }
 
     public void TakeDamage(float damage){
-        CurrentHealth -= Mathf.Ceil(damage * BaseDamageTaken);
+        CurrentHealth -= Mathf.Ceil(damage * DamageTakenMod);
         if(CurrentHealth <= 0){
             PlayerDied();
         }

@@ -60,7 +60,7 @@ public class UIManager : MonoBehaviour
     }
     private void Start(){
         _playerStats = FindObjectOfType<PlayerStats>();
-        _playerLevel.text = "Lv. " + _playerStats.CurrentLevel.ToString();
+        //_playerLevel.text = "Lv. " + _playerStats.CurrentLevel.ToString();
         _playerHealthBar.maxValue = _playerStats.PlayerMaxHealth;
         _playerHealthBar.value = _playerStats.PlayerMaxHealth;
         UpdateGoldUI(0);

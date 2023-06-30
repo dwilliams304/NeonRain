@@ -55,7 +55,7 @@ public class PlayerController : MonoBehaviour
         if(_isDashing){
             return;
         }
-        rb.velocity = new Vector2(moveDir.x * _moveSpeed, moveDir.y * _moveSpeed);
+        rb.velocity = new Vector2(moveDir.x * PlayerStats.playerStats.MoveSpeed, moveDir.y * PlayerStats.playerStats.MoveSpeed);
 
 
     }

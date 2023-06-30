@@ -57,8 +57,8 @@ public class Enemy : MonoBehaviour
                 LootManager.lootManager.DropLoot(transform.position, baseLuck);
             }
             _playerStats.AddGold(_goldDrop);
-            _playerStats.AddCorruption(_corruptionDrop);
             XPManager.Instance.AddExperience(Mathf.CeilToInt(_xpAmount));
+            CorruptionManager.Instance.AddCorruption(_corruptionDrop);
             Destroy(gameObject);
     }
 

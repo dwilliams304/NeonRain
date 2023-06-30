@@ -102,8 +102,8 @@ public class Combat : MonoBehaviour
     //This is the same as the melee damage calculation, just for ranged weapon
     public float CalculateRangedDamage(){
         int critRoll = Random.Range(0, 100);
-        float dmgRoll = Random.Range(rangedMinDmg, rangedMaxDmg) * _playerStats.BaseDamageDone;
-        if(critRoll <= _playerStats.BaseCritChance + rangedCritChance){
+        float dmgRoll = Random.Range(rangedMinDmg, rangedMaxDmg) * _playerStats.DamageDoneMod;
+        if(critRoll <= _playerStats.CritChanceMod + rangedCritChance){
             float returnVal = Mathf.Ceil(dmgRoll *= _playerStats.CritDamageMod);
             //Debug.Log("Crit! Dmg calc: " + returnVal);
             didCrit = true;

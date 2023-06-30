@@ -21,5 +21,5 @@ MonoBehaviour:
   attackRange: 2
   xpAmount: 15
   dropChance: 10
-  corruptionDrop: 10
+  corruptionDrop: 100
   goldDrop: 10
