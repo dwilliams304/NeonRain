@@ -19,6 +19,12 @@ public class CorruptionManager : MonoBehaviour
     [SerializeField] private Sprite tier5Icon;
 
 
+    [SerializeField] private Color tier1Color;
+    [SerializeField] private Color tier2Color;
+    [SerializeField] private Color tier3Color;
+    [SerializeField] private Color tier4Color;
+    [SerializeField] private Color tier5Color;
+
     private enum CurrentCorruptionTier {
         Tier1,
         Tier2,
@@ -109,39 +115,44 @@ public class CorruptionManager : MonoBehaviour
     }
     void TierOne(){
         tierTxt.text = "Tier 1";
-        tierTxt.color = Color.red;
-        // tierIcon.overrideSprite = tier1Icon;
+        tierTxt.color = tier1Color;
+        tierIcon.overrideSprite = tier1Icon;
+        tierIcon.color = tier1Color;
         corruptionToNextTier = Mathf.RoundToInt(corruptionAmountCurve.Evaluate(currentTier));
         currentCorruptionAmount = 0;
     }
     void TierTwo(){
         tierTxt.text = "Tier 2";
-        tierTxt.color = Color.red;
-        // tierIcon.overrideSprite = tier2Icon;
+        tierTxt.color = tier2Color;
+        tierIcon.sprite = tier2Icon;
+        tierIcon.color = tier2Color;
         corruptionToNextTier = Mathf.RoundToInt(corruptionAmountCurve.Evaluate(currentTier));
         currentCorruptionAmount = 0;
 
     }
     void TierThree(){
         tierTxt.text = "Tier 3";
-        tierTxt.color = Color.red;
-        // tierIcon.overrideSprite = tier3Icon;
+        tierTxt.color = tier3Color;
+        tierIcon.overrideSprite = tier3Icon;
+        tierIcon.color = tier3Color;
         corruptionToNextTier = Mathf.RoundToInt(corruptionAmountCurve.Evaluate(currentTier));
         currentCorruptionAmount = 0;
 
     }
     void TierFour(){
         tierTxt.text = "Tier 4";
-        tierTxt.color = Color.red;
-        // tierIcon.overrideSprite = tier4Icon;
+        tierTxt.color = tier4Color;
+        tierIcon.overrideSprite = tier4Icon;
+        tierIcon.color = tier4Color;
         corruptionToNextTier = Mathf.RoundToInt(corruptionAmountCurve.Evaluate(currentTier));
         currentCorruptionAmount = 0;
 
     }
     void TierFive(){
         tierTxt.text = "Tier 5";
-        tierTxt.color = Color.red;
-        // tierIcon.overrideSprite = tier5Icon;
+        tierTxt.color = tier5Color;
+        tierIcon.overrideSprite = tier5Icon;
+        tierIcon.color = tier5Color;
         corruptionToNextTier = Mathf.RoundToInt(corruptionAmountCurve.Evaluate(currentTier));
         currentCorruptionAmount = 0;
 
