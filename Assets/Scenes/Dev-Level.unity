@@ -377,7 +377,7 @@ GameObject:
   - component: {fileID: 50875818}
   m_Layer: 0
   m_Name: InfiniteSpawner (1)
-  m_TagString: Untagged
+  m_TagString: Spawner
   m_Icon: {fileID: 3936346786652291628, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1950,7 +1950,7 @@ GameObject:
   - component: {fileID: 253357268}
   m_Layer: 0
   m_Name: InfiniteSpawner
-  m_TagString: Untagged
+  m_TagString: Spawner
   m_Icon: {fileID: 3936346786652291628, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2215,7 +2215,7 @@ GameObject:
   - component: {fileID: 301694776}
   m_Layer: 0
   m_Name: InteractableSpawner
-  m_TagString: Untagged
+  m_TagString: Spawner
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8856,7 +8856,7 @@ MonoBehaviour:
       outWeight: 0.12740782
     - serializedVersion: 3
       time: 19
-      value: 10000
+      value: 7500
       inSlope: 284.6132
       outSlope: 284.6132
       tangentMode: 0
@@ -10702,7 +10702,7 @@ GameObject:
   - component: {fileID: 828086703}
   m_Layer: 0
   m_Name: InfiniteSpawner (2)
-  m_TagString: Untagged
+  m_TagString: Spawner
   m_Icon: {fileID: 3936346786652291628, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

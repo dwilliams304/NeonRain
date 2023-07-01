@@ -22,4 +22,8 @@ public class MenuButtons : MonoBehaviour
     public void QuitGame(){
         Application.Quit();
     }
+
+    public void OpenLink(string link){
+        Application.OpenURL(link);
+    }
 }

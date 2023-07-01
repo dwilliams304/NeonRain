@@ -9,6 +9,8 @@ public class LootObject : MonoBehaviour
     public Weapon weaponData;
     private UIManager _uiMng;
 
+    bool playerInRange = false;
+
     void Start(){
         StartCoroutine(DestroyThis());
         _uiMng = UIManager.uiManagement;
@@ -21,23 +23,27 @@ public class LootObject : MonoBehaviour
     }
 
     void OnTriggerEnter2D(Collider2D coll){
-        if(coll.CompareTag("Player")){
+        playerInRange = true;
+        if(coll.CompareTag("Player") && playerInRange){
             _uiMng.ShowWeaponToolTip(weaponData);
         }
         //weaponToolTip.SetActive(true);
     }
 
     void OnTriggerStay2D(Collider2D coll){
-        if(Input.GetKey(KeyCode.E)){
-            coll.TryGetComponent<Inventory>(out Inventory inventory);
-            inventory.SwapWeapon(weaponData);
-            StopCoroutine(DestroyThis());
-            _uiMng.HideWeaponToolTip();
-            Destroy(gameObject);
+        if(playerInRange){
+            if(Input.GetKey(KeyCode.E)){
+                coll.TryGetComponent<Inventory>(out Inventory inventory);
+                inventory.SwapWeapon(weaponData);
+                StopCoroutine(DestroyThis());
+                _uiMng.HideWeaponToolTip();
+                Destroy(gameObject);
+            }
         }
     }
     void OnTriggerExit2D(Collider2D coll){
-        if(coll.CompareTag("Player")){
+        playerInRange = false;
+        if(!playerInRange){
 
             _uiMng.HideWeaponToolTip();
         }
