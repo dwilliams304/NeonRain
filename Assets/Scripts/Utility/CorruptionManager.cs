@@ -11,6 +11,8 @@ public class CorruptionManager : MonoBehaviour
 
     [SerializeField] private Image tierIcon;
     [SerializeField] private TMP_Text tierTxt;
+    [SerializeField] private TMP_Text buffInfo;
+    [SerializeField] private TMP_Text debuffInfo;
 
     [SerializeField] private Sprite tier1Icon;
     [SerializeField] private Sprite tier2Icon;
@@ -40,12 +42,9 @@ public class CorruptionManager : MonoBehaviour
     [SerializeField] private int currentCorruptionAmount = 0;
     [SerializeField] private int corruptionToNextTier;
 
-    private float corruption_DamageDoneMOD = 0f;
-    private float corruption_DamageTakenMOD = 0f;
-    private float corruption_CritDamageMultiplierMOD = 0f;
-    private int corruption_CritChanceMOD = 0;
-    private float corruption_MoveSpeedMOD = 0f;
-
+    private float addedDamageDone = 0f;
+    private float addedDamageTaken = 0f;
+    private float addedMoveSpeed = 0f;
     private float addedXP = 0f;
     private float addedGold = 0f;
 
@@ -156,6 +155,39 @@ public class CorruptionManager : MonoBehaviour
         corruptionToNextTier = Mathf.RoundToInt(corruptionAmountCurve.Evaluate(currentTier));
         currentCorruptionAmount = 0;
 
+    }
+
+
+
+    public void ShowCorruptionToolTip(){
+        switch (currentTier){
+            case 0:
+                buffInfo.text = "No buffs at Tier 0";
+                debuffInfo.text = "No debuffs at Tier 0";
+                break;
+
+
+            case 1:
+                buffInfo.text = $"+5% damage done \n+1% base luck";
+                debuffInfo.text = $"+5% damage taken";
+                break;
+
+
+            case 2:
+                break;
+
+
+            case 3:
+                break;
+
+
+            case 4:
+                break;
+
+
+            case 5:
+                break;
+        }
     }
     
 }
