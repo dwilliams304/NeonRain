@@ -36,10 +36,11 @@ public class DEVTools : MonoBehaviour
 
 
 #region AI Tools
-    public GameObject enemyPrefab;
+    public List<GameObject> enemyPrefabs;
     [SerializeField] private List<GameObject> spawners;
     // private List<GameObject> enemies;
     bool spawnersActive = true;
+    [SerializeField] TMP_Dropdown EnemySpawnDropDown;
 
 #endregion
 
@@ -67,7 +68,7 @@ public class DEVTools : MonoBehaviour
             }
 
             if(Input.GetKeyDown(KeyCode.Alpha1)){
-                SpawnEnemy(enemyPrefab, mousePos);
+                SpawnEnemy(mousePos);
             }
             if(Input.GetKeyDown(KeyCode.R)){
                 _lootManager.DropLoot(mousePos, 1);
@@ -96,8 +97,11 @@ public class DEVTools : MonoBehaviour
     }
     
     
-    
-    void SpawnEnemy(GameObject enemy, Vector3 position){
+    // public void SwitchEnemyToSpawn(GameObject selectedEnemy){
+    //     enemyPrefab = selectedEnemy;
+    // }
+    void SpawnEnemy(Vector3 position){
+        GameObject enemy = enemyPrefabs[EnemySpawnDropDown.value];
         Instantiate(enemy, position, Quaternion.identity);
     }
 
