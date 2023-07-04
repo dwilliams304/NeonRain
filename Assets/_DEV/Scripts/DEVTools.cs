@@ -37,6 +37,9 @@ public class DEVTools : MonoBehaviour
 
 #region AI Tools
     public GameObject enemyPrefab;
+    [SerializeField] private List<GameObject> spawners;
+    // private List<GameObject> enemies;
+    bool spawnersActive = true;
 
 #endregion
 
@@ -50,6 +53,7 @@ public class DEVTools : MonoBehaviour
         _lootManager = LootManager.lootManager;
         _playerStats = PlayerStats.playerStats;
         mainCam = Camera.main;
+        spawners.AddRange(GameObject.FindGameObjectsWithTag("Spawner"));
     }
 
 
@@ -95,5 +99,21 @@ public class DEVTools : MonoBehaviour
     
     void SpawnEnemy(GameObject enemy, Vector3 position){
         Instantiate(enemy, position, Quaternion.identity);
+    }
+
+
+    public void ToggleSpawners(){
+        spawnersActive = !spawnersActive;
+        foreach(GameObject spawner in spawners){
+            spawner.SetActive(spawnersActive);
+        }
+    }
+    public void RemoveAllEnemies(){
+        //enemies.AddRange(GameObject.FindGameObjectsWithTag("Enemy"));
+        List<GameObject> enemies = new List<GameObject>();
+        enemies.AddRange(GameObject.FindGameObjectsWithTag("Enemy"));
+        foreach(GameObject enemy in enemies){
+            Destroy(enemy);
+        }
     }
 }

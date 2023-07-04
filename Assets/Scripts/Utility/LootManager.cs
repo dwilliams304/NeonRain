@@ -34,7 +34,8 @@ public class LootManager : MonoBehaviour
     private int legendaryDropChance = 250;
     private int corruptedDropChance = 2500;
     private int uniqueDropChance = 1;
-
+    
+    public float AddedLuck = 0;
 
     private DEVTools _DEVTOOLS_;
 
@@ -53,7 +54,7 @@ public class LootManager : MonoBehaviour
 
         LootObject lootObj;
         float rarity = Random.Range(0, 100001);
-        rarity = Mathf.Ceil(rarity / additionalLuck);
+        rarity = Mathf.Ceil(rarity / additionalLuck + AddedLuck);
         if(rarity <= commonDropChance && rarity > uncommonDropChance){
             int i = Random.Range(0, CommonDrops.Count);
             lootPrefab = commonPrefab;

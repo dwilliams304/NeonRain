@@ -10,7 +10,13 @@ public class InfiniteSpawner : MonoBehaviour
 
     void Start(){
         currentPos = transform.position;
+        //StartCoroutine(SpawnEnemies());
+    }
+    void OnEnable(){
         StartCoroutine(SpawnEnemies());
+    }
+    void OnDisable(){
+        StopCoroutine(SpawnEnemies());
     }
 
     private IEnumerator SpawnEnemies(){
