@@ -68,7 +68,6 @@ public class CorruptionManager : MonoBehaviour
 
     public void AddCorruption(int amount){
         currentCorruptionAmount += amount;
-        Debug.Log("Added: " + amount + " // New corruption amount: " + currentCorruptionAmount);
         if(currentCorruptionAmount > corruptionToNextTier && currentTier != 5){
             currentTier++;
             ChangeCorruptionTier(currentTier);
@@ -125,7 +124,9 @@ public class CorruptionManager : MonoBehaviour
         currentCorruptionAmount = 0;
         currentTier = 0;
         corruptionToNextTier = Mathf.RoundToInt(corruptionAmountCurve.Evaluate(currentTier));
-
+        corruptionBar.maxValue = corruptionToNextTier;
+        corruptionBar.value = currentCorruptionAmount;
+        
         //Stat changes
         _playerStats.DamageDoneMod -= addedDamageDone;
         _playerStats.DamageTakenMod -= addedDamageTaken;

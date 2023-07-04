@@ -2218,10 +2218,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: ' The next build will be a better representation of the game''s true form.
-    With actual enemy A.I, art, sounds, the game will be in a more playable form
-    which will be exciting. If you''re reading this - thank you for testing and giving
-    feedback. I hope to see you stick around for the next build.'
+  m_text: Thank you for playing and if you're giving feedback, thank you for that
+    as well. This build is a more fleshed out idea and is the first public playtest
+    available which I'm excited about. A lot has been completed so far but there
+    is a lot to do still! Be on the lookout for future updates. :)
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

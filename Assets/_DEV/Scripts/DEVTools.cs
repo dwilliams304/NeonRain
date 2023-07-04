@@ -37,13 +37,31 @@ public class DEVTools : MonoBehaviour
 
 #region AI Tools
     public List<GameObject> enemyPrefabs;
-    [SerializeField] private List<GameObject> spawners;
-    // private List<GameObject> enemies;
-    bool spawnersActive = true;
     [SerializeField] TMP_Dropdown EnemySpawnDropDown;
+
+    [SerializeField] private List<GameObject> spawners;
+    bool spawnersActive = true;
 
 #endregion
 
+
+#region Player Stats
+    [SerializeField] TMP_Text playerDamageDone;
+    [SerializeField] TMP_Text playerDamageTaken;
+    [SerializeField] TMP_Text playerXPIncrease;
+    [SerializeField] TMP_Text playerLuckModifier;
+    [SerializeField] TMP_Text playerGoldModifier;
+    [SerializeField] TMP_Text playerCritChanceModifier;
+    [SerializeField] TMP_Text playerCritMultilpierModifier;
+    [SerializeField] TMP_Text playerMoveSpeed;
+    [SerializeField] TMP_Text playerCurrentHealth;
+    [SerializeField] TMP_Text playerCurrentXP;
+
+
+
+
+
+#endregion
 
     private Camera mainCam;
     private Vector2 mousePos;
@@ -64,7 +82,7 @@ public class DEVTools : MonoBehaviour
         //Debug.Log(mousePos);
         if(devToolsEnabled){
             if(Input.GetKey(KeyCode.F)){
-                UpdateLootUIPanel();
+                UpdateUIPanel();
             }
 
             if(Input.GetKeyDown(KeyCode.Alpha1)){
@@ -72,7 +90,7 @@ public class DEVTools : MonoBehaviour
             }
             if(Input.GetKeyDown(KeyCode.R)){
                 _lootManager.DropLoot(mousePos, 1);
-                UpdateLootUIPanel();
+                UpdateUIPanel();
             }
         }
         if(Input.GetKeyDown(KeyCode.BackQuote)){
@@ -87,20 +105,30 @@ public class DEVTools : MonoBehaviour
         _devToolsUIPanel.SetActive(devToolsEnabled);
     }
 
-    void UpdateLootUIPanel(){
+    public void UpdateUIPanel(){
+        //Loot UI Update
         commonTxt.text = $"Common: {amntCommonDrops} --> Avg: {amntCommonDrops / totalRolls * 100}%";
         uncommonTxt.text = $"Uncommon: {amntUncommonDrops} --> Avg: {amntUncommonDrops / totalRolls * 100}%";
         rareTxt.text = $"Rare: {amntRareDrops} --> Avg: {amntRareDrops / totalRolls * 100}%";
         corruptedTxt.text = $"Corrupted: {amntCorruptDrops} --> Avg: {amntCorruptDrops / totalRolls * 100}%";
         legendaryTxt.text = $"Legendary: {amntLegendaryDrops} --> Avg: {amntLegendaryDrops / totalRolls * 100}%";
         totalDrops.text = $"Total drops: {totalRolls}";
+
+        //Player stats Update
+        playerDamageDone.text = $"Damage done: {PlayerStats.playerStats.DamageDoneMod}x";
+        playerDamageTaken.text = $"Damage taken: {PlayerStats.playerStats.DamageTakenMod}x";
+        playerXPIncrease.text = $"XP Increase: {PlayerStats.playerStats.XPModifier}x";
+        playerLuckModifier.text = $"N/A";
+        playerGoldModifier.text = $"Gold modifier: {PlayerStats.playerStats.AdditionalGoldMod}x";
+        playerCritChanceModifier.text = $"Crit chance: {PlayerStats.playerStats.CritChanceMod}%";
+        playerCritMultilpierModifier.text = $"Crit multiplier: {PlayerStats.playerStats.CritDamageMod}x";
+        playerMoveSpeed.text = $"Move speed: {PlayerStats.playerStats.MoveSpeed}";
+        playerCurrentHealth.text = $"Current health: {PlayerStats.playerStats.CurrentHealth}";
+        playerCurrentXP.text = $"Current XP: {PlayerStats.playerStats.CurrentPlayerXP}";
     }
     
     
-    // public void SwitchEnemyToSpawn(GameObject selectedEnemy){
-    //     enemyPrefab = selectedEnemy;
-    // }
-    void SpawnEnemy(Vector3 position){
+    void SpawnEnemy(Vector3 position){ //Enemy in dropdown menu MUST match index in the list! -> Can be not so great in the future (but it's dev only who cares??!!)
         GameObject enemy = enemyPrefabs[EnemySpawnDropDown.value];
         Instantiate(enemy, position, Quaternion.identity);
     }
@@ -113,7 +141,6 @@ public class DEVTools : MonoBehaviour
         }
     }
     public void RemoveAllEnemies(){
-        //enemies.AddRange(GameObject.FindGameObjectsWithTag("Enemy"));
         List<GameObject> enemies = new List<GameObject>();
         enemies.AddRange(GameObject.FindGameObjectsWithTag("Enemy"));
         foreach(GameObject enemy in enemies){
