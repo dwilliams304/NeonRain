@@ -131,15 +131,15 @@ public class UIManager : MonoBehaviour
         weaponReloadSpeed.text = $"Reload speed: {weaponData.reloadSpeed}";
         weaponMagSize.text = $"Magazine size: {weaponData.magSize}";
         CheckDifferences(weaponData);
-        if(weaponData.rarity == Weapon.Rarity.common){
+        if(weaponData.rarity == Weapon.Rarity.Common){
             CommonWeaponColorSwap();
-        }else if(weaponData.rarity == Weapon.Rarity.uncommon){
+        }else if(weaponData.rarity == Weapon.Rarity.Uncommon){
             UncommonWeaponColorSwap();
-        }else if(weaponData.rarity == Weapon.Rarity.rare){
+        }else if(weaponData.rarity == Weapon.Rarity.Rare){
             RareWeaponColorSwap();
-        }else if(weaponData.rarity == Weapon.Rarity.corrupted){
+        }else if(weaponData.rarity == Weapon.Rarity.Corrupted){
             CorruptedWeaponColorSwap();
-        }else if(weaponData.rarity == Weapon.Rarity.legendary){
+        }else if(weaponData.rarity == Weapon.Rarity.Legendary){
             LegendaryWeaponColorSwap();
         }
         LeanTween.scaleX(weaponToolTipPanel, 1f, 0.15f);

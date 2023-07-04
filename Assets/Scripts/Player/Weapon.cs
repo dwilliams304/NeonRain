@@ -8,7 +8,7 @@ public class Weapon : ScriptableObject
     public string weaponName = "Default Weapon";
     public float minDamage = 5f;
     public float maxDamage = 10f;
-    public float critChance = 5f;
+    public int critChance = 5;
     public bool isCorrupted = false;
     public Sprite weaponSprite;
     public float fireRate = 0.5f;
@@ -20,19 +20,19 @@ public class Weapon : ScriptableObject
     public int currentWepTier;
 
     public enum Type{
-        pistol,
-        automaticRifle,
-        shotgun,
-        sniper
+        Pistol,
+        AutomaticRifle,
+        Shotgun,
+        Sniper
     }
 
     public enum Rarity{
-        common,
-        uncommon,
-        rare,
-        corrupted,
-        legendary,
-        unique
+        Common,
+        Uncommon,
+        Rare,
+        Corrupted,
+        Legendary,
+        Unique
     }
     public Rarity rarity;
     public Type type;
