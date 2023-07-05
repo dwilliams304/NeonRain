@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Pathfinding;
 
-public class ScaredyEnemy : EnemyAI
+public class RangedEnemy : EnemyAI
 {
     Enemy enemy;
 
@@ -11,27 +12,29 @@ public class ScaredyEnemy : EnemyAI
     // public GameObject bullet;
     public float projectileSpeed = 40f;
     public float maxDistance = 15f;
+    AIPath pathfinder;
+    AIDestinationSetter aIDestinationSetter;
 
     private Transform player;
     [SerializeField] private Transform _firePoint;
 
     void Start(){
         enemy = GetComponent<Enemy>();
+        pathfinder = GetComponent<AIPath>();
         enemyData = enemy.enemyData;
         player = GameObject.FindGameObjectWithTag("Player").transform;
-        moveSpeed = enemyData.moveSpeed;
+        // moveSpeed = enemyData.moveSpeed;
+        pathfinder.maxSpeed = enemyData.moveSpeed;
         attackRange = enemyData.attackRange;
+        pathfinder.endReachedDistance = maxDistance;
         attackSpeed = enemyData.attackSpeed;
+        aIDestinationSetter = GetComponent<AIDestinationSetter>();
+        aIDestinationSetter.target = player;
     }
 
     void Update(){
         RotateTowards(player.position);
-        if(Vector2.Distance(transform.position, player.position) < attackRange){
-            transform.position = Vector2.MoveTowards(transform.position, player.position, -moveSpeed * Time.deltaTime);
-        }else if(Vector2.Distance(transform.position, player.position) >= maxDistance){
-            transform.position = Vector2.MoveTowards(transform.position, player.position, moveSpeed * Time.deltaTime);
-        }
-        else if(Vector2.Distance(transform.position, player.position) >= attackRange && Vector2.Distance(transform.position, player.position) <= maxDistance){
+        if(Vector2.Distance(transform.position, player.position) <= maxDistance){
             if(Time.time > lastAttack + attackSpeed){
                 lastAttack = Time.time;
                 GameObject bullet = ObjectPooler.current.GetPooledEnemyBullet(); //Grab a bullet from the bullet pool
@@ -43,8 +46,7 @@ public class ScaredyEnemy : EnemyAI
             }
         }
     }
-
-    void RotateTowards(Vector2 target){
+        void RotateTowards(Vector2 target){
         Vector2 dir = (target - (Vector2)transform.position).normalized;
         var angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
         var offset = -90f;

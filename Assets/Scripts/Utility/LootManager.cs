@@ -54,7 +54,7 @@ public class LootManager : MonoBehaviour
 
         LootObject lootObj;
         float rarity = Random.Range(0, 100001);
-        rarity = Mathf.Ceil(rarity / additionalLuck + AddedLuck);
+        rarity = Mathf.Ceil(rarity / additionalLuck);
         if(rarity <= commonDropChance && rarity > uncommonDropChance){
             int i = Random.Range(0, CommonDrops.Count);
             lootPrefab = commonPrefab;

@@ -23,7 +23,6 @@ public class Enemy : MonoBehaviour
     [SerializeField] private PlayerStats _playerStats;
     [SerializeField] private GameObject floatingDmgTextPref;
     [SerializeField] private float dmgNumberYOffset;
-    public Transform target;
 
 
     void Start(){
