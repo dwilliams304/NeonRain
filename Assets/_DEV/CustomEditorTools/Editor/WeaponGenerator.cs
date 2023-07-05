@@ -6,7 +6,7 @@ using System.Collections;
 
 public class WeaponGenerator : EditorWindow
 {
-    int amountToCreate = 0;
+    int amountToCreate = 1;
     int weaponDamageVariance = 5;
     int critChanceVariance = 5;
     float fireRateVariance = 0.25f;

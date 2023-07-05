@@ -8,7 +8,7 @@ public class ScaredyEnemy : EnemyAI
 
     float lastAttack;
 
-    public GameObject bullet;
+    // public GameObject bullet;
     public float projectileSpeed = 40f;
     public float maxDistance = 15f;
 
@@ -34,12 +34,12 @@ public class ScaredyEnemy : EnemyAI
         else if(Vector2.Distance(transform.position, player.position) >= attackRange && Vector2.Distance(transform.position, player.position) <= maxDistance){
             if(Time.time > lastAttack + attackSpeed){
                 lastAttack = Time.time;
-                //TO-DO:
-                //Create pool of enemy bullets to improve performance.
-                //Potentially change damage output.
-                GameObject temp = Instantiate(bullet, _firePoint.position, _firePoint.rotation);
-                temp.GetComponent<EnemyProjectile>().damage = enemy.DoDamage();
-                temp.GetComponent<Rigidbody2D>().AddForce(_firePoint.up * projectileSpeed, ForceMode2D.Impulse);
+                GameObject bullet = ObjectPooler.current.GetPooledEnemyBullet(); //Grab a bullet from the bullet pool
+                if(bullet == null) return; //If we don't have any bullets, do nothing (SHOULDNT HAPPEN)
+                bullet.transform.position = _firePoint.position;
+                bullet.transform.rotation = _firePoint.rotation; //Set the bullet to instantiate where the firing point is
+                bullet.SetActive(true); //Set it active
+                bullet.GetComponent<Rigidbody2D>().AddForce(_firePoint.up * projectileSpeed, ForceMode2D.Impulse); //Add force to it
             }
         }
     }

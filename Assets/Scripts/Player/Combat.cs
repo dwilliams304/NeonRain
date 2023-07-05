@@ -78,7 +78,7 @@ public class Combat : MonoBehaviour
         if(currentAmmo > 0){ //Do we have ammo?
             if(Time.time > lastShot + rangedFireRate){ //If the last time we shot was more than the fire rate, we can shoot.
                 lastShot = Time.time; //Start timer for the last time we shot
-                GameObject bullet = BulletPooler.current.GetPooledBullet(); //Grab a bullet from the bullet pool
+                GameObject bullet = ObjectPooler.current.GetPooledPlayerBullet(); //Grab a bullet from the bullet pool
                 if(bullet == null) return; //If we don't have any bullets, do nothing (SHOULDNT HAPPEN)
                 bullet.transform.position = _firePoint.position;
                 bullet.transform.rotation = _firePoint.rotation; //Set the bullet to instantiate where the firing point is
