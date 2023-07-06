@@ -67,6 +67,7 @@ public class PlayerController : MonoBehaviour
         rb.velocity = new Vector2(moveDir.x * _playerStats.DashSpeed, moveDir.y * _playerStats.DashSpeed);
         yield return new WaitForSeconds(_playerStats.DashDuration);
         _isDashing = false;
+        UIManager.uiManagement.DashCoolDownBar(_playerStats.DashCoolDown);
         yield return new WaitForSeconds(_playerStats.DashCoolDown);
         _canDash = true;
     }

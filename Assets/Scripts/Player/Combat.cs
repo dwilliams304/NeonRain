@@ -1,6 +1,6 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class Combat : MonoBehaviour
 {
@@ -93,6 +93,7 @@ public class Combat : MonoBehaviour
 
     public IEnumerator Reload(){
         isReloading = true; //Can't shoot while reloading, prevent that!
+        uiManager.ReloadBar(rangedReloadSpeed);
         yield return new WaitForSeconds(rangedReloadSpeed); //Wait as long as the weapon's reload speed is
         currentAmmo = magSize; //Set our ammo to be equal to the max magazine size for the weapon
         isReloading = false; //They can reload again!

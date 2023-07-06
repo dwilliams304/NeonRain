@@ -18,6 +18,10 @@ public class UIManager : MonoBehaviour
     [SerializeField] TMP_Text _playerLevelText;
     [SerializeField] TMP_Text _playerAmmo;
     [SerializeField] TMP_Text _goldAmount;
+    [SerializeField] TMP_Text _ammoText;
+    [SerializeField] GameObject _ammoTextObject;
+    [SerializeField] GameObject _dashCoolDownObject;
+    [SerializeField] GameObject _reloadBarObject;
 
 
     [Header("Boss UI")]
@@ -92,6 +96,25 @@ public class UIManager : MonoBehaviour
 
     public void UpdateAmmo(int currentAmmo, int magSize){
         _playerAmmo.text = $"{currentAmmo} / {magSize}";
+        if(currentAmmo == 0){
+            _ammoText.text = "No ammo!";
+            _ammoText.color = Color.red;
+        }else if(currentAmmo <= 7){
+            _ammoText.text = "Low ammo!";
+            _ammoText.color = Color.yellow;
+            _ammoTextObject.SetActive(true);
+        }else{
+            _ammoTextObject.SetActive(false);
+        }
+    }
+
+    public void DashCoolDownBar(float coolDownTime){
+        _dashCoolDownObject.LeanScaleX(0.02f, 0);
+        _dashCoolDownObject.LeanScaleX(0, coolDownTime);
+    }
+    public void ReloadBar(float reloadSpeed){
+        _reloadBarObject.LeanScaleX(0.02f, 0);
+        _reloadBarObject.LeanScaleX(0, reloadSpeed);
     }
 
     public void UpdateGoldUI(float playerGold){
@@ -101,6 +124,7 @@ public class UIManager : MonoBehaviour
     public void LoseGameUI(){
         loseUIPanel.SetActive(true);
     }
+
 
     void PauseGame(){
         isPaused = !isPaused;

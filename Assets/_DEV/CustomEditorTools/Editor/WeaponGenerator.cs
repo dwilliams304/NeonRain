@@ -55,7 +55,7 @@ public class WeaponGenerator : EditorWindow
 
         GUILayout.Label("Weapon Attributes", EditorStyles.boldLabel);
         minDamage = EditorGUILayout.FloatField("Minimum Damage", minDamage);
-        maxDamage = EditorGUILayout.FloatField("Minimum Damage", maxDamage);
+        maxDamage = EditorGUILayout.FloatField("Maximum Damage", maxDamage);
         critChance = EditorGUILayout.IntField("Crit Chance", critChance);
         fireRate = EditorGUILayout.FloatField("Fire rate", fireRate);
         reloadSpeed = EditorGUILayout.FloatField("Reload Speed", reloadSpeed);
