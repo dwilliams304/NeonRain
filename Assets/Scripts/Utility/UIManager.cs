@@ -56,6 +56,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject pauseGamePanel;
     [SerializeField] private GameObject abilityUpgradePanel;
 
+
     bool isPaused = false;
     bool upgradePanelActive = false;
 
@@ -69,7 +70,15 @@ public class UIManager : MonoBehaviour
         //_playerLevel.text = "Lv. " + _playerStats.CurrentLevel.ToString();
         _playerHealthBar.maxValue = _playerStats.PlayerMaxHealth;
         _playerHealthBar.value = _playerStats.PlayerMaxHealth;
+        UpdateHealthBar();
         UpdateGoldUI(0);
+    }
+
+    void OnEnable(){
+        
+    }
+    void OnDisable(){
+        
     }
 
     void Update(){
