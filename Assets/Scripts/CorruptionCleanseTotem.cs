@@ -6,6 +6,13 @@ public class CorruptionCleanseTotem : MonoBehaviour
 {
     bool playerIn = false;
 
+    [SerializeField] private List<GameObject> otherSpawns;
+
+    void Start(){
+        otherSpawns.AddRange(GameObject.FindGameObjectsWithTag("CorruptionTotem"));
+        
+    }
+
     void OnTriggerEnter2D(Collider2D coll){
         if(coll.CompareTag("Player")){
             playerIn = true;
@@ -17,7 +24,10 @@ public class CorruptionCleanseTotem : MonoBehaviour
         if(playerIn){
             if(Input.GetKey(KeyCode.E)){
                 CorruptionManager.Instance.ChangeCorruptionTier(0);
-                Destroy(gameObject);
+                int i = Random.Range(0, otherSpawns.Count);
+                GameObject whereToGo = otherSpawns[i];
+                gameObject.transform.position = whereToGo.transform.position;
+                gameObject.transform.rotation = whereToGo.transform.rotation;
             }
         }
     }
