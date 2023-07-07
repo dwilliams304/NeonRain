@@ -44,14 +44,12 @@ public class ObjectPooler : MonoBehaviour
             GameObject playerBullet = Instantiate(playerBulletObj);
             playerBullet.SetActive(false);
             pooledPlayerBullets.Add(playerBullet);
-            playerBullet.transform.parent = gameObject.transform;
         }
 
         for(int i = 0; i < enemyBulletsAmnt; i++){
             GameObject enemyBullet = Instantiate(enemyBulletObj);
             enemyBullet.SetActive(false);
             pooledEnemyBullets.Add(enemyBullet);
-            enemyBullet.transform.parent = gameObject.transform;
         }
     }
 

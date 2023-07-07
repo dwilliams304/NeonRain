@@ -37,7 +37,6 @@ public class PlayerStats : MonoBehaviour
     public float DamageTakenMod = 1f;
     public float CritDamageMod = 3f;
     public float MoveSpeedMod = 1f;
-    public float XPModifier = 1f;
     public float AdditionalGoldMod = 1f;
     
 
@@ -64,11 +63,16 @@ public class PlayerStats : MonoBehaviour
     }
 
     public void IncrementExperience(int xpAmnt){
-        CurrentPlayerXP += Mathf.CeilToInt(xpAmnt * XPModifier);
+        CurrentPlayerXP += xpAmnt;
         if(CurrentPlayerXP >= ExperienceToNextLevel){
             int overflow = CurrentPlayerXP - ExperienceToNextLevel;
             IncreaseLevel(overflow);
         }
+        UIManager.uiManagement.UpdateXPBar(ExperienceToNextLevel, CurrentPlayerXP, CurrentLevel);
+    }
+
+    public void DEV_IncreaseLevel(){
+        IncreaseLevel(0);
         UIManager.uiManagement.UpdateXPBar(ExperienceToNextLevel, CurrentPlayerXP, CurrentLevel);
     }
 
