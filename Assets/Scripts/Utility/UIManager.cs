@@ -55,6 +55,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject loseUIPanel;
     [SerializeField] private GameObject pauseGamePanel;
     [SerializeField] private GameObject abilityUpgradePanel;
+    [SerializeField] private GameObject weaponSwapPanel;
 
     float currentTimeScale;
     bool isPaused = false;
@@ -76,6 +77,9 @@ public class UIManager : MonoBehaviour
 
     void Update(){
         if(Input.GetKeyDown(KeyCode.Escape)){
+            if(weaponSwapPanel.activeInHierarchy){
+                return;
+            }
             PauseGame();
         }
         else if(Input.GetKeyDown(KeyCode.Tab)){

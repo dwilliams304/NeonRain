@@ -32,7 +32,8 @@ public class XPManager : MonoBehaviour
     }
     void AddedXPText(int amount){
         GameObject temp = Instantiate(xpIncreaseTextPrefab, xpIncreaseLocation.transform.position, Quaternion.identity);
-        temp.transform.parent = UI.transform;
+        // temp.transform.parent = UI.transform;
+        temp.transform.SetParent(UI.transform, true);
         TMP_Text text = temp.GetComponentInChildren<TMP_Text>();
         text.text = $"+{amount}";
     }

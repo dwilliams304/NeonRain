@@ -10,11 +10,16 @@ public class LootInteractor : MonoBehaviour
     public static WeaponSwapInitiated wepSwapInitiated;
     bool lootChecked = false;
 
+    Collider2D[] colliders2D;
+    [SerializeField] List<LootObject> lootObjs;
+
     void OnEnable(){
-        WeaponSwapper.wepSwapComplete += Done;
+        WeaponSwapper.wepSwapComplete += Confirm;
+        WeaponSwapper.wepSwapCancelled += Cancel;
     }
     void OnDisable(){
-        WeaponSwapper.wepSwapComplete -= Done;
+        WeaponSwapper.wepSwapComplete -= Confirm;
+        WeaponSwapper.wepSwapCancelled -= Cancel;
     }
 
     void Update(){
@@ -25,22 +30,41 @@ public class LootInteractor : MonoBehaviour
         }
     }
 
-    void Done(){
-        possibleWeaponCount = 0;
-        possibleWeapons.Clear();
+    void Confirm(int idx){
+        LootObject o = lootObjs[idx];
+        lootObjs.RemoveAt(idx);
+        Destroy(o.gameObject);
+        ClearLootAndWeaponList();
         lootChecked = false;
     }
+    void Cancel(){
+        ClearLootAndWeaponList();
+        lootChecked = false;
+    }
+
     void CheckForWeapons(){
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, 2f);
-        foreach(Collider2D coll in colliders){
+        colliders2D = Physics2D.OverlapCircleAll(transform.position, 2f);
+        foreach(Collider2D coll in colliders2D){
             if(coll.CompareTag("Loot")){
                 lootChecked = true;
                 coll.TryGetComponent(out LootObject wep);
-                Destroy(wep.gameObject); //Change to set active when pooling (if implemented)
-                possibleWeapons.Add(wep.weaponData);
-                //wepSwapper.ShowUI(possibleWeapons, possibleWeaponCount);
+                AddLootToList(wep);
+                AddToListOfWeapons(wep.weaponData);
                 wepSwapInitiated?.Invoke(possibleWeapons, possibleWeaponCount);
             }
         }
+    }
+
+    void AddLootToList(LootObject obj){
+        lootObjs.Add(obj);
+    }
+    void AddToListOfWeapons(Weapon wep){
+        possibleWeapons.Add(wep);
+    }
+
+    void ClearLootAndWeaponList(){
+        possibleWeaponCount = 0;
+        lootObjs.Clear();
+        possibleWeapons.Clear();
     }
 }

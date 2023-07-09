@@ -17,8 +17,10 @@ public class CorruptionManager : MonoBehaviour
     //Events
     public delegate void CorruptionIncrease(int newTier);
     public delegate void CorruptionCleansed();
+    public delegate void MoveSpeedIncreased(float pct);
     public static CorruptionIncrease corruptionIncrease;
     public static CorruptionCleansed corruptionCleansed;
+    public static MoveSpeedIncreased moveSpeedIncreased;
     
     [Header("Assign Global Volume")]
     [SerializeField] CorruptionPostProcessing postProcess;
@@ -152,10 +154,14 @@ public class CorruptionManager : MonoBehaviour
         _playerStats.DamageDoneMod -= addedDamageDone;
         _playerStats.DamageTakenMod -= addedDamageTaken;
         XPManager.Instance.XPModifier -= addedXP;
+        moveSpeedIncreased?.Invoke(-addedMoveSpeed);
+
+        //Reset all values
         addedLuck = 0;
         addedDamageDone = 0;
         addedDamageTaken = 0;
         addedXP = 0;
+        addedMoveSpeed = 0;
     }
     void TierOne(){
         //UI Changes
@@ -247,11 +253,14 @@ public class CorruptionManager : MonoBehaviour
         //Stat changes
 
         addedDamageDone += 0.5f; //100%
-        addedDamageTaken += .75f; //150%
+        addedDamageTaken += 1.25f; //200%
         addedXP += 1f; //200%
+        addedMoveSpeed += 8f;
 
         _playerStats.DamageDoneMod += 0.5f;
         _playerStats.DamageTakenMod += 0.75f;
+        _playerStats.MoveSpeedMod += 0.3f;
+        moveSpeedIncreased?.Invoke(addedMoveSpeed);
         XPManager.Instance.XPModifier += 1f;
 
     }

@@ -5,7 +5,9 @@ using TMPro;
 public class WeaponSwapper : MonoBehaviour
 {
 
-    public delegate void WeaponSwapComplete();
+    public delegate void WeaponSwapComplete(int idx);
+    public delegate void WeaponSwapCancelled();
+    public static WeaponSwapCancelled wepSwapCancelled;
     public static WeaponSwapComplete wepSwapComplete;
 
     [Header("Scripts To Assign")]
@@ -14,6 +16,7 @@ public class WeaponSwapper : MonoBehaviour
 
     [Header("Weapon Swap Panel")]
     [SerializeField] GameObject panel;
+    [SerializeField] GameObject blackOut;
 
     [Header("Info UI")]
     [SerializeField] TMP_Text amountOfWeapons;
@@ -53,10 +56,10 @@ public class WeaponSwapper : MonoBehaviour
         // inventory = Inventory.Instance;
     }
     void OnEnable(){
-        LootInteractor.wepSwapInitiated += ShowUI;
+        LootInteractor.wepSwapInitiated += OpenPanel;
     }
     void OnDisable(){
-        LootInteractor.wepSwapInitiated -= ShowUI;
+        LootInteractor.wepSwapInitiated -= OpenPanel;
     }
 
 
@@ -74,7 +77,7 @@ public class WeaponSwapper : MonoBehaviour
                 inventory.SwapWeapon(otherWeaponObject);
                 WeaponSwapConfirm();
             }else if(Input.GetKeyDown(KeyCode.Escape)){
-                HideUI();
+                WeaponSwapCancel();
             }
             // else if(Input.GetKeyDown(KeyCode.Escape)){
             //     panelActive = false;
@@ -83,43 +86,41 @@ public class WeaponSwapper : MonoBehaviour
         }
     }
 
-    public void ShowUI(List<Weapon> wepList, int amnt){
+    void OpenPanel(List<Weapon> wepList, int amnt){
         //UI Elements
         panelActive = true;
         panel.SetActive(true);
+        blackOut.SetActive(true);
         weapons = wepList;
         currentWeaponIndex = 0;
         weaponCount = amnt;
         currentWeaponObject = inventory.weapon;
         otherWeaponObject = weapons[currentWeaponIndex];
         UpdateUI(currentWeaponIndex, otherWeaponObject);
-        curWepName.text = currentWeaponObject.weaponName;
-        curWepType.text = currentWeaponObject.type.ToString();
-        curWepDmg.text = $"Damage: {currentWeaponObject.minDamage} - {currentWeaponObject.maxDamage}";
-        curWepFR.text = $"Fire Rate: {currentWeaponObject.fireRate}";
-        curWepCritChance.text = $"Crit Chance: {currentWeaponObject.critChance}";
-        curWepRS.text = $"Reload Speed: {currentWeaponObject.reloadSpeed}";
-        curWepMag.text = $"Mag Size: {currentWeaponObject.magSize}";
-        curWepTier.text = currentWeaponObject.currentWepTier.ToString();
         Time.timeScale = 0f;
     }
+
+
+
+    void WeaponSwapConfirm(){
+        wepSwapComplete?.Invoke(currentWeaponIndex);
+        HideUI();
+    }
+
+    void WeaponSwapCancel(){
+        wepSwapCancelled?.Invoke();
+        HideUI();
+    }
+
     void HideUI(){
         panelActive = false;
         panel.SetActive(false);
-        Time.timeScale = 1f;
-    }
-
-    void WeaponSwapConfirm(){
-        wepSwapComplete?.Invoke();
-        // LootInteractor.Instance.possibleWeapons.Clear();
-        panelActive = false;
-        panel.SetActive(false);
+        blackOut.SetActive(false);
         weapons.Clear();
         currentWeaponIndex = 0;
         otherWeaponObject = null;
         Time.timeScale = 1f;
     }
-
 
     void UpdateUI(int idx, Weapon otherWep){
         amountOfWeapons.text = $"{idx + 1} out of {weapons.Count}";
@@ -131,32 +132,37 @@ public class WeaponSwapper : MonoBehaviour
         otherWepRS.text = $"Reload Speed: {otherWeaponObject.reloadSpeed}";
         otherWepMag.text = $"Mag Size: {otherWeaponObject.magSize}";
         otherWepTier.text = otherWeaponObject.currentWepTier.ToString();
+
+        curWepName.text = currentWeaponObject.weaponName;
+        curWepType.text = currentWeaponObject.type.ToString();
+        curWepDmg.text = $"Damage: {currentWeaponObject.minDamage} - {currentWeaponObject.maxDamage}";
+        curWepFR.text = $"Fire Rate: {currentWeaponObject.fireRate}";
+        curWepCritChance.text = $"Crit Chance: {currentWeaponObject.critChance}";
+        curWepRS.text = $"Reload Speed: {currentWeaponObject.reloadSpeed}";
+        curWepMag.text = $"Mag Size: {currentWeaponObject.magSize}";
+        curWepTier.text = currentWeaponObject.currentWepTier.ToString();
     }
 
 
     public void ShowNextWeapon(){
         if(currentWeaponIndex == weapons.Count - 1){
             currentWeaponIndex = 0;
-            otherWeaponObject = weapons[currentWeaponIndex];
-            UpdateUI(currentWeaponIndex, otherWeaponObject);
         }else{
             currentWeaponIndex++;
-            otherWeaponObject = weapons[currentWeaponIndex];
-            UpdateUI(currentWeaponIndex, otherWeaponObject);
         }
+        otherWeaponObject = weapons[currentWeaponIndex];
+        UpdateUI(currentWeaponIndex, otherWeaponObject);
     }  
     public void ShowPreviousWeapon(){
         if(currentWeaponIndex == 0){
-            currentWeaponIndex = weapons.Count;
-            currentWeaponIndex--;
-            otherWeaponObject = weapons[currentWeaponIndex];
-            UpdateUI(currentWeaponIndex, otherWeaponObject);
+            currentWeaponIndex = weapons.Count - 1;
+            // currentWeaponIndex--;
         }else{
             currentWeaponIndex--;
-            otherWeaponObject = weapons[currentWeaponIndex];
-            UpdateUI(currentWeaponIndex, otherWeaponObject);
 
         }
+        otherWeaponObject = weapons[currentWeaponIndex];
+        UpdateUI(currentWeaponIndex, otherWeaponObject);
 
     }
 

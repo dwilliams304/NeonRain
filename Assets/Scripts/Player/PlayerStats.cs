@@ -24,7 +24,7 @@ public class PlayerStats : MonoBehaviour
     [Header("PlayerXP")]
     public int CurrentLevel = 1;
     public int CurrentPlayerXP = 0;
-    public int ExperienceToNextLevel = 100;
+    public int ExperienceToNextLevel = 250;
     [SerializeField] private AnimationCurve xpScaling;
 
     [Header("Gold")]
@@ -47,14 +47,19 @@ public class PlayerStats : MonoBehaviour
 
     void OnEnable(){
         XPManager.Instance.onXPChange += IncrementExperience;
+        CorruptionManager.moveSpeedIncreased += ModifyMoveSpeed;
+    }
+    void OnDisable(){
+        XPManager.Instance.onXPChange -= IncrementExperience;
+        CorruptionManager.moveSpeedIncreased -= ModifyMoveSpeed;
     }
 
     void Start(){
         UIManager.uiManagement.UpdateXPBar(ExperienceToNextLevel, CurrentPlayerXP, CurrentLevel);
     }
 
-    public void ModifyMoveSpeed(float mod){
-        MoveSpeed *= mod;
+    void ModifyMoveSpeed(float mod){
+        MoveSpeed += mod;
     }
 
     public void AddGold(int amount){
@@ -91,13 +96,11 @@ public class PlayerStats : MonoBehaviour
     public void TakeDamage(float damage){
         CurrentHealth -= Mathf.Ceil(damage * DamageTakenMod);
         if(CurrentHealth <= 0){
-            PlayerDied();
+            onPlayerDeath?.Invoke();
         }
         UIManager.uiManagement.UpdateHealthBar();
     }
 
 
-    void PlayerDied(){
-        onPlayerDeath?.Invoke();
-    }
+
 }
