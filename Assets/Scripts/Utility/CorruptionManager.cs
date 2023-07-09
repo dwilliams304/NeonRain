@@ -15,12 +15,12 @@ public class CorruptionManager : MonoBehaviour
     public static CorruptionManager Instance;
     
     //Events
-    public delegate void CorruptionIncrease(int newTier);
+    public delegate void CorruptionTierIncrease(int newTier);
     public delegate void CorruptionCleansed();
-    public delegate void MoveSpeedIncreased(float pct);
-    public static CorruptionIncrease corruptionIncrease;
+    public delegate void ModifyMoveSpeed(float amnt);
+    public static CorruptionTierIncrease corruptionTierIncrease;
     public static CorruptionCleansed corruptionCleansed;
-    public static MoveSpeedIncreased moveSpeedIncreased;
+    public static ModifyMoveSpeed moveSpeedModifier;
     
     [Header("Assign Global Volume")]
     [SerializeField] CorruptionPostProcessing postProcess;
@@ -82,7 +82,7 @@ public class CorruptionManager : MonoBehaviour
         
     }
 
-
+    //Only needs public because of the DevMenu
     public void AddCorruption(int amount){
         currentCorruptionAmount += amount;
         if(currentCorruptionAmount >= corruptionToNextTier && currentTier != 5){
@@ -115,7 +115,7 @@ public class CorruptionManager : MonoBehaviour
         }
     }
     public void ChangeCorruptionTier(int tier){
-        corruptionIncrease?.Invoke(tier);
+        corruptionTierIncrease?.Invoke(tier);
         switch(tier){
             case 0:
                 TierZero();
@@ -154,7 +154,7 @@ public class CorruptionManager : MonoBehaviour
         _playerStats.DamageDoneMod -= addedDamageDone;
         _playerStats.DamageTakenMod -= addedDamageTaken;
         XPManager.Instance.XPModifier -= addedXP;
-        moveSpeedIncreased?.Invoke(-addedMoveSpeed);
+        moveSpeedModifier?.Invoke(-addedMoveSpeed);
 
         //Reset all values
         addedLuck = 0;
@@ -260,7 +260,7 @@ public class CorruptionManager : MonoBehaviour
         _playerStats.DamageDoneMod += 0.5f;
         _playerStats.DamageTakenMod += 0.75f;
         _playerStats.MoveSpeedMod += 0.3f;
-        moveSpeedIncreased?.Invoke(addedMoveSpeed);
+        moveSpeedModifier?.Invoke(addedMoveSpeed);
         XPManager.Instance.XPModifier += 1f;
 
     }

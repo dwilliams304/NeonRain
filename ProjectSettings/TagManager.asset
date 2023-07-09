@@ -48,6 +48,12 @@ TagManager:
   - name: Pointer
     uniqueID: 2874770995
     locked: 0
+  - name: Decals
+    uniqueID: 2943763029
+    locked: 0
+  - name: Extra
+    uniqueID: 3435514649
+    locked: 0
   - name: Player
     uniqueID: 3775041465
     locked: 0

@@ -10,11 +10,6 @@ public class PlayerStats : MonoBehaviour
     public delegate void HandlePlayerDeath();
     public static HandleLevelIncrease handleLevelIncrease;
     public static HandlePlayerDeath onPlayerDeath;
-    [Header("Movement")]
-    public float MoveSpeed = 7f;
-    public float DashSpeed = 20f;
-    public float DashDuration = .2f;
-    public float DashCoolDown = 1f;
 
     [Header("Health")]
     public float PlayerMaxHealth = 100;
@@ -49,26 +44,24 @@ public class PlayerStats : MonoBehaviour
 
     void OnEnable(){
         XPManager.Instance.onXPChange += IncrementExperience;
-        CorruptionManager.moveSpeedIncreased += ModifyMoveSpeed;
+        HealthPotion.addHealth += IncreaseHealth;
     }
     void OnDisable(){
         XPManager.Instance.onXPChange -= IncrementExperience;
-        CorruptionManager.moveSpeedIncreased -= ModifyMoveSpeed;
+        HealthPotion.addHealth -= IncreaseHealth;
     }
 
     void Start(){
         UIManager.uiManagement.UpdateXPBar(ExperienceToNextLevel, CurrentPlayerXP, CurrentLevel);
     }
 
-    void ModifyMoveSpeed(float mod){
-        MoveSpeed += mod;
-    }
 
-    public void AddGold(int amount){
+    void AddGold(int amount){
         PlayerGold += Mathf.CeilToInt(amount * AdditionalGoldMod);
         UIManager.uiManagement.UpdateGoldUI(PlayerGold);
     }
 
+    //Only public for Dev Tool
     public void IncrementExperience(int xpAmnt){
         CurrentPlayerXP += xpAmnt;
         if(CurrentPlayerXP >= ExperienceToNextLevel){
@@ -77,7 +70,7 @@ public class PlayerStats : MonoBehaviour
         }
         UIManager.uiManagement.UpdateXPBar(ExperienceToNextLevel, CurrentPlayerXP, CurrentLevel);
     }
-
+    //Dev Tool Only
     public void DEV_IncreaseLevel(){
         IncreaseLevel(0);
         UIManager.uiManagement.UpdateXPBar(ExperienceToNextLevel, CurrentPlayerXP, CurrentLevel);
@@ -93,6 +86,14 @@ public class PlayerStats : MonoBehaviour
         ExperienceToNextLevel = Mathf.RoundToInt(xpScaling.Evaluate(CurrentLevel));
         UIManager.uiManagement.UpdateHealthBar();
         handleLevelIncrease?.Invoke();
+    }
+
+
+    void IncreaseHealth(int amount, int amntOfPots){
+        CurrentHealth += amount;
+        if(CurrentHealth > PlayerMaxHealth){
+            CurrentHealth = PlayerMaxHealth;
+        }
     }
 
     public void TakeDamage(float damage){

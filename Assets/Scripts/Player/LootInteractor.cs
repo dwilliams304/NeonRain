@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class LootInteractor : MonoBehaviour
 {    
-    [SerializeField] private List<Weapon> possibleWeapons;
     private int possibleWeaponCount = 0;
 
     public delegate void WeaponSwapInitiated(List<Weapon> weapons, int weaponCount);
@@ -11,7 +10,8 @@ public class LootInteractor : MonoBehaviour
     bool lootChecked = false;
 
     Collider2D[] colliders2D;
-    [SerializeField] List<LootObject> lootObjs;
+    private List<Weapon> possibleWeapons = new List<Weapon>();
+    private List<LootObject> lootObjs = new List<LootObject>();
 
     void OnEnable(){
         WeaponSwapper.wepSwapComplete += Confirm;

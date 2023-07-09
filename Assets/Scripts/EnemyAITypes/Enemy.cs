@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using TMPro;
 
 public class Enemy : MonoBehaviour
@@ -55,7 +52,7 @@ public class Enemy : MonoBehaviour
             if(rollDice <= _dropChance){
                 LootManager.lootManager.DropLoot(transform.position, baseLuck);
             }
-            _playerStats.AddGold(_goldDrop);
+            // _playerStats.AddGold(_goldDrop);
             XPManager.Instance.AddExperience(Mathf.CeilToInt(_xpAmount));
             CorruptionManager.Instance.AddCorruption(_corruptionDrop);
             Destroy(gameObject);

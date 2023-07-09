@@ -17,10 +17,10 @@ public class CorruptionPostProcessing : MonoBehaviour
     [SerializeField] private Color vignette4;
     [SerializeField] private Color vignette5;
     void OnEnable(){
-        CorruptionManager.corruptionIncrease += ChangePostProcessing;
+        CorruptionManager.corruptionTierIncrease += ChangePostProcessing;
     }
     void OnDisable(){
-        CorruptionManager.corruptionIncrease -= ChangePostProcessing;
+        CorruptionManager.corruptionTierIncrease -= ChangePostProcessing;
     }
 
     void Start(){
@@ -35,29 +35,30 @@ public class CorruptionPostProcessing : MonoBehaviour
             v.color.Override(vignette0);
             c.intensity.value = 0f;
                 break;
+                
             case 1:
             v.color.Override(vignette1);
             c.intensity.value = 0.05f;
                 break;
+
             case 2:
             v.color.Override(vignette2);
             c.intensity.value = 0.1f;
-
                 break;
+
             case 3:
             v.color.Override(vignette3);
             c.intensity.value = 0.15f;
-
                 break;
+
             case 4:
             v.color.Override(vignette4);
             c.intensity.value = 0.2f;
-
                 break;
+
             case 5:
             v.color.Override(vignette5);
             c.intensity.value = 0.25f;
-
                 break;
         }
     }

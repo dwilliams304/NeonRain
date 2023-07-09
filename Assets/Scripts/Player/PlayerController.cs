@@ -7,30 +7,45 @@ public class PlayerController : MonoBehaviour
     public Rigidbody2D rb;
     public Camera mainCam;
 
-    [SerializeField] private PlayerStats _playerStats;
-
     Vector2 moveDir;
     Vector2 mousePos;
 
-    private float _moveSpeed;
+    //MoveSpeed
+    private float _moveSpeed = 7f;
+
+    //Dash variables
+    private float _dashSpeed = 20f;
+    private float _dashDuration = 0.2f;
+    private float _dashCoolDown = 1f;
     private bool _isDashing;
     private bool _canDash;
 
+
+
+
     public bool isReloading = false;
-    void Awake(){
-        //_playerStats = PlayerStats.playerStats;
-        //_combat = Combat.combat;
+
+    void OnEnable(){
+        CorruptionManager.moveSpeedModifier += ChangeMoveSpeed;
+    }
+    void OnDisable(){
+        CorruptionManager.moveSpeedModifier -= ChangeMoveSpeed;
     }
 
+
+
     void Start(){
-        _moveSpeed = _playerStats.MoveSpeed;
         _canDash = true;
-        
+    }
+
+    void ChangeMoveSpeed(float moveSpeedModifier){
+        _moveSpeed += moveSpeedModifier;
     }
 
 
     void Update(){
         mousePos = mainCam.ScreenToWorldPoint(Input.mousePosition);
+        
         if(_isDashing){
             return;
         }
@@ -54,7 +69,7 @@ public class PlayerController : MonoBehaviour
         if(_isDashing){
             return;
         }
-        rb.velocity = new Vector2(moveDir.x * PlayerStats.playerStats.MoveSpeed, moveDir.y * PlayerStats.playerStats.MoveSpeed);
+        rb.velocity = new Vector2(moveDir.x * _moveSpeed, moveDir.y * _moveSpeed);
 
 
     }
@@ -63,11 +78,11 @@ public class PlayerController : MonoBehaviour
     private IEnumerator Dash(){
         _canDash = false;
         _isDashing = true;
-        rb.velocity = new Vector2(moveDir.x * _playerStats.DashSpeed, moveDir.y * _playerStats.DashSpeed);
-        yield return new WaitForSeconds(_playerStats.DashDuration);
+        rb.velocity = new Vector2(moveDir.x * _dashSpeed, moveDir.y * _dashSpeed);
+        yield return new WaitForSeconds(_dashDuration);
         _isDashing = false;
-        UIManager.uiManagement.DashCoolDownBar(_playerStats.DashCoolDown);
-        yield return new WaitForSeconds(_playerStats.DashCoolDown);
+        UIManager.uiManagement.DashCoolDownBar(_dashCoolDown);
+        yield return new WaitForSeconds(_dashCoolDown);
         _canDash = true;
     }
 }

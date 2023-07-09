@@ -124,7 +124,7 @@ public class DEVTools : MonoBehaviour
         playerGoldModifier.text = $"Gold modifier: {PlayerStats.playerStats.AdditionalGoldMod}x";
         playerCritChanceModifier.text = $"Crit chance: {PlayerStats.playerStats.CritChanceMod}%";
         playerCritMultilpierModifier.text = $"Crit multiplier: {PlayerStats.playerStats.CritDamageMod}x";
-        playerMoveSpeed.text = $"Move speed: {PlayerStats.playerStats.MoveSpeed}";
+        // playerMoveSpeed.text = $"Move speed: {PlayerController.MoveSpeed}";
         playerCurrentHealth.text = $"Current health: {PlayerStats.playerStats.CurrentHealth}";
         playerCurrentXP.text = $"Current XP: {PlayerStats.playerStats.CurrentPlayerXP}";
     }
