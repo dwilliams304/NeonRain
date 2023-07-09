@@ -259,7 +259,6 @@ public class CorruptionManager : MonoBehaviour
 
         _playerStats.DamageDoneMod += 0.5f;
         _playerStats.DamageTakenMod += 0.75f;
-        _playerStats.MoveSpeedMod += 0.3f;
         moveSpeedModifier?.Invoke(addedMoveSpeed);
         XPManager.Instance.XPModifier += 1f;
 

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerStats : MonoBehaviour
@@ -31,7 +29,6 @@ public class PlayerStats : MonoBehaviour
     public float DamageDoneMod = 1f;
     public float DamageTakenMod = 1f;
     public float CritDamageMod = 3f;
-    public float MoveSpeedMod = 1f;
     public float AdditionalGoldMod = 1f;
 
     [SerializeField] AudioSource hitSource;

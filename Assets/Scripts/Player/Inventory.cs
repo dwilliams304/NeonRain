@@ -13,14 +13,6 @@ public class Inventory : MonoBehaviour
     void Start(){
         combat = GetComponent<Combat>();
     }
-    // void OnEnable(){
-    //     swapWeapon += DoWeaponSwap;
-    // }
-    // void OnDisable(){
-    //     swapWeapon = DoWeaponSwap;
-    // }
-
-
 
     public void SwapWeapon(Weapon swap){
         combat.AssignWeaponStats(swap);

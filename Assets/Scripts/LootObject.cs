@@ -5,8 +5,6 @@ public class LootObject : MonoBehaviour
 {
     public Weapon weaponData;
 
-    bool playerInRange = false;
-
     void Start(){
         StartCoroutine(DestroyThis());
     }
