@@ -95,7 +95,7 @@ public class DEVTools : MonoBehaviour
                 UpdateUIPanel();
             }
         }
-        if(Input.GetKeyDown(KeyCode.BackQuote)){
+        if(Input.GetButtonDown("DebugMenu")){
             devToolsEnabled = !devToolsEnabled;
             OpenDevPanel();
         }

@@ -1,10 +1,13 @@
 using System.Collections;
 using UnityEngine;
 
+
 public class Combat : MonoBehaviour
 {
     public static Combat combat;
     private float lastShot;
+    [SerializeField] AudioSource gunSFX;
+    [SerializeField] AudioClip gunShot;
 
 #region Other variables
 
@@ -50,7 +53,7 @@ public class Combat : MonoBehaviour
         if(Input.GetButton("Fire1") && !isReloading){
             Shoot();
         }
-        else if(Input.GetButtonDown("Fire3")){
+        else if(Input.GetButtonDown("Reload")){
             StartCoroutine(Reload());
         }
     }
@@ -80,6 +83,8 @@ public class Combat : MonoBehaviour
     public void Shoot(){
         if(currentAmmo > 0){ //Do we have ammo?
             if(Time.time > lastShot + fireRate){ //If the last time we shot was more than the fire rate, we can shoot.
+                //AudioManager.Instance.GUNSFX();
+                gunSFX.Play();
                 lastShot = Time.time; //Start timer for the last time we shot
                 GameObject bullet = ObjectPooler.current.GetPooledPlayerBullet(); //Grab a bullet from the bullet pool
                 if(bullet == null) return; //If we don't have any bullets, do nothing (SHOULDNT HAPPEN)

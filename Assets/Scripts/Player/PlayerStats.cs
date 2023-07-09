@@ -38,6 +38,8 @@ public class PlayerStats : MonoBehaviour
     public float CritDamageMod = 3f;
     public float MoveSpeedMod = 1f;
     public float AdditionalGoldMod = 1f;
+
+    [SerializeField] AudioSource hitSource;
     
 
     void Awake(){
@@ -99,6 +101,8 @@ public class PlayerStats : MonoBehaviour
             onPlayerDeath?.Invoke();
         }
         UIManager.uiManagement.UpdateHealthBar();
+        //AudioManager.Instance.HITSFX();
+        hitSource.Play();
     }
 
 

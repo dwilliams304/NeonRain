@@ -1,17 +1,30 @@
-using UnityEngine.Audio;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class AudioManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public static AudioManager Instance;
+    [SerializeField] AudioSource gunShotSource;
+    [SerializeField] AudioClip gunShotClip;
+    [SerializeField] AudioSource hitSource;
+
+    void Awake()
     {
-        
+        if(Instance == null){
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else{
+            Destroy(gameObject);
+        }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+    public void GUNSFX(){
+        gunShotSource.Play();
+    }
+
+    public void HITSFX(){
+        hitSource.Play();
     }
 }

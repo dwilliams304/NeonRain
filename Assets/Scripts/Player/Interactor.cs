@@ -11,7 +11,7 @@ public class Interactor : MonoBehaviour
     [SerializeField] private float interactRange;
 
     void Update(){
-        if(Input.GetKeyDown(KeyCode.E)){
+        if(Input.GetButtonDown("Interact")){
             CheckInteraction();
         }
     }

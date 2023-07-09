@@ -76,13 +76,13 @@ public class UIManager : MonoBehaviour
     }
 
     void Update(){
-        if(Input.GetKeyDown(KeyCode.Escape)){
+        if(Input.GetButtonDown("PauseGame")){
             if(weaponSwapPanel.activeInHierarchy){
                 return;
             }
             PauseGame();
         }
-        else if(Input.GetKeyDown(KeyCode.Tab)){
+        else if(Input.GetButtonDown("AbilityMenu")){
             AbilityUpgrades();
         }
     }
