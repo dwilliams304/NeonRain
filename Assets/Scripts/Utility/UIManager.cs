@@ -29,7 +29,6 @@ public class UIManager : MonoBehaviour
     [SerializeField] TMP_Text _bossName;
     [SerializeField] Slider _bossHealthBar;
 
-
     [Header("Weapon ToolTip UI")]
     [SerializeField] private GameObject weaponToolTipPanel;
     [SerializeField] private TMP_Text weaponName;
@@ -57,7 +56,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject pauseGamePanel;
     [SerializeField] private GameObject abilityUpgradePanel;
 
-
+    float currentTimeScale;
     bool isPaused = false;
     bool upgradePanelActive = false;
 
@@ -73,13 +72,6 @@ public class UIManager : MonoBehaviour
         _playerHealthBar.value = _playerStats.PlayerMaxHealth;
         UpdateHealthBar();
         UpdateGoldUI(0);
-    }
-
-    void OnEnable(){
-        
-    }
-    void OnDisable(){
-        
     }
 
     void Update(){
@@ -183,6 +175,7 @@ public class UIManager : MonoBehaviour
         LeanTween.scaleX(weaponToolTipPanel, 1f, 0.15f);
         LeanTween.scaleY(weaponToolTipPanel, 1f, 0.15f);
     }
+
 
     //WIll CHANGE!!!
     //ALL VERY NASTY CODE!

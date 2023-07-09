@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4805615033689229350}
   m_Layer: 0
   m_Name: CorruptedItem
-  m_TagString: Untagged
+  m_TagString: Loot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -90,14 +90,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponData: {fileID: 11400000, guid: 5a56cf5a2507a3745beb4ec62378a69d, type: 2}
-  weaponToolTip: {fileID: 4237190227449552596, guid: 000032b04ffbeff4a9463e98f46d66c8, type: 3}
-  offset: {x: 0, y: 0, z: 0}
-  weaponName: {fileID: 0}
-  weaponDmg: {fileID: 0}
-  weaponCritChance: {fileID: 0}
-  weaponFireRate: {fileID: 0}
-  weaponReloadSpeed: {fileID: 0}
-  weaponMagSize: {fileID: 0}
 --- !u!58 &4805615033689229350
 CircleCollider2D:
   m_ObjectHideFlags: 0

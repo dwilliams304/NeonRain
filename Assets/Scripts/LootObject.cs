@@ -1,8 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using TMPro;
 
 public class LootObject : MonoBehaviour
 {
@@ -27,26 +24,12 @@ public class LootObject : MonoBehaviour
         if(coll.CompareTag("Player") && playerInRange){
             _uiMng.ShowWeaponToolTip(weaponData);
         }
-        //weaponToolTip.SetActive(true);
     }
 
-    void OnTriggerStay2D(Collider2D coll){
-        if(playerInRange){
-            if(Input.GetKey(KeyCode.E)){
-                coll.TryGetComponent<Inventory>(out Inventory inventory);
-                inventory.SwapWeapon(weaponData);
-                StopCoroutine(DestroyThis());
-                _uiMng.HideWeaponToolTip();
-                Destroy(gameObject);
-            }
-        }
-    }
     void OnTriggerExit2D(Collider2D coll){
         playerInRange = false;
         if(!playerInRange){
-
             _uiMng.HideWeaponToolTip();
         }
-        //weaponToolTip.SetActive(false);
     }
 }

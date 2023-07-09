@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class InteractableSpawner : MonoBehaviour
+public class InteractableSpawner : MonoBehaviour, IInteractable
 {
     public List<GameObject> enemyPrefabs;
     public List<GameObject> miniBossPrefabs;
@@ -20,15 +20,12 @@ public class InteractableSpawner : MonoBehaviour
 
     void Start(){
         currentPos = transform.position;
-        spawnerText.text = "Press [C] to start!";
+        spawnerText.text = "Press [E] to start!";
         //StartCoroutine(SpawnEnemies());
     }
 
-
-
-
-    void OnTriggerStay2D(Collider2D coll){
-        if(Input.GetKey(KeyCode.C) && !activated){
+    public void Interacted(){
+        if(!activated){
             StartCoroutine(SpawnEnemies());
             activated = true;
             spawnerText.text = $"Spawning {amountToSpawn} enemies...";

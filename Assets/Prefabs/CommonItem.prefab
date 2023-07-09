@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4148131586434900565}
   m_Layer: 0
   m_Name: CommonItem
-  m_TagString: Untagged
+  m_TagString: Loot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -89,7 +89,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ec4c156f139b2d46af71026bade9942, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponData: {fileID: 11400000, guid: 007b02371bf1cf74d89d2b419985c0cb, type: 2}
+  weaponData: {fileID: 11400000, guid: 18a3ed1552bb3d645869e296bf4f9abf, type: 2}
 --- !u!58 &4148131586434900565
 CircleCollider2D:
   m_ObjectHideFlags: 0

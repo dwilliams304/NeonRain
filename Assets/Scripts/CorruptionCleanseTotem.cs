@@ -1,41 +1,41 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
-public class CorruptionCleanseTotem : MonoBehaviour
+public class CorruptionCleanseTotem : MonoBehaviour, IInteractable
 {
-    bool playerIn = false;
 
     [SerializeField] private List<GameObject> otherSpawns;
+    bool interactedWith = false;
+    TMP_Text text;
+
 
     void Start(){
         otherSpawns.AddRange(GameObject.FindGameObjectsWithTag("CorruptionTotem"));
-        
+        text = GetComponentInChildren<TMP_Text>();
+        text.text = "Press [E] to cleanse corruption!";
     }
 
-    void OnTriggerEnter2D(Collider2D coll){
-        if(coll.CompareTag("Player")){
-            playerIn = true;
-            Debug.Log("Player in! Value:" + playerIn);
+    public void Interacted(){
+        if(!interactedWith){
+            interactedWith = true;
+            CorruptionManager.Instance.ChangeCorruptionTier(0);
+            // Debug.Log("Relocating!");
+            text.text = "Relocating...";
+            StartCoroutine(Relocate());
         }
     }
 
-    void OnTriggerStay2D(Collider2D coll){
-        if(playerIn){
-            if(Input.GetKey(KeyCode.E)){
-                CorruptionManager.Instance.ChangeCorruptionTier(0);
-                int i = Random.Range(0, otherSpawns.Count);
-                GameObject whereToGo = otherSpawns[i];
-                gameObject.transform.position = whereToGo.transform.position;
-                gameObject.transform.rotation = whereToGo.transform.rotation;
-            }
-        }
-    }
-
-    void OnTriggerExit2D(Collider2D coll){
-        if(coll.CompareTag("Player")){
-            playerIn = false;
-            Debug.Log("Player out! Value:" + playerIn);
-        }
+    IEnumerator Relocate(){
+        ParticleSystem p = GetComponent<ParticleSystem>();
+        p.Play();
+        yield return new WaitForSeconds(p.main.duration);
+        text.text = "Press [E] to cleanse corruption!";
+        int i = Random.Range(0, otherSpawns.Count);
+        GameObject whereToGo = otherSpawns[i];
+        gameObject.transform.position = whereToGo.transform.position;
+        gameObject.transform.rotation = whereToGo.transform.rotation;
+        interactedWith = false;
     }
 }

@@ -27,7 +27,6 @@ public class XPManager : MonoBehaviour
 
     public void AddExperience(int amount){
         int xpAfterMod = Mathf.CeilToInt(amount * XPModifier);
-        Debug.Log("XP Manager: " + xpAfterMod);
         onXPChange?.Invoke(xpAfterMod);
         AddedXPText(xpAfterMod);
     }
