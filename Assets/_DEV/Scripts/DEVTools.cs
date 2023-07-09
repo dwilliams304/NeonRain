@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using TMPro;
 
 public class DEVTools : MonoBehaviour
@@ -14,6 +13,7 @@ public class DEVTools : MonoBehaviour
 
     [SerializeField] private GameObject _devToolsUIPanel;
     public bool devToolsEnabled = false;
+    [SerializeField] TMP_Text lastAction;
 
 #region DEV Loot Panel vars
     [Header("Loot Drop Panel UI Elems")]
@@ -87,9 +87,11 @@ public class DEVTools : MonoBehaviour
 
             if(Input.GetKeyDown(KeyCode.Alpha1)){
                 SpawnEnemy(mousePos);
+                UpdateLastActionText("Spawned enemy.");
             }
             if(Input.GetKeyDown(KeyCode.R)){
                 _lootManager.DropLoot(mousePos, 1);
+                UpdateLastActionText("Spawned loot.");
                 UpdateUIPanel();
             }
         }
@@ -146,5 +148,13 @@ public class DEVTools : MonoBehaviour
         foreach(GameObject enemy in enemies){
             Destroy(enemy);
         }
+    }
+
+
+    public void UpdateLastActionText(string text){
+        lastAction.text = text;
+    }
+    public void SpawnerToggledText(){
+        lastAction.text = $"Spawners toggled. Spawner active status: {spawnersActive}";
     }
 }
