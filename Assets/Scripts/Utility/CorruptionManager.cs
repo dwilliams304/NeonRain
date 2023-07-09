@@ -18,6 +18,10 @@ public class CorruptionManager : MonoBehaviour
     public delegate void CorruptionTierIncrease(int newTier);
     public delegate void CorruptionCleansed();
     public delegate void ModifyMoveSpeed(float amnt);
+    public delegate void StartKillTimer();
+    public delegate void StopKillTimer();
+    public static StopKillTimer stopKillTimer;
+    public static StartKillTimer startKillTimer;
     public static CorruptionTierIncrease corruptionTierIncrease;
     public static CorruptionCleansed corruptionCleansed;
     public static ModifyMoveSpeed moveSpeedModifier;
@@ -149,6 +153,7 @@ public class CorruptionManager : MonoBehaviour
         corruptionToNextTier = Mathf.RoundToInt(corruptionAmountCurve.Evaluate(currentTier));
         corruptionBar.maxValue = corruptionToNextTier;
         corruptionBar.value = currentCorruptionAmount;
+        stopKillTimer?.Invoke();
         
         //Stat changes
         _playerStats.DamageDoneMod -= addedDamageDone;
@@ -250,6 +255,7 @@ public class CorruptionManager : MonoBehaviour
         corruptionToNextTier = Mathf.RoundToInt(corruptionAmountCurve.Evaluate(currentTier));
         currentCorruptionAmount = 0;
         corruptionBar.value = corruptionToNextTier;   
+        startKillTimer?.Invoke();
         //Stat changes
 
         addedDamageDone += 0.5f; //100%

@@ -100,7 +100,7 @@ public class PlayerStats : MonoBehaviour
         }
         UIManager.uiManagement.UpdateHealthBar();
         //AudioManager.Instance.HITSFX();
-        hitSource.Play();
+        // hitSource.Play();
     }
 
 

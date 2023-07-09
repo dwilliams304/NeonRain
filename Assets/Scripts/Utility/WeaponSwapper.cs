@@ -22,6 +22,7 @@ public class WeaponSwapper : MonoBehaviour
     [SerializeField] TMP_Text amountOfWeapons;
     
     [Header("Current Weapon Object/UI")]
+    [SerializeField] List<TMP_Text> currentWeaponText;
     [SerializeField] Weapon currentWeaponObject;
     [SerializeField] TMP_Text curWepName;
     [SerializeField] TMP_Text curWepType;
@@ -31,9 +32,11 @@ public class WeaponSwapper : MonoBehaviour
     [SerializeField] TMP_Text curWepRS;
     [SerializeField] TMP_Text curWepMag;
     [SerializeField] TMP_Text curWepTier;
+    [SerializeField] TMP_Text curWepRarity;
 
     [Header("Other Weapon Object/UI")]
     [SerializeField] Weapon otherWeaponObject;
+    [SerializeField] List<TMP_Text> otherWeaponText;
     [SerializeField] TMP_Text otherWepName;
     [SerializeField] TMP_Text otherWepType;
     [SerializeField] TMP_Text otherWepDmg;
@@ -42,6 +45,7 @@ public class WeaponSwapper : MonoBehaviour
     [SerializeField] TMP_Text otherWepRS;
     [SerializeField] TMP_Text otherWepMag;
     [SerializeField] TMP_Text otherWepTier;
+    [SerializeField] TMP_Text otherWepRarity;
     
 
     float currentTimeScale;
@@ -132,6 +136,7 @@ public class WeaponSwapper : MonoBehaviour
         otherWepRS.text = $"Reload Speed: {otherWeaponObject.reloadSpeed}";
         otherWepMag.text = $"Mag Size: {otherWeaponObject.magSize}";
         otherWepTier.text = otherWeaponObject.currentWepTier.ToString();
+        otherWepRarity.text = otherWeaponObject.rarity.ToString();
 
         curWepName.text = currentWeaponObject.weaponName;
         curWepType.text = currentWeaponObject.type.ToString();
@@ -141,6 +146,54 @@ public class WeaponSwapper : MonoBehaviour
         curWepRS.text = $"Reload Speed: {currentWeaponObject.reloadSpeed}";
         curWepMag.text = $"Mag Size: {currentWeaponObject.magSize}";
         curWepTier.text = currentWeaponObject.currentWepTier.ToString();
+        curWepRarity.text = currentWeaponObject.rarity.ToString();
+
+        switch(currentWeaponObject.rarity){
+            case Weapon.Rarity.Common:
+                ChangeCurrentWeaponColors(Color.white);
+                break;
+            case Weapon.Rarity.Uncommon:
+                ChangeCurrentWeaponColors(Color.green);
+                break;
+            case Weapon.Rarity.Rare:
+                ChangeCurrentWeaponColors(Color.blue);
+                break;
+            case Weapon.Rarity.Corrupted:
+                ChangeCurrentWeaponColors(Color.red);
+                break;
+            case Weapon.Rarity.Legendary:
+                ChangeCurrentWeaponColors(Color.yellow);
+                break;
+        }
+
+        switch (otherWeaponObject.rarity){
+            case Weapon.Rarity.Common:
+                ChangeOtherWeaponColors(Color.white);
+                break;
+            case Weapon.Rarity.Uncommon:
+                ChangeOtherWeaponColors(Color.green);
+                break;
+            case Weapon.Rarity.Rare:
+                ChangeOtherWeaponColors(Color.blue);
+                break;
+            case Weapon.Rarity.Corrupted:
+                ChangeOtherWeaponColors(Color.red);
+                break;
+            case Weapon.Rarity.Legendary:
+                ChangeOtherWeaponColors(Color.yellow);
+                break;
+        }
+    }
+
+    void ChangeCurrentWeaponColors(Color desiredColor){
+        foreach(TMP_Text text in currentWeaponText){
+            text.color = desiredColor;
+        }
+    }
+    void ChangeOtherWeaponColors(Color desiredColor){
+        foreach(TMP_Text text in otherWeaponText){
+            text.color = desiredColor;
+        }
     }
 
 

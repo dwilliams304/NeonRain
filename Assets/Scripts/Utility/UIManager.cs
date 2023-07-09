@@ -54,10 +54,12 @@ public class UIManager : MonoBehaviour
     void OnEnable(){
         HealthPotion.addHealth += UpdateHealthPotionUI;
         PlayerStats.onPlayerDeath += LoseGameUI;
+        KillTimer.timerCompleted += LoseGameUI;
     }
     void OnDisable(){
         HealthPotion.addHealth -= UpdateHealthPotionUI;
         PlayerStats.onPlayerDeath -= LoseGameUI;
+        KillTimer.timerCompleted -= LoseGameUI;
     }
 
 
@@ -130,6 +132,7 @@ public class UIManager : MonoBehaviour
 
     void LoseGameUI(){
         loseUIPanel.SetActive(true);
+        Time.timeScale = 0f;
     }
 
 

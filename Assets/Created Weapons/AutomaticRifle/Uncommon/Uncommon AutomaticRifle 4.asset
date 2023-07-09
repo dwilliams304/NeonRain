@@ -10,20 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9607630d8f7f7d440ab1c585856ba5f1, type: 3}
-  m_Name: Testing
+  m_Name: Uncommon AutomaticRifle 4
   m_EditorClassIdentifier: 
-  weaponName: Dev Weapon
-  minDamage: 5
-  maxDamage: 15
-  critChance: 5
+  weaponName: Uncommon AutomaticRifle 4
+  minDamage: 4
+  maxDamage: 13
+  critChance: 6
   isCorrupted: 0
   weaponSprite: {fileID: 0}
-  fireRate: 0.1
+  fireRate: 0.12
   reloadSpeed: 0.25
-  magSize: 150
-  projectileSpeed: 40
-  weaponRange: 10
+  magSize: 24
+  projectileSpeed: 38
+  weaponRange: 0
   corruptionGain: 0
   currentWepTier: 0
-  rarity: 0
+  rarity: 1
   type: 1

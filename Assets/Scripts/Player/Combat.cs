@@ -84,7 +84,7 @@ public class Combat : MonoBehaviour
         if(currentAmmo > 0){ //Do we have ammo?
             if(Time.time > lastShot + fireRate){ //If the last time we shot was more than the fire rate, we can shoot.
                 //AudioManager.Instance.GUNSFX();
-                gunSFX.Play();
+                // gunSFX.Play();
                 lastShot = Time.time; //Start timer for the last time we shot
                 GameObject bullet = ObjectPooler.current.GetPooledPlayerBullet(); //Grab a bullet from the bullet pool
                 if(bullet == null) return; //If we don't have any bullets, do nothing (SHOULDNT HAPPEN)
