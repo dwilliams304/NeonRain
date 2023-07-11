@@ -9,6 +9,9 @@ public class PlayerStats : MonoBehaviour
     public static HandleLevelIncrease handleLevelIncrease;
     public static HandlePlayerDeath onPlayerDeath;
 
+    [Header("Chosen Class")]
+    public ClassData playerClass;
+
     [Header("Health")]
     public float PlayerMaxHealth = 100;
     public float CurrentHealth;
@@ -20,9 +23,6 @@ public class PlayerStats : MonoBehaviour
     public int ExperienceToNextLevel = 250;
     [SerializeField] private AnimationCurve xpScaling;
 
-    [Header("Gold")]
-    [SerializeField] private int PlayerGold = 0;
-
 
     [Header("Base modifiers")]
     public int CritChanceMod = 10;
@@ -32,6 +32,7 @@ public class PlayerStats : MonoBehaviour
     public float AdditionalGoldMod = 1f;
 
     [SerializeField] AudioSource hitSource;
+    [SerializeField] ParticleSystem p;
     
 
     void Awake(){
@@ -50,20 +51,23 @@ public class PlayerStats : MonoBehaviour
 
     void Start(){
         UIManager.uiManagement.UpdateXPBar(ExperienceToNextLevel, CurrentPlayerXP, CurrentLevel);
+        p = GetComponentInChildren<ParticleSystem>();
     }
 
 
-    void AddGold(int amount){
-        PlayerGold += Mathf.CeilToInt(amount * AdditionalGoldMod);
-        UIManager.uiManagement.UpdateGoldUI(PlayerGold);
-    }
+    // void AddGold(int amount){
+    //     PlayerGold += Mathf.CeilToInt(amount * AdditionalGoldMod);
+    //     UIManager.uiManagement.UpdateGoldUI(PlayerGold);
+    // }
 
     //Only public for Dev Tool
     public void IncrementExperience(int xpAmnt){
         CurrentPlayerXP += xpAmnt;
         if(CurrentPlayerXP >= ExperienceToNextLevel){
             int overflow = CurrentPlayerXP - ExperienceToNextLevel;
-            IncreaseLevel(overflow);
+            if(CurrentLevel < 75){
+                IncreaseLevel(overflow);
+            }
         }
         UIManager.uiManagement.UpdateXPBar(ExperienceToNextLevel, CurrentPlayerXP, CurrentLevel);
     }
@@ -74,10 +78,11 @@ public class PlayerStats : MonoBehaviour
     }
 
     void IncreaseLevel(int xpOverflow){
-        PlayerMaxHealth += 25;
+        // PlayerMaxHealth += 25;
+        // DamageDoneMod += 0.02f;
+        // CritChanceMod += 1;
+        p.Play();
         CurrentHealth = PlayerMaxHealth;
-        DamageDoneMod += 0.02f;
-        CritChanceMod += 1;
         CurrentLevel++;
         CurrentPlayerXP = xpOverflow;
         ExperienceToNextLevel = Mathf.RoundToInt(xpScaling.Evaluate(CurrentLevel));
@@ -100,7 +105,7 @@ public class PlayerStats : MonoBehaviour
         }
         UIManager.uiManagement.UpdateHealthBar();
         //AudioManager.Instance.HITSFX();
-        // hitSource.Play();
+        hitSource.Play();
     }
 
 

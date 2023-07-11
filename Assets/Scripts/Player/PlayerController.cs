@@ -11,12 +11,12 @@ public class PlayerController : MonoBehaviour
     Vector2 mousePos;
 
     //MoveSpeed
-    private float _moveSpeed = 7f;
+    private float _moveSpeed = 9f;
 
     //Dash variables
-    private float _dashSpeed = 20f;
+    private float _dashSpeed = 35f;
     private float _dashDuration = 0.2f;
-    private float _dashCoolDown = 1f;
+    private float _dashCoolDown = 1.75f;
     private bool _isDashing;
     private bool _canDash;
 
@@ -51,7 +51,7 @@ public class PlayerController : MonoBehaviour
         }
 
         float moveX = Input.GetAxisRaw("Horizontal");
-        float moveY = Input.GetAxis("Vertical");
+        float moveY = Input.GetAxisRaw("Vertical");
 
 
         if(Input.GetButtonDown("Jump") && _canDash){

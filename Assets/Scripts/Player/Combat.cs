@@ -54,7 +54,9 @@ public class Combat : MonoBehaviour
             Shoot();
         }
         else if(Input.GetButtonDown("Reload")){
-            StartCoroutine(Reload());
+            if(!isReloading){
+                StartCoroutine(Reload());
+            }
         }
     }
 

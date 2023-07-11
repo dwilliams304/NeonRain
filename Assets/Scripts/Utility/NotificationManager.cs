@@ -11,6 +11,7 @@ public class NotificationManager : MonoBehaviour
     [SerializeField] private GameObject notificationObject;
     [SerializeField] private TMP_Text corruptionText;
     [SerializeField] private GameObject corruptionTextObject;
+    [SerializeField] private Animator animator;
 
 
     [SerializeField] private TMP_Text goldIncreaseText;
@@ -42,7 +43,7 @@ public class NotificationManager : MonoBehaviour
 
     void LevelUpNotification(){
         notificationText.text = "Level Up!";
-        StartCoroutine(DeactivateText(notificationObject, 4f));
+        // StartCoroutine(DeactivateText(notificationObject, 4f));
     }
 
     // void CorruptionTierNotification(int tier){

@@ -23,3 +23,4 @@ MonoBehaviour:
   dropChance: 10
   corruptionDrop: 100
   goldDrop: 10
+  score: 1

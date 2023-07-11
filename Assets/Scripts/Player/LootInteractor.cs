@@ -23,7 +23,7 @@ public class LootInteractor : MonoBehaviour
     }
 
     void Update(){
-        if(Input.GetKeyDown(KeyCode.C)){
+        if(Input.GetKeyDown(KeyCode.E)){
             if(!lootChecked){
                 CheckForWeapons();
             }

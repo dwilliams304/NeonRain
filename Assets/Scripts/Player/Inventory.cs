@@ -7,11 +7,17 @@ public class Inventory : MonoBehaviour
     private Combat combat;
     public static Inventory Instance;
 
+    public int PlayerGold = 0;
+
     // public delegate void SwapWeapon(Weapon weapon);
     // public static SwapWeapon swapWeapon;
 
     void Start(){
         combat = GetComponent<Combat>();
+    }
+
+    void AddGold(int amount){
+        PlayerGold += amount;
     }
 
     public void SwapWeapon(Weapon swap){

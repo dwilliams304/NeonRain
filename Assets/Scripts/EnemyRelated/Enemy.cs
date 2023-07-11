@@ -13,6 +13,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] private int _corruptionDrop;
     [SerializeField] private int _goldDrop;
     [SerializeField] private int _dropChance;
+    [SerializeField] private int _scoreAmnt;
     [SerializeField] private float baseLuck;
     [SerializeField] private float _xpAmount;
 
@@ -32,6 +33,7 @@ public class Enemy : MonoBehaviour
         _corruptionDrop = enemyData.corruptionDrop;
         _goldDrop = enemyData.goldDrop;
         _dropChance = enemyData.dropChance;
+        _scoreAmnt = enemyData.score;
         _healthBar = GetComponentInChildren<FloatingHealthBar>();
         _playerStats = PlayerStats.playerStats;
     }
@@ -55,6 +57,7 @@ public class Enemy : MonoBehaviour
             // _playerStats.AddGold(_goldDrop);
             XPManager.Instance.AddExperience(Mathf.CeilToInt(_xpAmount));
             CorruptionManager.Instance.AddCorruption(_corruptionDrop);
+            ScoreManager.scoreManager.AddToScore(_scoreAmnt);
             Destroy(gameObject);
     }
 

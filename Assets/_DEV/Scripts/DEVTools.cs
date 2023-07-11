@@ -85,11 +85,11 @@ public class DEVTools : MonoBehaviour
                 UpdateUIPanel();
             }
 
-            if(Input.GetKeyDown(KeyCode.Alpha1)){
+            if(Input.GetKeyDown(KeyCode.V)){
                 SpawnEnemy(mousePos);
                 UpdateLastActionText("Spawned enemy.");
             }
-            if(Input.GetKeyDown(KeyCode.R)){
+            if(Input.GetKeyDown(KeyCode.G)){
                 _lootManager.DropLoot(mousePos, 1);
                 UpdateLastActionText("Spawned loot.");
                 UpdateUIPanel();

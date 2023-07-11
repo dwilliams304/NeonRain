@@ -77,7 +77,7 @@ public class WeaponSwapper : MonoBehaviour
             }else if(Input.GetKeyDown(KeyCode.D)){
                 ShowNextWeapon();
             }
-            else if(Input.GetKeyDown(KeyCode.E)){
+            else if(Input.GetKeyDown(KeyCode.C)){
                 inventory.SwapWeapon(otherWeaponObject);
                 WeaponSwapConfirm();
             }else if(Input.GetKeyDown(KeyCode.Escape)){

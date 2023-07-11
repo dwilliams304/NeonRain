@@ -59,7 +59,7 @@ public class CorruptionManager : MonoBehaviour
     [SerializeField] private float addedDamageTaken = 0f;
     [SerializeField] private float addedMoveSpeed = 0f;
     [SerializeField] private float addedXP = 0f;
-    [SerializeField] private float addedGold = 0f;
+    // [SerializeField] private float addedGold = 0f;
     [SerializeField] private float addedLuck = 0f;
 
     //Private variables
@@ -261,7 +261,7 @@ public class CorruptionManager : MonoBehaviour
         addedDamageDone += 0.5f; //100%
         addedDamageTaken += 1.25f; //200%
         addedXP += 1f; //200%
-        addedMoveSpeed += 8f;
+        addedMoveSpeed += 3f;
 
         _playerStats.DamageDoneMod += 0.5f;
         _playerStats.DamageTakenMod += 0.75f;
@@ -281,32 +281,32 @@ public class CorruptionManager : MonoBehaviour
 
 
             case 1:
-                buffInfo.text = $"+5% Damage\n+5% XP Gain \n+1% Luck";
-                debuffInfo.text = $"+5% Damage Taken";
+                buffInfo.text = $"+5% Damage\n+5% XP Gain \n+1% Luck \n (NOT FINAL)";
+                debuffInfo.text = $"+5% Damage Taken \n (NOT FINAL)";
                 break;
 
 
             case 2:
-                buffInfo.text = $"+10% Damage Done \n+25% XP Gain \n+2% Luck";
-                debuffInfo.text = $"+10% Damage Taken";
+                buffInfo.text = $"+10% Damage Done \n+25% XP Gain \n+2% Luck \n (NOT FINAL)";
+                debuffInfo.text = $"+10% Damage Taken \n (NOT FINAL)";
                 break;
 
 
             case 3:
-                buffInfo.text = $"+25% Damage Done \n +50% XP Gain \n+3% Luck";
-                debuffInfo.text = $"+30% Damage Taken";
+                buffInfo.text = $"+25% Damage Done \n +50% XP Gain \n+3% Luck \n (NOT FINAL)";
+                debuffInfo.text = $"+30% Damage Taken \n (NOT FINAL)";
                 break;
 
 
             case 4:
-                buffInfo.text = $"+50% Damage Done \n+100% XP Gain \n+3% Luck";
-                debuffInfo.text = $"+75% Damage Taken";
+                buffInfo.text = $"+50% Damage Done \n+100% XP Gain \n+3% Luck \n (NOT FINAL)";
+                debuffInfo.text = $"+75% Damage Taken \n (NOT FINAL)";
                 break;
 
 
             case 5:
-                buffInfo.text = $"+100% Damge Done \n+200% XP Gain \n+3% Luck";
-                debuffInfo.text = $"+150% Damage Taken";
+                buffInfo.text = $"+100% Damge Done \n+200% XP Gain \n+3% Luck \n (NOT FINAL)";
+                debuffInfo.text = $"+150% Damage Taken \n (NOT FINAL)";
                 break;
         }
     }

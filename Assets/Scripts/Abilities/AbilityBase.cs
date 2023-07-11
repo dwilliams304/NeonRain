@@ -1,12 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class AbilityBase : MonoBehaviour
+public class AbilityBase : ScriptableObject
 {
-    public bool active;
-    public bool used;
-    
+    public new string name;
     public float coolDownTime;
     public float activeTime;
+    public Sprite abilityIcon;
+
+
+    public virtual void UseAbility(){}
+    public virtual void AbilityComplete(){}
 }

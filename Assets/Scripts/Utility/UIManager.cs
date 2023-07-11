@@ -37,12 +37,10 @@ public class UIManager : MonoBehaviour
     [Header("Pop-Up Panels")]
     [SerializeField] private GameObject loseUIPanel;
     [SerializeField] private GameObject pauseGamePanel;
-    [SerializeField] private GameObject abilityUpgradePanel;
     [SerializeField] private GameObject weaponSwapPanel;
 
     float currentTimeScale;
     bool isPaused = false;
-    bool upgradePanelActive = false;
 
     private PlayerStats _playerStats;
 
@@ -55,11 +53,14 @@ public class UIManager : MonoBehaviour
         HealthPotion.addHealth += UpdateHealthPotionUI;
         PlayerStats.onPlayerDeath += LoseGameUI;
         KillTimer.timerCompleted += LoseGameUI;
+        // PlayerStats.handleLevelIncrease += AbilityUpgrades;
     }
     void OnDisable(){
         HealthPotion.addHealth -= UpdateHealthPotionUI;
         PlayerStats.onPlayerDeath -= LoseGameUI;
         KillTimer.timerCompleted -= LoseGameUI;
+        // PlayerStats.handleLevelIncrease -= AbilityUpgrades;
+
     }
 
 
@@ -79,9 +80,6 @@ public class UIManager : MonoBehaviour
                 return;
             }
             PauseGame();
-        }
-        else if(Input.GetButtonDown("AbilityMenu")){
-            AbilityUpgrades();
         }
     }
 
@@ -144,16 +142,6 @@ public class UIManager : MonoBehaviour
             Time.timeScale = 1;
         }
         pauseGamePanel.SetActive(isPaused);
-    }
-
-    void AbilityUpgrades(){
-        upgradePanelActive = !upgradePanelActive;
-        if(upgradePanelActive){
-            Time.timeScale = 0;
-        }else{
-            Time.timeScale = 1;
-        }
-        abilityUpgradePanel.SetActive(upgradePanelActive);
     }
 
 

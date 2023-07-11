@@ -19,4 +19,5 @@ public class EnemyData : ScriptableObject
     public int dropChance = 5;
     public int corruptionDrop = 10;
     public int goldDrop = 25;
+    public int score = 10;
 }
