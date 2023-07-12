@@ -763,7 +763,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0, b: 0.7398772, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -32397,6 +32397,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 585255321}
   mainCam: {fileID: 519420031}
+  MoveSpeed: 9
   isReloading: 0
 --- !u!50 &585255321
 Rigidbody2D:
@@ -98586,12 +98587,18 @@ MonoBehaviour:
   - {fileID: 808613037}
   - {fileID: 2055744750}
   possibleUpgrades:
-  - {fileID: 11400000, guid: a76d30b92d5984343b3c3bf8892d7bcf, type: 2}
-  - {fileID: 11400000, guid: 0dda783e7f78cc741a86f3289c5cf310, type: 2}
-  - {fileID: 11400000, guid: 8abd41de65fac334aaf7fa313754f033, type: 2}
-  - {fileID: 11400000, guid: 29a050774639cc648994ed97bbb51279, type: 2}
-  - {fileID: 11400000, guid: cc92441735bd2034c92d8ebd6ed4cff2, type: 2}
-  - {fileID: 11400000, guid: b34cc4f1b6117f548878787763017957, type: 2}
+  - {fileID: 11400000, guid: 01fd19cbfd1619b419237f0159cae921, type: 2}
+  - {fileID: 11400000, guid: 7a2459f741aea2b4ba5af362ada2d1a4, type: 2}
+  - {fileID: 11400000, guid: bcc8f24cd32aba1419b59d8f78790d5f, type: 2}
+  - {fileID: 11400000, guid: 388acceb9989662428fa0c02a6f8979c, type: 2}
+  - {fileID: 11400000, guid: c77b1447e86f1294793bb5a1a358d3ad, type: 2}
+  - {fileID: 11400000, guid: a1d187e59541e9e478ad1c7c57f42fb6, type: 2}
+  - {fileID: 11400000, guid: 22faaaf0b5c77c240a64b1ca1af27a08, type: 2}
+  - {fileID: 11400000, guid: 319f78e1613a2704d807ad6a36887026, type: 2}
+  - {fileID: 11400000, guid: 4aff9e40d03df4441ba17e538dcf166c, type: 2}
+  - {fileID: 11400000, guid: cfc7da43e60caa345bf884d5225a341d, type: 2}
+  - {fileID: 11400000, guid: fb8ca9707f4da084fbc3c7309f075279, type: 2}
+  - {fileID: 11400000, guid: dada78ea5c1162f49b2346cd5134e553, type: 2}
   upgradePanel: {fileID: 32733836}
   controller: {fileID: 580151898}
   textController: {fileID: 312438372}

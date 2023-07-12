@@ -13,6 +13,7 @@ public class UpgradeHolder : MonoBehaviour
 
     [SerializeField] private GameObject toolTipObject;
     [SerializeField] private TMP_Text toolTipText;
+    private Image buttonImg;
 
 
 
@@ -25,6 +26,24 @@ public class UpgradeHolder : MonoBehaviour
         upgrade = upgradeGenerated;
         buttonText.text = upgrade.upgradeName;
         toolTipText.text = upgrade.toolTipDescription;
+        buttonImg = upgradeButton.GetComponent<Image>();
+        switch(upgrade.rarity){
+            case Rarity.Common:
+                buttonImg.color = Color.white;
+            break;
+
+            case Rarity.Uncommon:
+                buttonImg.color = Color.green;
+            break;
+
+            case Rarity.Rare:
+                buttonImg.color = Color.blue;
+            break;
+            
+            case Rarity.Legendary:
+                buttonImg.color = Color.yellow;
+            break;
+        }
     }
 
     public void OnClick(){

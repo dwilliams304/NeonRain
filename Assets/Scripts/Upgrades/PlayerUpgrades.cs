@@ -1,6 +1,13 @@
 using UnityEngine;
 
 
+public enum Rarity{
+    Common,
+    Uncommon,
+    Rare,
+    Legendary
+}
+
 public abstract class PlayerUpgrades : ScriptableObject
 {
     public Sprite icon;
@@ -9,4 +16,5 @@ public abstract class PlayerUpgrades : ScriptableObject
     public float increaseAmount;
     public bool isPercentUpgrade;
     public virtual void UpgradeChosen(){}
+    public Rarity rarity = Rarity.Common; 
 }

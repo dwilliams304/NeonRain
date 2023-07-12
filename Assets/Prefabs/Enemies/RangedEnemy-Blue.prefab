@@ -172,6 +172,7 @@ MonoBehaviour:
   _corruptionDrop: 0
   _goldDrop: 0
   _dropChance: 0
+  _scoreAmnt: 0
   baseLuck: 1
   _xpAmount: 0
   _playerStats: {fileID: 0}

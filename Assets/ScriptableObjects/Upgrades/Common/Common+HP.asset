@@ -9,9 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 772a1bb4b0e6f9b4d971f137325534ea, type: 3}
-  m_Name: Test5
-  m_EditorClassIdentifier: Assembly-CSharp::NewBehaviourScript
+  m_Script: {fileID: 11500000, guid: 02abee4f93f94584797027a091526b74, type: 3}
+  m_Name: Common+HP
+  m_EditorClassIdentifier: 
   icon: {fileID: 0}
-  upgradeName: Test5
-  toolTipDescription: Test5-tooltip
+  upgradeName: +Health
+  toolTipDescription: Add 25 HP to your character.
+  increaseAmount: 25
+  isPercentUpgrade: 0
+  rarity: 0

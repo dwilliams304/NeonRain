@@ -141,6 +141,7 @@ MonoBehaviour:
   _corruptionDrop: 0
   _goldDrop: 0
   _dropChance: 0
+  _scoreAmnt: 0
   baseLuck: 1
   _xpAmount: 0
   _playerStats: {fileID: 0}
@@ -248,7 +249,7 @@ MonoBehaviour:
   alwaysDrawGizmos: 0
   slowWhenNotFacingTarget: 1
   whenCloseToDestination: 0
-  constrainInsideGraph: 1
+  constrainInsideGraph: 0
 --- !u!114 &5079347804097027064
 MonoBehaviour:
   m_ObjectHideFlags: 0

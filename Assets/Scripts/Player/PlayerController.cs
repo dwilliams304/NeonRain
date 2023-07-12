@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public static PlayerController Instance;
     
     public Rigidbody2D rb;
     public Camera mainCam;
@@ -11,7 +12,7 @@ public class PlayerController : MonoBehaviour
     Vector2 mousePos;
 
     //MoveSpeed
-    private float _moveSpeed = 9f;
+    public float MoveSpeed = 9f;
 
     //Dash variables
     private float _dashSpeed = 35f;
@@ -31,7 +32,9 @@ public class PlayerController : MonoBehaviour
     void OnDisable(){
         CorruptionManager.moveSpeedModifier -= ChangeMoveSpeed;
     }
-
+    void Awake(){
+        Instance = this;
+    }
 
 
     void Start(){
@@ -39,7 +42,7 @@ public class PlayerController : MonoBehaviour
     }
 
     void ChangeMoveSpeed(float moveSpeedModifier){
-        _moveSpeed += moveSpeedModifier;
+        MoveSpeed += moveSpeedModifier;
     }
 
 
@@ -69,7 +72,7 @@ public class PlayerController : MonoBehaviour
         if(_isDashing){
             return;
         }
-        rb.velocity = new Vector2(moveDir.x * _moveSpeed, moveDir.y * _moveSpeed);
+        rb.velocity = new Vector2(moveDir.x * MoveSpeed, moveDir.y * MoveSpeed);
 
 
     }

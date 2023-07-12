@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 
@@ -7,9 +5,8 @@ using UnityEngine;
 public class PowerUpgrade : PlayerUpgrades
 {
 
-
     public override void UpgradeChosen()
     {
-        Debug.Log("Clicked");
+        PlayerStats.playerStats.DamageDoneMod += increaseAmount;
     }
 }

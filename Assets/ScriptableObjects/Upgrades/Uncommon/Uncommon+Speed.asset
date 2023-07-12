@@ -9,9 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 772a1bb4b0e6f9b4d971f137325534ea, type: 3}
-  m_Name: Test6
-  m_EditorClassIdentifier: Assembly-CSharp::NewBehaviourScript
+  m_Script: {fileID: 11500000, guid: 350f1092e499cb24781b19fc709d15bf, type: 3}
+  m_Name: Uncommon+Speed
+  m_EditorClassIdentifier: 
   icon: {fileID: 0}
-  upgradeName: Test6
-  toolTipDescription: Test6-tooltip
+  upgradeName: +Speed
+  toolTipDescription: Add 2% speed to your character.
+  increaseAmount: 1.02
+  isPercentUpgrade: 1
+  rarity: 1
