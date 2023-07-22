@@ -22,5 +22,5 @@ MonoBehaviour:
   xpAmount: 20
   dropChance: 15
   corruptionDrop: 100
-  goldDrop: 150
+  goldDrop: 15
   score: 2

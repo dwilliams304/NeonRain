@@ -101,6 +101,7 @@ public class DEVTools : MonoBehaviour
         }
 
     }
+    
 
 
     void OpenDevPanel(){
@@ -117,14 +118,14 @@ public class DEVTools : MonoBehaviour
         totalDrops.text = $"Total drops: {totalRolls}";
 
         //Player stats Update
-        playerDamageDone.text = $"Damage done: {PlayerStats.playerStats.DamageDoneMod}x";
-        playerDamageTaken.text = $"Damage taken: {PlayerStats.playerStats.DamageTakenMod}x";
-        playerXPIncrease.text = $"XP Increase: {XPManager.Instance.XPModifier}x";
+        playerDamageDone.text = $"Damage done: {PlayerStats.playerStats.DamageDoneMod * 100}%";
+        playerDamageTaken.text = $"Damage taken: {PlayerStats.playerStats.DamageTakenMod * 100}%";
+        playerXPIncrease.text = $"XP Increase: {XPManager.Instance.XPModifier * 100}%";
         playerLuckModifier.text = $"N/A";
         playerGoldModifier.text = $"Gold modifier: {PlayerStats.playerStats.AdditionalGoldMod}x";
         playerCritChanceModifier.text = $"Crit chance: {PlayerStats.playerStats.CritChanceMod}%";
         playerCritMultilpierModifier.text = $"Crit multiplier: {PlayerStats.playerStats.CritDamageMod}x";
-        // playerMoveSpeed.text = $"Move speed: {PlayerController.MoveSpeed}";
+        playerMoveSpeed.text = $"Move speed: {PlayerController.Instance.MoveSpeedMOD * 100}%";
         playerCurrentHealth.text = $"Current health: {PlayerStats.playerStats.CurrentHealth}";
         playerCurrentXP.text = $"Current XP: {PlayerStats.playerStats.CurrentPlayerXP}";
     }
@@ -138,6 +139,7 @@ public class DEVTools : MonoBehaviour
 
     public void ToggleSpawners(){
         spawnersActive = !spawnersActive;
+        spawners.AddRange(GameObject.FindGameObjectsWithTag("Spawner"));
         foreach(GameObject spawner in spawners){
             spawner.SetActive(spawnersActive);
         }
@@ -156,5 +158,13 @@ public class DEVTools : MonoBehaviour
     }
     public void SpawnerToggledText(){
         lastAction.text = $"Spawners toggled. Spawner active status: {spawnersActive}";
+    }
+
+    public void AddHealth(int amount){
+        PlayerStats.playerStats.IncreaseHealth(amount);
+    }
+
+    public void ToggleGodMode(){
+        PlayerStats.playerStats.godModeEnabled = !PlayerStats.playerStats.godModeEnabled;
     }
 }

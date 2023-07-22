@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
 
     //MoveSpeed
     public float MoveSpeed = 9f;
+    public float MoveSpeedMOD = 1f;
 
     //Dash variables
     private float _dashSpeed = 35f;
@@ -72,7 +73,7 @@ public class PlayerController : MonoBehaviour
         if(_isDashing){
             return;
         }
-        rb.velocity = new Vector2(moveDir.x * MoveSpeed, moveDir.y * MoveSpeed);
+        rb.velocity = new Vector2(moveDir.x * MoveSpeed * MoveSpeedMOD, moveDir.y * MoveSpeed * MoveSpeedMOD);
 
 
     }

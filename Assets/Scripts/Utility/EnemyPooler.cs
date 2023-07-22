@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ObjectPooler : MonoBehaviour
+public class EnemyPooler : MonoBehaviour
 {
 
-    public static ObjectPooler current;
+    public static EnemyPooler current;
     [Header("Player Objects")]
     [SerializeField] private GameObject playerBulletObj;
     [SerializeField] private int playerBulletsAmnt = 50;
@@ -17,6 +17,9 @@ public class ObjectPooler : MonoBehaviour
     private List<GameObject> pooledEnemyBullets;
     [SerializeField] private GameObject damageTextObj;
     [SerializeField] private int damageTextAmnt;
+
+    [SerializeField] private List<GameObject> enemyPrefabs;
+    [SerializeField] private int amountOfEachEnemy;
 
     [SerializeField] private bool willGrow;
 

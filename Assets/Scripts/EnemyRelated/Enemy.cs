@@ -54,7 +54,7 @@ public class Enemy : MonoBehaviour
             if(rollDice <= _dropChance){
                 LootManager.lootManager.DropLoot(transform.position, baseLuck);
             }
-            // _playerStats.AddGold(_goldDrop);
+            Inventory.Instance.AddGold(_goldDrop);
             XPManager.Instance.AddExperience(Mathf.CeilToInt(_xpAmount));
             CorruptionManager.Instance.AddCorruption(_corruptionDrop);
             ScoreManager.scoreManager.AddToScore(_scoreAmnt);

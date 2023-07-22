@@ -15,6 +15,6 @@ MonoBehaviour:
   icon: {fileID: 0}
   upgradeName: +Speed
   toolTipDescription: Add 4% speed to your character.
-  increaseAmount: 1.04
+  increaseAmount: 0.04
   isPercentUpgrade: 1
   rarity: 2

@@ -5152,7 +5152,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6020937590855208354}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 8.48, y: 0.33, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 6020937590585531208}
@@ -5215,7 +5215,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ec4c156f139b2d46af71026bade9942, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponData: {fileID: 11400000, guid: 710313b2668ccc44bb47658412088ede, type: 2}
+  weaponData: {fileID: 11400000, guid: d0cdbbfd237f2e74f8b0e1facd9d13e4, type: 2}
   toolTip: {fileID: 2590169380997451659}
 --- !u!58 &130580326421596493
 CircleCollider2D:

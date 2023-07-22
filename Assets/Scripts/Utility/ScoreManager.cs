@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
@@ -20,9 +18,11 @@ public class ScoreManager : MonoBehaviour
     }
     void OnEnable(){
         PlayerStats.onPlayerDeath += UpdateEndGameScoreText;
+        KillTimer.timerCompleted += UpdateEndGameScoreText;
     }
     void OnDisable(){
         PlayerStats.onPlayerDeath -= UpdateEndGameScoreText;
+        KillTimer.timerCompleted -= UpdateEndGameScoreText;
     }
 
 

@@ -7,6 +7,6 @@ public class MoveSpeedUpgrade : PlayerUpgrades
 
     public override void UpgradeChosen()
     {
-        PlayerController.Instance.MoveSpeed += increaseAmount;
+        PlayerController.Instance.MoveSpeedMOD += increaseAmount;
     }
 }

@@ -33,6 +33,8 @@ public class PlayerStats : MonoBehaviour
 
     [SerializeField] AudioSource hitSource;
     [SerializeField] ParticleSystem p;
+
+    public bool godModeEnabled = false;
     
 
     void Awake(){
@@ -42,23 +44,15 @@ public class PlayerStats : MonoBehaviour
 
     void OnEnable(){
         XPManager.Instance.onXPChange += IncrementExperience;
-        HealthPotion.addHealth += IncreaseHealth;
     }
     void OnDisable(){
         XPManager.Instance.onXPChange -= IncrementExperience;
-        HealthPotion.addHealth -= IncreaseHealth;
     }
 
     void Start(){
         UIManager.uiManagement.UpdateXPBar(ExperienceToNextLevel, CurrentPlayerXP, CurrentLevel);
         p = GetComponentInChildren<ParticleSystem>();
     }
-
-
-    // void AddGold(int amount){
-    //     PlayerGold += Mathf.CeilToInt(amount * AdditionalGoldMod);
-    //     UIManager.uiManagement.UpdateGoldUI(PlayerGold);
-    // }
 
     //Only public for Dev Tool
     public void IncrementExperience(int xpAmnt){
@@ -85,25 +79,29 @@ public class PlayerStats : MonoBehaviour
         CurrentHealth = PlayerMaxHealth;
         CurrentLevel++;
         CurrentPlayerXP = xpOverflow;
+        DifficultyScaler.Instance.CheckDifficultyScale(CurrentLevel);
         ExperienceToNextLevel = Mathf.RoundToInt(xpScaling.Evaluate(CurrentLevel));
         UIManager.uiManagement.UpdateHealthBar();
         handleLevelIncrease?.Invoke();
     }
 
 
-    void IncreaseHealth(int amount, int amntOfPots){
+    public void IncreaseHealth(int amount){
         CurrentHealth += amount;
+        UIManager.uiManagement.UpdateHealthBar();
         if(CurrentHealth > PlayerMaxHealth){
             CurrentHealth = PlayerMaxHealth;
         }
     }
 
     public void TakeDamage(float damage){
-        CurrentHealth -= Mathf.Ceil(damage * DamageTakenMod);
-        if(CurrentHealth <= 0){
-            onPlayerDeath?.Invoke();
+        if(!godModeEnabled){
+            CurrentHealth -= Mathf.Ceil(damage * DamageTakenMod);
+            if(CurrentHealth <= 0){
+                onPlayerDeath?.Invoke();
+            }
+            UIManager.uiManagement.UpdateHealthBar();
         }
-        UIManager.uiManagement.UpdateHealthBar();
         //AudioManager.Instance.HITSFX();
         hitSource.Play();
     }

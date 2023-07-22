@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
+using UnityEngine.UI;
 
 public class UpgradeChooser : MonoBehaviour
 {
@@ -15,6 +17,14 @@ public class UpgradeChooser : MonoBehaviour
     [SerializeField] private GameObject upgradePanel;
     [SerializeField] private Animator controller;
     [SerializeField] private Animator textController;
+
+    [SerializeField] TMP_Text rerollCostText;
+    [SerializeField] GameObject notEnoughGoldText;
+    [SerializeField] Button rerollButton;
+    [SerializeField] AnimationCurve rerollCostIncrease;
+
+    int reRollCost;
+    int amntOfRerolls = 0;
 
 
     void OnEnable(){
@@ -35,6 +45,7 @@ public class UpgradeChooser : MonoBehaviour
         controller.SetTrigger("Enabled");
         textController.SetTrigger("Enabled");
         Time.timeScale = 0f;
+        UIManager.uiManagement.upgradePanelActive = true;
     }
 
     void SortUpgrades(){
@@ -62,18 +73,18 @@ public class UpgradeChooser : MonoBehaviour
 
 
     int RollForRarity(){
-        return Random.Range(0, 101); //Self explanatory
+        return Random.Range(0, 201); //Self explanatory
     }
 
     List<PlayerUpgrades> ReturnedList(int roll){ //Return a list based off of a given roll
-        if(roll <= 40 && roll > 15){ //25%
+        if(roll <= 70 && roll > 15){ 
             return uncommonUpgrades;
-        }else if(roll <= 15 && roll > 5){ //10%
+        }else if(roll <= 15 && roll > 5){ 
             return rareUpgrades;
         }else if(roll <= 5){
-            return legendaryUpgrades; //5%
+            return legendaryUpgrades; 
         }else{
-            return commonUpgrades; //60%
+            return commonUpgrades; 
         }
     }
 
@@ -82,10 +93,26 @@ public class UpgradeChooser : MonoBehaviour
     }
 
 
-
+    public void ReRoll(){
+        // reRollCost = Mathf.RoundToInt(100 * PlayerStats.playerStats.CurrentLevel / 2);
+        Inventory.Instance.RemoveGold(reRollCost);
+        amntOfRerolls++;
+        GenerateUpgrades();
+    }
 
     public void GenerateUpgrades(){
+        ClearUpgrades();
+        SortUpgrades();
         int i = 0;
+        reRollCost = Mathf.RoundToInt(((100 * PlayerStats.playerStats.CurrentLevel) / 3) * rerollCostIncrease.Evaluate(amntOfRerolls));
+        rerollCostText.text = "cost: " + reRollCost.ToString() + "g";
+        if(Inventory.Instance.PlayerGold >= reRollCost){
+            rerollButton.interactable = true;
+            notEnoughGoldText.SetActive(false);
+        }else{
+            rerollButton.interactable = false;
+            notEnoughGoldText.SetActive(true); 
+        }
         while(i < 3){ //Generate 3 upgrades
             List<PlayerUpgrades> upgradeList = ReturnedList(RollForRarity());
             int choiceRoll = RollForChoice(upgradeList);
@@ -96,14 +123,20 @@ public class UpgradeChooser : MonoBehaviour
         }
     }
 
+    void ClearUpgrades(){
+        possibleUpgrades.AddRange(usedUpgrades); 
+        usedUpgrades.Clear();
+    }
+
 
     public void UpgradeComplete(){
         //Reset all the lists to use again
-        possibleUpgrades.AddRange(usedUpgrades); 
-        usedUpgrades.Clear();
+        ClearUpgrades();
         SortUpgrades();
         controller.SetTrigger("Disabled");
         textController.SetTrigger("Disabled");
         Time.timeScale = 1f;
+        amntOfRerolls = 0;
+        UIManager.uiManagement.upgradePanelActive = false;
     }
 }

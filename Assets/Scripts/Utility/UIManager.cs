@@ -41,6 +41,8 @@ public class UIManager : MonoBehaviour
 
     float currentTimeScale;
     bool isPaused = false;
+    public bool gameLost = false;
+    public bool upgradePanelActive = false;
 
     private PlayerStats _playerStats;
 
@@ -53,12 +55,14 @@ public class UIManager : MonoBehaviour
         HealthPotion.addHealth += UpdateHealthPotionUI;
         PlayerStats.onPlayerDeath += LoseGameUI;
         KillTimer.timerCompleted += LoseGameUI;
+        Inventory.addGold += UpdateGoldUI;
         // PlayerStats.handleLevelIncrease += AbilityUpgrades;
     }
     void OnDisable(){
         HealthPotion.addHealth -= UpdateHealthPotionUI;
         PlayerStats.onPlayerDeath -= LoseGameUI;
         KillTimer.timerCompleted -= LoseGameUI;
+        Inventory.addGold -= UpdateGoldUI;
         // PlayerStats.handleLevelIncrease -= AbilityUpgrades;
 
     }
@@ -75,13 +79,16 @@ public class UIManager : MonoBehaviour
     }
 
     void Update(){
-        if(Input.GetButtonDown("PauseGame")){
-            if(weaponSwapPanel.activeInHierarchy){
-                return;
+        if(!gameLost && !upgradePanelActive){
+            if(Input.GetButtonDown("PauseGame")){
+                if(weaponSwapPanel.activeInHierarchy){
+                    return;
+                }
+                PauseGame();
             }
-            PauseGame();
         }
     }
+
 
     public void UpdateHealthBar(){
         _playerHealthBar.maxValue = _playerStats.PlayerMaxHealth;
@@ -124,8 +131,8 @@ public class UIManager : MonoBehaviour
         _reloadBarObject.LeanScaleX(0, reloadSpeed);
     }
 
-    public void UpdateGoldUI(float playerGold){
-        _goldAmount.text = $"Gold: {playerGold}";
+    public void UpdateGoldUI(int total){
+        _goldAmount.text = $"Gold: {total}";
     }
 
     void LoseGameUI(){

@@ -6,59 +6,74 @@ using TMPro;
 public class NotificationManager : MonoBehaviour
 {
 
-    [Header("UI Elements")]
-    [SerializeField] private TMP_Text notificationText;
-    [SerializeField] private GameObject notificationObject;
-    [SerializeField] private TMP_Text corruptionText;
-    [SerializeField] private GameObject corruptionTextObject;
-    [SerializeField] private Animator animator;
+
+    [Header("Difficulty Increased")]
+    [SerializeField] private GameObject diff_incr_obj;
+
+    [Header("Tier Increased")]
+    [SerializeField] private GameObject corr_incr_obj;
+    [SerializeField] private TMP_Text buffText;
+    [SerializeField] private TMP_Text debuffText;
 
 
-    [SerializeField] private TMP_Text goldIncreaseText;
-
-
-    [SerializeField] Transform goldIncreaseLocation;
 
 
     void OnEnable(){
-        PlayerStats.handleLevelIncrease += LevelUpNotification;
-        // CorruptionManager.corruptionIncrease += CorruptionTierNotification;
+        DifficultyScaler.diffIncreased += DifficultyIncreasedNotification;
+        CorruptionManager.corruptionTierIncrease += CorruptionTierNotification;
         // XPManager.Instance.onXPChange += AddedXPText;
     }
     void OnDisable(){
-        // CorruptionManager.corruptionIncrease -= CorruptionTierNotification;
-        PlayerStats.handleLevelIncrease -= LevelUpNotification;
-        // XPManager.Instance.onXPChange -= AddedXPText;
+        CorruptionManager.corruptionTierIncrease -= CorruptionTierNotification;
+        DifficultyScaler.diffIncreased -= DifficultyIncreasedNotification;
+
     }
 
 
-    // void AddedXPText(int amount){
-    //     GameObject temp = Instantiate(xpIncreaseTextPrefab, xpIncreaseLocation.position, Quaternion.identity);
-    //     xpIncreaseText.text = $"+{amount}";
-    //     StartCoroutine(DestroyTextObject(temp, 0.2f));
-    // }
-    void AddedGoldText(int amount){
-        goldIncreaseText.text = $"+{amount}";
+
+
+    void CorruptionTierNotification(int tier){
+        StartCoroutine(ShowNotification(corr_incr_obj, 3.9f));
+        switch(tier){
+            case 1:
+                buffText.text = "";
+                debuffText.text = "";
+                break;
+
+            case 2:
+                buffText.text = "";
+                debuffText.text = "";
+                break;
+
+            case 3:
+                buffText.text = "";
+                debuffText.text = "";
+                break;
+
+            case 4:
+                buffText.text = "";
+                debuffText.text = "";
+                break;
+
+            case 5:
+                buffText.text = "";
+                debuffText.text = "";
+                break;
+        }
     }
 
-    void LevelUpNotification(){
-        notificationText.text = "Level Up!";
-        // StartCoroutine(DeactivateText(notificationObject, 4f));
+
+
+    void DifficultyIncreasedNotification(){
+        StartCoroutine(ShowNotification(diff_incr_obj, 3.9f));
     }
-
-    // void CorruptionTierNotification(int tier){
-    //     corruptionText.text = $"Tier {tier} entered.";
-    //     StartCoroutine(DeactivateText(corruptionTextObject, 2f));
-    // }
-
-
 
 
     // IEnumerator DestroyTextObject(GameObject toDestroy, float delay){
     //     yield return new WaitForSeconds(delay);
     //     Destroy(toDestroy);
     // }
-    IEnumerator DeactivateText(GameObject toDeactivate, float delay){
+    IEnumerator ShowNotification(GameObject toDeactivate, float delay){
         toDeactivate.SetActive(true);
         yield return new WaitForSeconds(delay);
         toDeactivate.SetActive(false);

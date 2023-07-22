@@ -78,7 +78,7 @@ public class CorruptionManager : MonoBehaviour
     
     void Start(){
         _playerStats = PlayerStats.playerStats;
-        ChangeCorruptionTier(currentTier);
+        TierZero();
         corruptionToNextTier = Mathf.RoundToInt(corruptionAmountCurve.Evaluate(currentTier));
         corruptionBar.maxValue = corruptionToNextTier;
         corruptionBar.value = currentCorruptionAmount;
@@ -112,6 +112,11 @@ public class CorruptionManager : MonoBehaviour
         }
     }
 
+    public void CleanseCorruption(){
+        TierZero();
+        corruptionCleansed?.Invoke();
+    }
+
     public void DEV_AddTier(){
         if(currentTier < 5){
             currentTier++;
@@ -119,25 +124,30 @@ public class CorruptionManager : MonoBehaviour
         }
     }
     public void ChangeCorruptionTier(int tier){
-        corruptionTierIncrease?.Invoke(tier);
+        
         switch(tier){
             case 0:
                 TierZero();
                 break;
             case 1:
                 TierOne();
+                corruptionTierIncrease?.Invoke(tier);
                 break;
             case 2:
                 TierTwo();
+                corruptionTierIncrease?.Invoke(tier);
                 break;
             case 3:
                 TierThree();
+                corruptionTierIncrease?.Invoke(tier);
                 break;
             case 4:
                 TierFour();
+                corruptionTierIncrease?.Invoke(tier);
                 break;
             case 5:
                 TierFive();
+                corruptionTierIncrease?.Invoke(tier);
                 break;
         }
     }
