@@ -24,6 +24,7 @@ public class Combat : MonoBehaviour
 #region Ranged weapon variables
 
     private float fireRate;
+    public float FireRateMod = 1f;
     private float reloadSpeed;
     private int magSize;
     private int currentAmmo;
@@ -84,7 +85,7 @@ public class Combat : MonoBehaviour
 
     public void Shoot(){
         if(currentAmmo > 0){ //Do we have ammo?
-            if(Time.time > lastShot + fireRate){ //If the last time we shot was more than the fire rate, we can shoot.
+            if(Time.time > lastShot + (fireRate * FireRateMod)){ //If the last time we shot was more than the fire rate, we can shoot.
                 //AudioManager.Instance.GUNSFX();
                 // gunSFX.Play();
                 lastShot = Time.time; //Start timer for the last time we shot

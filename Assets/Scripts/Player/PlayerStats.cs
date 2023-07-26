@@ -25,7 +25,7 @@ public class PlayerStats : MonoBehaviour
 
 
     [Header("Base modifiers")]
-    public int CritChanceMod = 10;
+    public float CritChanceMod = 10;
     public float DamageDoneMod = 1f;
     public float DamageTakenMod = 1f;
     public float CritDamageMod = 3f;
@@ -35,23 +35,39 @@ public class PlayerStats : MonoBehaviour
     [SerializeField] ParticleSystem p;
 
     public bool godModeEnabled = false;
+    public bool shieldActivated = false;
     
+    private PlayerController controller;
 
     void Awake(){
-        CurrentHealth = PlayerMaxHealth;
         playerStats = this;
+        CurrentHealth = PlayerMaxHealth;
     }
 
     void OnEnable(){
         XPManager.Instance.onXPChange += IncrementExperience;
+        ClassSelector.classChosen += ClassChosen;
     }
     void OnDisable(){
         XPManager.Instance.onXPChange -= IncrementExperience;
+        ClassSelector.classChosen -= ClassChosen;
     }
 
     void Start(){
         UIManager.uiManagement.UpdateXPBar(ExperienceToNextLevel, CurrentPlayerXP, CurrentLevel);
         p = GetComponentInChildren<ParticleSystem>();
+        controller = GetComponent<PlayerController>();
+    }
+
+    void ClassChosen(ClassData classChosen){
+        PlayerMaxHealth = classChosen.MaxHealth;
+        CurrentHealth = PlayerMaxHealth;
+        CritChanceMod = classChosen.CritChance;
+        DamageDoneMod = classChosen.DamageDone;
+        DamageTakenMod = classChosen.DamageTaken;
+        CritDamageMod = classChosen.CritMultiplier;
+        AdditionalGoldMod = classChosen.GoldMod;
+        UIManager.uiManagement.UpdateHealthBar();
     }
 
     //Only public for Dev Tool
@@ -72,9 +88,9 @@ public class PlayerStats : MonoBehaviour
     }
 
     void IncreaseLevel(int xpOverflow){
-        // PlayerMaxHealth += 25;
         // DamageDoneMod += 0.02f;
         // CritChanceMod += 1;
+        PlayerMaxHealth += 10;
         p.Play();
         CurrentHealth = PlayerMaxHealth;
         CurrentLevel++;
@@ -86,7 +102,7 @@ public class PlayerStats : MonoBehaviour
     }
 
 
-    public void IncreaseHealth(int amount){
+    public void IncreaseHealth(float amount){
         CurrentHealth += amount;
         UIManager.uiManagement.UpdateHealthBar();
         if(CurrentHealth > PlayerMaxHealth){
@@ -105,7 +121,6 @@ public class PlayerStats : MonoBehaviour
         //AudioManager.Instance.HITSFX();
         hitSource.Play();
     }
-
 
 
 }

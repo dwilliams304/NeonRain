@@ -15,8 +15,21 @@ public class AbilityHolder : MonoBehaviour
     }
     AState state = AState.ready;
 
+    void OnEnable(){
+        ClassSelector.classChosen += StarterAbility;
+    }
+    void OnDisable(){
+        ClassSelector.classChosen -= StarterAbility;
+    }
+
     public void SwapAbility(AbilityBase newAbility){
         ability = newAbility;
+    }
+
+    void StarterAbility(ClassData classChosen){
+        if(classChosen.StartingAbility != null){
+            ability = classChosen.StartingAbility;
+        }
     }
 
 
@@ -26,9 +39,11 @@ public class AbilityHolder : MonoBehaviour
         switch(state){
             case AState.ready:
                 if(Input.GetKeyDown(KeyCode.Alpha1)){
-                    ability.UseAbility();
-                    state = AState.active;
-                    activeTime = ability.activeTime;
+                    if(ability != null){
+                        ability.UseAbility();
+                        state = AState.active;
+                        activeTime = ability.activeTime;
+                    }
                 }
                 break;
             case AState.active:

@@ -5,6 +5,7 @@ public class GameManager : MonoBehaviour
     public static GameManager gameManager;
     [SerializeField] private GameObject player;
 
+
     
     void Awake(){
         gameManager = this;

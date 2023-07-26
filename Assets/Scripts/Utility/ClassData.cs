@@ -6,15 +6,15 @@ public class ClassData : ScriptableObject
 {
     
     [Header("Class Name")]
-    public string className = "Default Name";
+    public string ClassName = "Default Name";
 
     [Header("Health")]
-    public int maxHealth = 100;
+    public int MaxHealth = 100;
 
     [Header("Movement")]
-    public float moveSpeed = 8f;
-    public float dashSpeed = 30f;
-    public float dashCooldown = 1f;
+    public float MoveSpeed = 8f;
+    public float DashSpeed = 30f;
+    public float DashCooldown = 1f;
 
     [Header("Base Modifiers")]
     public int CritChance = 10;
@@ -22,5 +22,9 @@ public class ClassData : ScriptableObject
     public float DamageTaken = 1f;
     public float CritMultiplier = 3f;
     public float GoldMod = 1f;
+    public float FireRateMod = 1f;
+
+    [Header("Starter Ability")]
+    public AbilityBase StartingAbility;
 
 }

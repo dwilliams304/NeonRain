@@ -22,16 +22,16 @@ public class PlayerController : MonoBehaviour
     private bool _isDashing;
     private bool _canDash;
 
+    private ClassData currentClass;
 
-
-
-    public bool isReloading = false;
 
     void OnEnable(){
         CorruptionManager.moveSpeedModifier += ChangeMoveSpeed;
+        ClassSelector.classChosen += UpdateStats;
     }
     void OnDisable(){
         CorruptionManager.moveSpeedModifier -= ChangeMoveSpeed;
+        ClassSelector.classChosen -= UpdateStats;
     }
     void Awake(){
         Instance = this;
@@ -40,10 +40,16 @@ public class PlayerController : MonoBehaviour
 
     void Start(){
         _canDash = true;
+        
     }
 
     void ChangeMoveSpeed(float moveSpeedModifier){
         MoveSpeed += moveSpeedModifier;
+    }
+    void UpdateStats(ClassData classChosen){
+        MoveSpeed = classChosen.MoveSpeed;
+        _dashSpeed = classChosen.DashSpeed;
+        _dashCoolDown = classChosen.DashCooldown;
     }
 
 

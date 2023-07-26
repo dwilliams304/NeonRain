@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
@@ -14,11 +13,16 @@ public class ClassSelector : MonoBehaviour
     [SerializeField] TMP_Text classFireRate;
     [SerializeField] TMP_Text classMoveSpeed;
     [SerializeField] TMP_Text classDashSpeed;
+    [SerializeField] TMP_Text totalClasses;
+
+    public delegate void ClassChosen(ClassData classChosen);
+    public static ClassChosen classChosen;
 
     private int currentIdx = 0;
 
     void Start(){
         UpdateUI(possibleClasses[currentIdx]);
+        Time.timeScale = 0f;
     }
 
     void Update(){
@@ -30,17 +34,18 @@ public class ClassSelector : MonoBehaviour
     }
 
     void UpdateUI(ClassData classInfo){
-        className.text = classInfo.className;
-        classHealth.text = classInfo.maxHealth.ToString();
+        className.text = classInfo.ClassName;
+        classHealth.text = classInfo.MaxHealth.ToString();
         classDamage.text = classInfo.DamageDone.ToString();
         classDamageTaken.text = classInfo.DamageTaken.ToString();
-        classMoveSpeed.text = classInfo.moveSpeed.ToString();
-        classDashSpeed.text = classInfo.dashSpeed.ToString();
+        classMoveSpeed.text = classInfo.MoveSpeed.ToString();
+        classDashSpeed.text = classInfo.DashSpeed.ToString();
+        totalClasses.text = $"{currentIdx + 1} of {possibleClasses.Count}";
     }
 
     public void CycleRight(){
         currentIdx++;
-        if(currentIdx > possibleClasses.Count){
+        if(currentIdx >= possibleClasses.Count){
             currentIdx = 0;
         }
         UpdateUI(possibleClasses[currentIdx]);
@@ -54,6 +59,8 @@ public class ClassSelector : MonoBehaviour
     }
 
     public void ConfirmChoice(){
-
+        // PlayerStats.playerStats.ClassChosen(possibleClasses[currentIdx]);
+        classChosen?.Invoke(possibleClasses[currentIdx]);
+        Time.timeScale = 1f;
     }
 }
