@@ -22,6 +22,9 @@ public class Enemy : MonoBehaviour
     [SerializeField] private GameObject floatingDmgTextPref;
     [SerializeField] private float dmgNumberYOffset;
 
+    [SerializeField] private Color nonCritColor;
+    [SerializeField] private Color critColor;
+
 
     void Start(){
         _enemyName = enemyData.enemyName;
@@ -74,11 +77,11 @@ public class Enemy : MonoBehaviour
             TMP_Text textComponent = prefab.GetComponentInChildren<TMP_Text>();
             textComponent.text = text;
             if(Combat.combat.didCrit){
-                textComponent.color = Color.red;
+                textComponent.color = critColor;
                 textComponent.fontSize = 12;
             }
             else{
-                textComponent.color = Color.yellow;
+                textComponent.color = nonCritColor;
                 textComponent.fontSize = 8;
             }
         }

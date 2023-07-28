@@ -148,6 +148,8 @@ MonoBehaviour:
   _playerStats: {fileID: 0}
   floatingDmgTextPref: {fileID: 1801837051691845774, guid: f9db660384cd000428f77b2483f47893, type: 3}
   dmgNumberYOffset: 0
+  nonCritColor: {r: 0, g: 1, b: 0.99256897, a: 1}
+  critColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!114 &6751617894723267824
 MonoBehaviour:
   m_ObjectHideFlags: 0

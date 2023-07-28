@@ -72,7 +72,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: ebe73ca9363db456bacf42c025bb4847, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 471d8ad72d620bf4f879c62d2c21b9fb, type: 3}
   m_Color: {r: 0, g: 0.44111133, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -178,6 +178,8 @@ MonoBehaviour:
   _playerStats: {fileID: 0}
   floatingDmgTextPref: {fileID: 1801837051691845774, guid: f9db660384cd000428f77b2483f47893, type: 3}
   dmgNumberYOffset: 0
+  nonCritColor: {r: 0, g: 1, b: 0.99256897, a: 1}
+  critColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!114 &1000966647268966968
 MonoBehaviour:
   m_ObjectHideFlags: 0

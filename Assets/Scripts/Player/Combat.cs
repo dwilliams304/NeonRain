@@ -8,6 +8,7 @@ public class Combat : MonoBehaviour
     private float lastShot;
     [SerializeField] AudioSource gunSFX;
     [SerializeField] AudioClip gunShot;
+    [SerializeField] ParticleSystem muzzleFlash;
 
 #region Other variables
 
@@ -87,7 +88,10 @@ public class Combat : MonoBehaviour
         if(currentAmmo > 0){ //Do we have ammo?
             if(Time.time > lastShot + (fireRate * FireRateMod)){ //If the last time we shot was more than the fire rate, we can shoot.
                 //AudioManager.Instance.GUNSFX();
+                // gunSFX.pitch = Random.Range(0.4f, 1f);
+                // gunSFX.volume = Random.Range(0.07f, 0.1f);
                 // gunSFX.Play();
+                MuzzleFlash();
                 lastShot = Time.time; //Start timer for the last time we shot
                 GameObject bullet = ObjectPooler.current.GetPooledPlayerBullet(); //Grab a bullet from the bullet pool
                 if(bullet == null) return; //If we don't have any bullets, do nothing (SHOULDNT HAPPEN)
@@ -99,6 +103,10 @@ public class Combat : MonoBehaviour
                 uiManager.UpdateAmmo(currentAmmo, magSize); //Change the ammo text
             }
         }
+    }
+
+    void MuzzleFlash(){
+        muzzleFlash.Play();
     }
 
 

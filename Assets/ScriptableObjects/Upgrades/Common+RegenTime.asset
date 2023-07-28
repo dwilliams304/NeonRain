@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d288c0615ec4074c9cc747fd5ced144, type: 3}
+  m_Name: Common+RegenTime
+  m_EditorClassIdentifier: 
+  icon: {fileID: 0}
+  upgradeName: +Health Regen Frequency
+  toolTipDescription: Your health regeneration ticks (amount) faster.
+  increaseAmount: 0
+  isPercentUpgrade: 0
+  rarity: 0
