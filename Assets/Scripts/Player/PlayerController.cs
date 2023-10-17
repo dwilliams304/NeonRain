@@ -22,7 +22,6 @@ public class PlayerController : MonoBehaviour
     private bool _isDashing;
     private bool _canDash;
 
-    private ClassData currentClass;
 
 
     void OnEnable(){
