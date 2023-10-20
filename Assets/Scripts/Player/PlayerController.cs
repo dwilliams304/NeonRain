@@ -12,8 +12,7 @@ public class PlayerController : MonoBehaviour
     Vector2 mousePos;
 
     //MoveSpeed
-    public float MoveSpeed = 9f;
-    public float MoveSpeedMOD = 1f;
+    private float _moveSpeed = 9f;
 
     //Dash variables
     private float _dashSpeed = 35f;
@@ -25,11 +24,9 @@ public class PlayerController : MonoBehaviour
 
 
     void OnEnable(){
-        CorruptionManager.moveSpeedModifier += ChangeMoveSpeed;
         ClassSelector.classChosen += UpdateStats;
     }
     void OnDisable(){
-        CorruptionManager.moveSpeedModifier -= ChangeMoveSpeed;
         ClassSelector.classChosen -= UpdateStats;
     }
     void Awake(){
@@ -42,11 +39,7 @@ public class PlayerController : MonoBehaviour
         
     }
 
-    void ChangeMoveSpeed(float moveSpeedModifier){
-        MoveSpeed += moveSpeedModifier;
-    }
     void UpdateStats(ClassData classChosen){
-        MoveSpeed = classChosen.MoveSpeed;
         _dashSpeed = classChosen.DashSpeed;
         _dashCoolDown = classChosen.DashCooldown;
     }
@@ -78,7 +71,7 @@ public class PlayerController : MonoBehaviour
         if(_isDashing){
             return;
         }
-        rb.velocity = new Vector2(moveDir.x * MoveSpeed * MoveSpeedMOD, moveDir.y * MoveSpeed * MoveSpeedMOD);
+        rb.velocity = new Vector2(moveDir.x * _moveSpeed * PlayerStatModifier.MOD_MoveSpeed, moveDir.y * _moveSpeed * PlayerStatModifier.MOD_MoveSpeed);
 
 
     }

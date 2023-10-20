@@ -13,12 +13,13 @@ public class HealthRegenerator : MonoBehaviour
     }
     
     void Start(){
-        StartCoroutine(RegenerateHealth());
+        // StartCoroutine(RegenerateHealth());
+        Debug.LogWarning("<color=yellow>PLEASE IMPLEMENT HEALTH REGEN</color>");
     }
 
-    IEnumerator RegenerateHealth(){
-        yield return new WaitForSeconds(RegenTime);
-        PlayerStats.playerStats.IncreaseHealth(RegenAmount);
-        StartCoroutine(RegenerateHealth());
-    }
+    // IEnumerator RegenerateHealth(){
+    //     yield return new WaitForSeconds(RegenTime);
+    //     PlayerStats.playerStats.IncreaseHealth(RegenAmount);
+    //     StartCoroutine(RegenerateHealth());
+    // }
 }

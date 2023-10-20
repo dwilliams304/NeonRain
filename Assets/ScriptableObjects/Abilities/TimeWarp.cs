@@ -8,13 +8,11 @@ public class TimeWarp : AbilityBase
     {
         Time.timeScale = 0.5f;
 
-        PlayerController.Instance.MoveSpeed *= 2f;
     }
 
 
     public override void AbilityComplete()
     {
-        PlayerController.Instance.MoveSpeed /= 2;
         Time.timeScale = 1f;
     }
 }

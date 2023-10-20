@@ -2,8 +2,6 @@ using UnityEngine;
 
 public class PlayerStats : MonoBehaviour
 {
-
-    public static PlayerStats playerStats;
     public delegate void HandleLevelIncrease();
     public delegate void HandlePlayerDeath();
     public static HandleLevelIncrease handleLevelIncrease;
@@ -12,9 +10,8 @@ public class PlayerStats : MonoBehaviour
     [Header("Chosen Class")]
     public ClassData playerClass;
 
-    [Header("Health")]
-    public float PlayerMaxHealth = 100;
-    public float CurrentHealth;
+    public int PlayerMaxHealth {get; private set;} = 100;
+    public int CurrentHealth {get; private set;}
 
 
     [Header("PlayerXP")]
@@ -24,23 +21,13 @@ public class PlayerStats : MonoBehaviour
     [SerializeField] private AnimationCurve xpScaling;
 
 
-    [Header("Base modifiers")]
-    public float CritChanceMod = 10;
-    public float DamageDoneMod = 1f;
-    public float DamageTakenMod = 1f;
-    public float CritDamageMod = 3f;
-    public float AdditionalGoldMod = 1f;
-
     [SerializeField] AudioSource hitSource;
     [SerializeField] ParticleSystem p;
 
-    public bool godModeEnabled = false;
     public bool shieldActivated = false;
     
-    private PlayerController controller;
 
     void Awake(){
-        playerStats = this;
         CurrentHealth = PlayerMaxHealth;
     }
 
@@ -56,17 +43,11 @@ public class PlayerStats : MonoBehaviour
     void Start(){
         UIManager.uiManagement.UpdateXPBar(ExperienceToNextLevel, CurrentPlayerXP, CurrentLevel);
         p = GetComponentInChildren<ParticleSystem>();
-        controller = GetComponent<PlayerController>();
     }
 
     void ClassChosen(ClassData classChosen){
         PlayerMaxHealth = classChosen.MaxHealth;
         CurrentHealth = PlayerMaxHealth;
-        CritChanceMod = classChosen.CritChance;
-        DamageDoneMod = classChosen.DamageDone;
-        DamageTakenMod = classChosen.DamageTaken;
-        CritDamageMod = classChosen.CritMultiplier;
-        AdditionalGoldMod = classChosen.GoldMod;
         UIManager.uiManagement.UpdateHealthBar();
     }
 
@@ -88,8 +69,6 @@ public class PlayerStats : MonoBehaviour
     }
 
     void IncreaseLevel(int xpOverflow){
-        // DamageDoneMod += 0.02f;
-        // CritChanceMod += 1;
         PlayerMaxHealth += 10;
         p.Play();
         CurrentHealth = PlayerMaxHealth;
@@ -102,7 +81,7 @@ public class PlayerStats : MonoBehaviour
     }
 
 
-    public void IncreaseHealth(float amount){
+    public void IncreaseHealth(int amount){
         CurrentHealth += amount;
         UIManager.uiManagement.UpdateHealthBar();
         if(CurrentHealth > PlayerMaxHealth){
@@ -111,13 +90,12 @@ public class PlayerStats : MonoBehaviour
     }
 
     public void TakeDamage(float damage){
-        if(!godModeEnabled){
-            CurrentHealth -= Mathf.Ceil(damage * DamageTakenMod);
-            if(CurrentHealth <= 0){
-                onPlayerDeath?.Invoke();
-            }
-            UIManager.uiManagement.UpdateHealthBar();
+        CurrentHealth -= Mathf.CeilToInt(damage * PlayerStatModifier.MOD_DamageTaken);
+        if(CurrentHealth <= 0){
+            onPlayerDeath?.Invoke();
         }
+        UIManager.uiManagement.UpdateHealthBar();
+
         //AudioManager.Instance.HITSFX();
         hitSource.Play();
     }

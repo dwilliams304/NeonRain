@@ -547,7 +547,31 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 554947702188765566, guid: 72c93d641862ac54d95fe87e3e361d6c, type: 3}
       propertyPath: amountOfRooms
-      value: 30
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 554947702188765566, guid: 72c93d641862ac54d95fe87e3e361d6c, type: 3}
+      propertyPath: specialColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 554947702188765566, guid: 72c93d641862ac54d95fe87e3e361d6c, type: 3}
+      propertyPath: specialColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 554947702188765566, guid: 72c93d641862ac54d95fe87e3e361d6c, type: 3}
+      propertyPath: specialColor.g
+      value: 0.008566034
+      objectReference: {fileID: 0}
+    - target: {fileID: 554947702188765566, guid: 72c93d641862ac54d95fe87e3e361d6c, type: 3}
+      propertyPath: specialColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 554947702188765566, guid: 72c93d641862ac54d95fe87e3e361d6c, type: 3}
+      propertyPath: maxChestsPerRoom
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 554947702188765566, guid: 72c93d641862ac54d95fe87e3e361d6c, type: 3}
+      propertyPath: specialRoomChance
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2199913262036562472, guid: 72c93d641862ac54d95fe87e3e361d6c, type: 3}
       propertyPath: m_Name

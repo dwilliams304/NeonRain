@@ -7,8 +7,7 @@ public class HealthUpgrade : PlayerUpgrades
 
     public override void UpgradeChosen()
     {
-        PlayerStats.playerStats.PlayerMaxHealth += increaseAmount;
-        PlayerStats.playerStats.CurrentHealth += increaseAmount;
+        Debug.Log("PLEASE IMPLEMENT HEALTH UPGRADE!");
         UIManager.uiManagement.UpdateHealthBar();
     }
 }

@@ -38,7 +38,6 @@ public class Enemy : MonoBehaviour
         _dropChance = enemyData.dropChance;
         _scoreAmnt = enemyData.score;
         _healthBar = GetComponentInChildren<FloatingHealthBar>();
-        _playerStats = PlayerStats.playerStats;
     }
 
 

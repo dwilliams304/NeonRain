@@ -153,7 +153,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 8571027462325331655, guid: bc2162a848b212847a65192c7e5711b2, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 3a0b90bdf538a6e4fae9cfda4ed66b4f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -379,6 +379,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   body: {fileID: 4900901941745768044}
+  amountOfChests: 0
   roomDoors:
   - active: 0
     direction: 0

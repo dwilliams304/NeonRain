@@ -6,28 +6,53 @@ public class PlayerStatModifier : MonoBehaviour
     public static PlayerStatModifier playerMods;
 
     //MOVE SPEED
-    public float MOD_MoveSpeed => _moveSpeed;
-    private float _moveSpeed = 1f;
+    public static float MOD_MoveSpeed  {get; private set; } = 1f;
 
     //DAMAGE DONE/TAKEN
-    public float MOD_DamageDone => _damageDone;
-    public float MOD_DamageTaken => _damageTaken;
-    private float _damageDone = 1f;
-    private float _damageTaken = 1f;
+    public static float MOD_DamageDone  {get; private set; } = 1f;
+    public static float MOD_DamageTaken  {get; private set; } = 1f;
     
     //CRIT STRIKES
-    public float MOD_CritChance => _critChance;
-    public float MOD_CritDamage => _critDamage;
-    private float _critChance = 10f;
-    private float _critDamage = 3f;
+    public static int MOD_CritChance {get; private set; } = 10;
+    public static float MOD_CritDamage  {get; private set; } = 3f;
 
     //MISC.
-    public float MOD_AdditionGold => _additionalGold;
-    private float _additionalGold = 1f;
+    public static float MOD_AdditionalGold { get; private set; } = 1f;
 
+    public static void ChangeClassMods(ClassData classChosen){
+        MOD_MoveSpeed = classChosen.MoveSpeed;
+        MOD_DamageDone = classChosen.DamageDone;
+        MOD_DamageTaken = classChosen.DamageTaken;
+        MOD_CritChance = classChosen.CritChance;
+        MOD_CritDamage = classChosen.CritMultiplier;
+        MOD_AdditionalGold = classChosen.GoldMod;
 
-
-    void Awake(){
-        playerMods = this;
     }
+
+
+    public static void ChangeMoveSpeedMod(float amount){
+        MOD_MoveSpeed += amount;
+    }
+
+    public static void ChangeDamageTakenMod(float amount){
+        MOD_DamageTaken += amount;
+    }
+
+    public static void ChangeDamageDoneMod(float amount){
+        MOD_DamageDone += amount;
+    }
+
+    public static void ChangeCritChanceMod(int amount){
+        MOD_CritChance += amount;
+    }
+
+    public static void ChangeCritDamageMod(float amount){
+        MOD_CritDamage += amount;
+    }
+
+    public static void ChangeAdditionalGoldMod(float amount){
+        MOD_AdditionalGold += amount;
+    }
+
+
 }

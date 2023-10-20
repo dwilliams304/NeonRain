@@ -17,14 +17,12 @@ public class CorruptionManager : MonoBehaviour
     //Events
     public delegate void CorruptionTierIncrease(int newTier);
     public delegate void CorruptionCleansed();
-    public delegate void ModifyMoveSpeed(float amnt);
     public delegate void StartKillTimer();
     public delegate void StopKillTimer();
     public static StopKillTimer stopKillTimer;
     public static StartKillTimer startKillTimer;
     public static CorruptionTierIncrease corruptionTierIncrease;
     public static CorruptionCleansed corruptionCleansed;
-    public static ModifyMoveSpeed moveSpeedModifier;
     
     [Header("Assign Global Volume")]
     [SerializeField] CorruptionPostProcessing postProcess;
@@ -77,7 +75,6 @@ public class CorruptionManager : MonoBehaviour
     }
     
     void Start(){
-        _playerStats = PlayerStats.playerStats;
         TierZero();
         corruptionToNextTier = Mathf.RoundToInt(corruptionAmountCurve.Evaluate(currentTier));
         corruptionBar.maxValue = corruptionToNextTier;
@@ -166,10 +163,10 @@ public class CorruptionManager : MonoBehaviour
         stopKillTimer?.Invoke();
         
         //Stat changes
-        _playerStats.DamageDoneMod -= addedDamageDone;
-        _playerStats.DamageTakenMod -= addedDamageTaken;
+        PlayerStatModifier.ChangeDamageDoneMod(-addedDamageDone);
+        PlayerStatModifier.ChangeDamageTakenMod(-addedDamageTaken);
         XPManager.Instance.XPModifier -= addedXP;
-        moveSpeedModifier?.Invoke(-addedMoveSpeed);
+        PlayerStatModifier.ChangeMoveSpeedMod(-addedMoveSpeed);
 
         //Reset all values
         addedLuck = 0;
@@ -194,8 +191,8 @@ public class CorruptionManager : MonoBehaviour
         addedLuck += 0.01f; //1%
 
 
-        _playerStats.DamageDoneMod += 0.05f;
-        _playerStats.DamageTakenMod += 0.05f;
+        PlayerStatModifier.ChangeDamageDoneMod(0.05f);
+        PlayerStatModifier.ChangeDamageTakenMod(0.05f);
         XPManager.Instance.XPModifier += 0.05f;
         LootManager.lootManager.AddedLuck += 0.01f;
         
@@ -214,8 +211,8 @@ public class CorruptionManager : MonoBehaviour
         addedXP += 0.2f; //25%
         addedLuck += 0.01f; //2%
 
-        _playerStats.DamageDoneMod += 0.05f;
-        _playerStats.DamageTakenMod += 0.05f;
+        PlayerStatModifier.ChangeDamageDoneMod(0.05f);
+        PlayerStatModifier.ChangeDamageTakenMod(0.05f);
         XPManager.Instance.XPModifier += 0.2f;
 
     }
@@ -233,8 +230,8 @@ public class CorruptionManager : MonoBehaviour
         addedXP += 0.25f; //50%
         addedLuck += 0.01f; //3%
 
-        _playerStats.DamageDoneMod += 0.15f;
-        _playerStats.DamageTakenMod += 0.2f;
+        PlayerStatModifier.ChangeDamageDoneMod(0.15f);
+        PlayerStatModifier.ChangeDamageTakenMod(0.2f);
         XPManager.Instance.XPModifier += 0.25f;
         
     }
@@ -251,8 +248,8 @@ public class CorruptionManager : MonoBehaviour
         addedDamageTaken += 0.45f; //75%
         addedXP += 0.5f; //100%
 
-        _playerStats.DamageDoneMod += 0.25f;
-        _playerStats.DamageTakenMod += 0.45f;
+        PlayerStatModifier.ChangeDamageDoneMod(0.25f);
+        PlayerStatModifier.ChangeDamageTakenMod(0.45f);
         XPManager.Instance.XPModifier += 0.5f;
 
     }
@@ -271,11 +268,11 @@ public class CorruptionManager : MonoBehaviour
         addedDamageDone += 0.5f; //100%
         addedDamageTaken += 1.25f; //200%
         addedXP += 1f; //200%
-        addedMoveSpeed += 3f;
+        addedMoveSpeed += 1f;
 
-        _playerStats.DamageDoneMod += 0.5f;
-        _playerStats.DamageTakenMod += 0.75f;
-        moveSpeedModifier?.Invoke(addedMoveSpeed);
+        PlayerStatModifier.ChangeDamageDoneMod(0.5f);
+        PlayerStatModifier.ChangeDamageTakenMod(0.75f);
+        PlayerStatModifier.ChangeMoveSpeedMod(1f);
         XPManager.Instance.XPModifier += 1f;
 
     }

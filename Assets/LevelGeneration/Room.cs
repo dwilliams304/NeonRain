@@ -1,6 +1,3 @@
-// using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(BoxCollider2D))]
@@ -20,6 +17,7 @@ public class Room : MonoBehaviour
         // [HideInInspector]
         public bool active;
 
+
         public Directions direction;
         public SpriteRenderer spriteR;
         public Room leadsTo;
@@ -28,6 +26,7 @@ public class Room : MonoBehaviour
     [SerializeField]
     private SpriteRenderer body;
 
+    public int amountOfChests;
     public Doors[] roomDoors = new Doors[4];
 
 
@@ -58,6 +57,10 @@ public class Room : MonoBehaviour
             }
         }
 
+    }
+
+    public void ChangeToSpecial(Color newColor){
+        body.color = newColor;
     }
 
 

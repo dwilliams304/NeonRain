@@ -7,8 +7,6 @@ public class DEVTools : MonoBehaviour
 {
     public static DEVTools __DEV;
     private LootManager _lootManager;
-    private PlayerStats _playerStats;
-    private Combat _combat;
 
 
     [SerializeField] private GameObject _devToolsUIPanel;
@@ -70,7 +68,6 @@ public class DEVTools : MonoBehaviour
     }
     void Start(){
         _lootManager = LootManager.lootManager;
-        _playerStats = PlayerStats.playerStats;
         mainCam = Camera.main;
         spawners.AddRange(GameObject.FindGameObjectsWithTag("Spawner"));
     }
@@ -118,16 +115,14 @@ public class DEVTools : MonoBehaviour
         totalDrops.text = $"Total drops: {totalRolls}";
 
         //Player stats Update
-        playerDamageDone.text = $"Damage done: {PlayerStats.playerStats.DamageDoneMod * 100}%";
-        playerDamageTaken.text = $"Damage taken: {PlayerStats.playerStats.DamageTakenMod * 100}%";
+        playerDamageDone.text = $"Damage done: {PlayerStatModifier.MOD_DamageDone * 100}%";
+        playerDamageTaken.text = $"Damage taken: {PlayerStatModifier.MOD_DamageTaken * 100}%";
         playerXPIncrease.text = $"XP Increase: {XPManager.Instance.XPModifier * 100}%";
         playerLuckModifier.text = $"N/A";
-        playerGoldModifier.text = $"Gold modifier: {PlayerStats.playerStats.AdditionalGoldMod}x";
-        playerCritChanceModifier.text = $"Crit chance: {PlayerStats.playerStats.CritChanceMod}%";
-        playerCritMultilpierModifier.text = $"Crit multiplier: {PlayerStats.playerStats.CritDamageMod}x";
-        playerMoveSpeed.text = $"Move speed: {PlayerController.Instance.MoveSpeedMOD * 100}%";
-        playerCurrentHealth.text = $"Current health: {PlayerStats.playerStats.CurrentHealth}";
-        playerCurrentXP.text = $"Current XP: {PlayerStats.playerStats.CurrentPlayerXP}";
+        playerGoldModifier.text = $"Gold modifier: {PlayerStatModifier.MOD_AdditionalGold}x";
+        playerCritChanceModifier.text = $"Crit chance: {PlayerStatModifier.MOD_CritChance}%";
+        playerCritMultilpierModifier.text = $"Crit multiplier: {PlayerStatModifier.MOD_CritDamage}x";
+        playerMoveSpeed.text = $"Move speed: {PlayerStatModifier.MOD_MoveSpeed * 100}%";
     }
     
     
@@ -160,11 +155,11 @@ public class DEVTools : MonoBehaviour
         lastAction.text = $"Spawners toggled. Spawner active status: {spawnersActive}";
     }
 
-    public void AddHealth(int amount){
-        PlayerStats.playerStats.IncreaseHealth(amount);
-    }
+    // public void AddHealth(int amount){
+    //     PlayerStats.playerStats.IncreaseHealth(amount);
+    // }
 
-    public void ToggleGodMode(){
-        PlayerStats.playerStats.godModeEnabled = !PlayerStats.playerStats.godModeEnabled;
-    }
+    // public void ToggleGodMode(){
+    //     PlayerStats.playerStats.godModeEnabled = !PlayerStats.playerStats.godModeEnabled;
+    // }
 }

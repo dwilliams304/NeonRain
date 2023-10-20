@@ -104,7 +104,8 @@ public class UpgradeChooser : MonoBehaviour
         ClearUpgrades();
         SortUpgrades();
         int i = 0;
-        reRollCost = Mathf.RoundToInt(((100 * PlayerStats.playerStats.CurrentLevel) / 3) * rerollCostIncrease.Evaluate(amntOfRerolls));
+        reRollCost = Mathf.RoundToInt(((100 * 1) / 3) * rerollCostIncrease.Evaluate(amntOfRerolls)); //Change 1 to whatever thing is
+        Debug.LogWarning("<color=yellow>REROLL COST NEEDS IMPLEMENTED!!</color>");
         rerollCostText.text = "cost: " + reRollCost.ToString() + "g";
         if(Inventory.Instance.PlayerGold >= reRollCost){
             rerollButton.interactable = true;

@@ -14,7 +14,6 @@ public class Combat : MonoBehaviour
 
     [SerializeField] private UIManager uiManager;
     [SerializeField] private Inventory _inventory;
-    [SerializeField] private PlayerStats _playerStats;
     [SerializeField] private GameObject _bulletPrefab;
     [SerializeField] private Transform _firePoint;
     [SerializeField] private LayerMask _enemyLayers;
@@ -46,7 +45,6 @@ public class Combat : MonoBehaviour
     }
     void Start(){
         _inventory = GetComponent<Inventory>();
-        _playerStats = PlayerStats.playerStats;
         AssignWeaponStats(_inventory.weapon);
     }
 
@@ -122,9 +120,9 @@ public class Combat : MonoBehaviour
     //This is the same as the melee damage calculation, just for ranged weapon
     public float CalculateRangedDamage(){
         int critRoll = Random.Range(0, 100);
-        float dmgRoll = Random.Range(rangedMinDmg, rangedMaxDmg) * _playerStats.DamageDoneMod;
-        if(critRoll <= _playerStats.CritChanceMod + rangedCritChance){
-            float returnVal = Mathf.Ceil(dmgRoll *= _playerStats.CritDamageMod);
+        float dmgRoll = Random.Range(rangedMinDmg, rangedMaxDmg) * PlayerStatModifier.MOD_DamageDone;
+        if(critRoll <= PlayerStatModifier.MOD_CritChance + rangedCritChance){
+            float returnVal = Mathf.Ceil(dmgRoll *= PlayerStatModifier.MOD_CritDamage);
             //Debug.Log("Crit! Dmg calc: " + returnVal);
             didCrit = true;
             return returnVal;
