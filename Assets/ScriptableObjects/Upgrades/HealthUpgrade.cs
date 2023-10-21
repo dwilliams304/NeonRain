@@ -7,6 +7,6 @@ public class HealthUpgrade : PlayerUpgrades
 
     public override void UpgradeChosen()
     {
-        PlayerStats.Instance.ChangeHealth(increaseAmount);
+        PlayerStats.Instance.IncreaseMaxHealth(increaseAmount);
     }
 }

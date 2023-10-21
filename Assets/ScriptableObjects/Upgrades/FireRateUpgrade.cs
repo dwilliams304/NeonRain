@@ -6,6 +6,6 @@ public class FireRateUpgrade : PlayerUpgrades
 {
     public override void UpgradeChosen()
     {
-        Combat.combat.FireRateMod -= increaseAmount;
+        Combat.Instance.FireRateMod -= increaseAmount;
     }
 }

@@ -23,6 +23,7 @@ public class PlayerStats : MonoBehaviour
 
     private UIManager _uiMngr;
     private HealthBehavior _health;
+    private HealthRegenerator _hRegen;
 
     public bool shieldActivated = false;
     
@@ -42,6 +43,9 @@ public class PlayerStats : MonoBehaviour
     void Start(){
         _uiMngr = UIManager.Instance;
         _health = GetComponent<HealthBehavior>();
+        _hRegen = GetComponent<HealthRegenerator>();
+
+
         _uiMngr.UpdateXPBar(ExperienceToNextLevel, CurrentPlayerXP, CurrentLevel);
         p = GetComponentInChildren<ParticleSystem>();
     }
@@ -68,8 +72,7 @@ public class PlayerStats : MonoBehaviour
     }
 
     void IncreaseLevel(int xpOverflow){
-        // PlayerMaxHealth += 10;
-        // CurrentHealth = PlayerMaxHealth;
+        IncreaseMaxHealth(10);
         p.Play();
         CurrentLevel++;
         CurrentPlayerXP = xpOverflow;
@@ -80,8 +83,19 @@ public class PlayerStats : MonoBehaviour
     }
 
 
-    public void ChangeHealth(float amount){
+#region For Player Upgrades
+
+    public void IncreaseMaxHealth(float amount){
         _health.IncreaseMaxHealth(amount);
+    }   
+
+    public void IncreaseHealthRegenAmount(float amount){
+        _hRegen.ChangeRegenAmount(amount);
     }
 
+    public void DecreaseHealthRegenTime(float amount){
+        _hRegen.ChangeRegenTime(amount);
+    }
+
+#endregion
 }

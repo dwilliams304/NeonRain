@@ -7,7 +7,7 @@ public class HealthRegenerator : MonoBehaviour
     public float RegenAmount {get; private set;} = 1f;
 
 
-    [SerializeField] private HealthBehavior _health;
+    private HealthBehavior _health;
     
     public void ChangeRegenAmount(float amount){
         RegenAmount += amount;

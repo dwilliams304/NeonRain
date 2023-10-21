@@ -7,16 +7,22 @@ public class HealthBehavior : MonoBehaviour
     public int CurrentHealth { get; private set; }
     public int MaxHealth { get; private set; }
 
+    public delegate void TakeDamage(float amount);
+    public TakeDamage onDamage;
+
+    public delegate void OnDeath();
+    public OnDeath onDeath;
+
     [SerializeField] private Slider _healthBar;
 
-    public void SetMaxHealth(int amount){
-        MaxHealth = amount;
+    public void SetMaxHealth(float amount){ //This will only SET the max health, not add to its current value
+        MaxHealth = Mathf.RoundToInt(amount);
         CurrentHealth = MaxHealth;
         SetHealthBarMaxValue(MaxHealth);
     }
 
 
-    public void IncreaseMaxHealth(float amount){
+    public void IncreaseMaxHealth(float amount){ //Add onto current maxhealth value
         MaxHealth += Mathf.RoundToInt(amount);
         CurrentHealth = MaxHealth;
     }
@@ -24,32 +30,34 @@ public class HealthBehavior : MonoBehaviour
     public void InceaseCurrentHealth(float amount){
         CurrentHealth += Mathf.RoundToInt(amount);
         if(CurrentHealth > MaxHealth) CurrentHealth = MaxHealth;
-        ChangeHealthBarValue(CurrentHealth * -1); //Flip to negative to add
+        ChangeHealthBarValue(CurrentHealth * -1); //Flip to negative to add, increasing value
     }
 
 
     public void DecreaseCurrentHealth(float amount){
         CurrentHealth -= Mathf.RoundToInt(amount);
+        onDamage?.Invoke(amount);
         if(CurrentHealth <= 0){
-            CurrentHealth = 0;
-            Die();
+            onDeath?.Invoke();
         }
-        ChangeHealthBarValue(CurrentHealth);
+        else{
+            ChangeHealthBarValue(CurrentHealth);
+        }
     }
 
     void ChangeHealthBarValue(int amount){
-        _healthBar.value -= amount;
+        if(_healthBar == null){
+            return;
+        }
+        _healthBar.value = amount;
     }
 
     void SetHealthBarMaxValue(int amount){
+        if(_healthBar == null){
+            return;
+        }
         _healthBar.maxValue = amount;
         _healthBar.value = amount;
-
     }
 
-
-    void Die(){
-        Debug.LogError("Kill me please!");
-        // this.gameObject.SetActive(false);
-    }
 }

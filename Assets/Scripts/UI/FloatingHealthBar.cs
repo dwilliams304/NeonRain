@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,11 +10,6 @@ public class FloatingHealthBar : MonoBehaviour
 
     void Awake(){
         cam = Camera.main;
-    }
-
-    public void UpdateHealthBar(float currentValue, float maxValue){
-        _slider.maxValue = maxValue;
-        _slider.value = currentValue;
     }
 
     void Update(){

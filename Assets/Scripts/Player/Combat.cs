@@ -4,16 +4,15 @@ using UnityEngine;
 
 public class Combat : MonoBehaviour
 {
-    public static Combat combat;
+    public static Combat Instance;
     private float lastShot;
     [SerializeField] ParticleSystem muzzleFlash;
 
 #region Other variables
     private UIManager _uiMngr;
     [SerializeField] private Inventory _inventory;
-    [SerializeField] private GameObject _bulletPrefab;
     [SerializeField] private Transform _firePoint;
-    [SerializeField] private LayerMask _enemyLayers;
+    [SerializeField] private LayerMask _enemyLayers; //For melee combat
 
 #endregion
 
@@ -38,7 +37,7 @@ public class Combat : MonoBehaviour
     public bool didCrit = false;
     
     void Awake(){
-        combat = this;
+        Instance = this;
     }
     void Start(){
         _inventory = GetComponent<Inventory>();
