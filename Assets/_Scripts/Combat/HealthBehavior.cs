@@ -15,6 +15,11 @@ public class HealthBehavior : MonoBehaviour
 
     [SerializeField] private Slider _healthBar;
 
+    void Start(){
+        SetMaxHealth(100);
+    }
+
+
     public void SetMaxHealth(float amount){ //This will only SET the max health, not add to its current value
         MaxHealth = Mathf.RoundToInt(amount);
         CurrentHealth = MaxHealth;
@@ -29,8 +34,10 @@ public class HealthBehavior : MonoBehaviour
 
     public void InceaseCurrentHealth(float amount){
         CurrentHealth += Mathf.RoundToInt(amount);
-        if(CurrentHealth > MaxHealth) CurrentHealth = MaxHealth;
-        ChangeHealthBarValue(CurrentHealth * -1); //Flip to negative to add, increasing value
+        if(CurrentHealth > MaxHealth) {
+            CurrentHealth = MaxHealth;
+        }
+        ChangeHealthBarValue(CurrentHealth);
     }
 
 
@@ -38,6 +45,8 @@ public class HealthBehavior : MonoBehaviour
         CurrentHealth -= Mathf.RoundToInt(amount);
         onDamage?.Invoke(amount);
         if(CurrentHealth <= 0){
+            CurrentHealth = 0;
+            ChangeHealthBarValue(0);
             onDeath?.Invoke();
         }
         else{
@@ -46,7 +55,7 @@ public class HealthBehavior : MonoBehaviour
     }
 
     void ChangeHealthBarValue(int amount){
-        if(_healthBar == null){
+        if(_healthBar == null){ //Allow for something to not have a healthbar
             return;
         }
         _healthBar.value = amount;
@@ -58,6 +67,7 @@ public class HealthBehavior : MonoBehaviour
         }
         _healthBar.maxValue = amount;
         _healthBar.value = amount;
+        
     }
 
 }

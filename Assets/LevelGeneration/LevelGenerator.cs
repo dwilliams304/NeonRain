@@ -69,11 +69,11 @@ public class LevelGenerator : MonoBehaviour
                 i--;
                 continue;
             }
-            if(Extensions.ChanceRoll(specialRoomChance) == true){
+            if(Extensions.Roll100(specialRoomChance) == true){
                 specialRooms.Add(newRoom);
                 Debug.Log($"<color=green>Successfull Roll! </color>{newRoom.gameObject.name} was made into a <color=cyan>special room!</color>");
             }
-            if(Extensions.ChanceRoll(chanceForChests) == true){
+            if(Extensions.Roll100(chanceForChests) == true){
                 newRoom.amountOfChests = Random.Range(0, maxChestsPerRoom + 1);
                 Debug.Log($"<color=green>Successfull Roll! </color>{newRoom.gameObject.name} was given: <color=yellow>{newRoom.amountOfChests} chests! </color>");
             }

@@ -1,103 +1,92 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
 
 public class LootManager : MonoBehaviour
 {
-    public static LootManager lootManager;
-    //public delegate void DropLoot(Vector3 position, float additionalLuck);
-    //public DropLoot dropLoot;
+    public static LootManager Instance;
+
     [Header("Loot Pool")]
-    [SerializeField] private List<Weapon> CommonDrops;
-    [SerializeField] private List<Weapon> UncommonDrops;
-    [SerializeField] private List<Weapon> RareDrops;
-    [SerializeField] private List<Weapon> LegendaryDrops;
-    [SerializeField] private List<Weapon> UniqueCorruptedDrops;
-    [SerializeField] private Weapon uniqueWeapon;
+    [SerializeField] List<Weapon> _commonDrops;
+    [SerializeField] List<Weapon> _uncommonDrops;
+    [SerializeField] List<Weapon> _rareDrops;
+    [SerializeField] List<Weapon> _legendaryDrops;
+    [SerializeField] List<Weapon> _corruptedDrops;
+    [SerializeField] Weapon _uniqueWeapon;
 
 
     [Header("Loot Drop Prefabs")]
-    [SerializeField] private GameObject commonPrefab;
-    [SerializeField] private GameObject uncommonPrefab;
-    [SerializeField] private GameObject rarePrefab;
-    [SerializeField] private GameObject corruptedPrefab;
-    [SerializeField] private GameObject legendaryPrefab;
-    private GameObject lootPrefab;
+    [SerializeField] GameObject _commonPrefab;
+    [SerializeField] GameObject _uncommonPrefab;
+    [SerializeField] GameObject _rarePrefab;
+    [SerializeField] GameObject _corruptedPrefab;
+    [SerializeField] GameObject _legendaryPrefab;
+    
 
     public GameObject _dev_Panel;
 
 
-    private int commonDropChance = 100000;
-    private int uncommonDropChance = 40000;
-    private int rareDropChance = 12500;
-    private int legendaryDropChance = 250;
-    private int corruptedDropChance = 2500;
-    private int uniqueDropChance = 1;
+    int _commonDropChance = 100000;
+    int _uncommonDropChance = 40000;
+    int _rareDropChance = 12500;
+    int _legendaryDropChance = 250;
+    int _corruptedDropChance = 2500;
+    int _uniqueDropChance = 1;
     
     public float AddedLuck = 0;
 
-    private DEVTools _DEVTOOLS_;
+    DEVTools _DEVTOOLS_;
 
 
-    void Awake(){
-        lootManager = this;
-    }
+    void Awake() => Instance = this;
+
     void Start(){
-        lootPrefab = new GameObject();
         _DEVTOOLS_ = DEVTools.__DEV;
-        //dropLoot = SpawnLoot;
     }
 
     public void DropLoot(Vector3 position, float additionalLuck){
         _DEVTOOLS_.totalRolls++;
 
-        LootObject lootObj;
+        // _lootPrefab = new GameObject();
+        
         float rarity = Random.Range(0, 100001);
         rarity = Mathf.Ceil(rarity / additionalLuck);
-        if(rarity <= commonDropChance && rarity > uncommonDropChance){
-            int i = Random.Range(0, CommonDrops.Count);
-            lootPrefab = commonPrefab;
-            lootObj = lootPrefab.GetComponent<LootObject>();
-            lootObj.weaponData = CommonDrops[i];
-            //DEV ONLY
-            _DEVTOOLS_.amntCommonDrops++;
+
+        if(rarity <= _commonDropChance && rarity > _uncommonDropChance)
+        {
+            SpawnLootObject(GenerateLootObject(_commonPrefab, _commonDrops.RandomFromList()), position);
+            _DEVTOOLS_.amntCommonDrops++; //DEV ONLY
         }
-        else if(rarity <= uncommonDropChance && rarity > rareDropChance){
-            int i = Random.Range(0, UncommonDrops.Count);
-            lootPrefab = uncommonPrefab;
-            lootObj = lootPrefab.GetComponent<LootObject>();
-            lootObj.weaponData = UncommonDrops[i];
-            //DEV ONLY
-            _DEVTOOLS_.amntUncommonDrops++;
+
+        else if(rarity <= _uncommonDropChance && rarity > _rareDropChance)
+        {
+            SpawnLootObject(GenerateLootObject(_uncommonPrefab, _uncommonDrops.RandomFromList()), position);
+            _DEVTOOLS_.amntUncommonDrops++; //DEV ONLY
         }
-        else if(rarity <= rareDropChance && rarity > corruptedDropChance){
-            int i = Random.Range(0, RareDrops.Count);
-            lootPrefab = rarePrefab;
-            lootObj = lootPrefab.GetComponent<LootObject>();
-            lootObj.weaponData = RareDrops[i];
-            //DEV ONLY
-            _DEVTOOLS_.amntRareDrops++;
+
+        else if(rarity <= _rareDropChance && rarity > _corruptedDropChance)
+        {
+            SpawnLootObject(GenerateLootObject(_rarePrefab, _rareDrops.RandomFromList()), position);
+            _DEVTOOLS_.amntRareDrops++; //DEV ONLY
         }
-        else if(rarity <= corruptedDropChance && rarity > legendaryDropChance){
-            int i = Random.Range(0, UniqueCorruptedDrops.Count);
-            lootPrefab = corruptedPrefab;
-            lootObj = lootPrefab.GetComponent<LootObject>();
-            lootObj.weaponData = UniqueCorruptedDrops[i];
-            //DEV ONLY
-            _DEVTOOLS_.amntCorruptDrops++;
+
+        else if(rarity <= _corruptedDropChance && rarity > _legendaryDropChance)
+        {
+            SpawnLootObject(GenerateLootObject(_corruptedPrefab, _corruptedDrops.RandomFromList()), position);
+            _DEVTOOLS_.amntCorruptDrops++; //DEV ONLY
         }
-        else if(rarity <= legendaryDropChance && rarity != uniqueDropChance){
-            int i = Random.Range(0, LegendaryDrops.Count);
-            lootPrefab = legendaryPrefab;
-            lootObj = lootPrefab.GetComponent<LootObject>();
-            lootObj.weaponData = LegendaryDrops[i];
-            //DEV ONLY
-            _DEVTOOLS_.amntLegendaryDrops++;
+        else if(rarity <= _legendaryDropChance && rarity != _uniqueDropChance)
+        {
+            SpawnLootObject(GenerateLootObject(_legendaryPrefab, _legendaryDrops.RandomFromList()), position);
+            _DEVTOOLS_.amntLegendaryDrops++; //DEV ONLY
         }
-        SpawnLootObject(lootPrefab, position);
-        
     }
+
+    GameObject GenerateLootObject(GameObject prefab, Weapon weaponToSet){
+        LootObject lootObj = prefab.GetComponent<LootObject>();
+        lootObj.weaponData = weaponToSet;
+        return prefab;
+    }
+
     //GameObject prefab, Weapon weaponDrop, Vector3 whereToDrop, Quaternion rotation
     void SpawnLootObject(GameObject lootPrefab, Vector3 whereToSpawn){
         Instantiate(lootPrefab, whereToSpawn, Quaternion.identity);

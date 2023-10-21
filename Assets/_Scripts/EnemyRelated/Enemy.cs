@@ -55,9 +55,8 @@ public class Enemy : MonoBehaviour
 
 
     void Die(){
-        int rollDice = Random.Range(0, 101);
-        if(rollDice <= _dropChance){
-            LootManager.lootManager.DropLoot(transform.position, baseLuck);
+        if(Extensions.Roll100(_dropChance)){
+            LootManager.Instance.DropLoot(transform.position, baseLuck);
         }
         Inventory.Instance.AddGold(_goldDrop);
         XPManager.Instance.AddExperience(Mathf.CeilToInt(_xpAmount));

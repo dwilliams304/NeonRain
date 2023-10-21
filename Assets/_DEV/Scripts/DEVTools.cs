@@ -6,7 +6,6 @@ using TMPro;
 public class DEVTools : MonoBehaviour
 {
     public static DEVTools __DEV;
-    private LootManager _lootManager;
 
 
     [SerializeField] private GameObject _devToolsUIPanel;
@@ -67,7 +66,6 @@ public class DEVTools : MonoBehaviour
         __DEV = this;
     }
     void Start(){
-        _lootManager = LootManager.lootManager;
         mainCam = Camera.main;
         spawners.AddRange(GameObject.FindGameObjectsWithTag("Spawner"));
     }
@@ -87,7 +85,7 @@ public class DEVTools : MonoBehaviour
                 UpdateLastActionText("Spawned enemy.");
             }
             if(Input.GetKeyDown(KeyCode.G)){
-                _lootManager.DropLoot(mousePos, 1);
+                LootManager.Instance.DropLoot(mousePos, 1f);
                 UpdateLastActionText("Spawned loot.");
                 UpdateUIPanel();
             }

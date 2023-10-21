@@ -194,7 +194,7 @@ public class CorruptionManager : MonoBehaviour
         PlayerStatModifier.ChangeDamageDoneMod(0.05f);
         PlayerStatModifier.ChangeDamageTakenMod(0.05f);
         XPManager.Instance.XPModifier += 0.05f;
-        LootManager.lootManager.AddedLuck += 0.01f;
+        LootManager.Instance.AddedLuck += 0.01f;
         
     }
     void TierTwo(){
