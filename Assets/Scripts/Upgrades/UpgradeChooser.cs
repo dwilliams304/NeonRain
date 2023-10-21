@@ -14,6 +14,7 @@ public class UpgradeChooser : MonoBehaviour
     private List<PlayerUpgrades> legendaryUpgrades = new List<PlayerUpgrades>();
 
     private List<PlayerUpgrades> usedUpgrades = new List<PlayerUpgrades>();
+
     [SerializeField] private GameObject upgradePanel;
     [SerializeField] private Animator controller;
     [SerializeField] private Animator textController;
@@ -45,7 +46,7 @@ public class UpgradeChooser : MonoBehaviour
         controller.SetTrigger("Enabled");
         textController.SetTrigger("Enabled");
         Time.timeScale = 0f;
-        UIManager.uiManagement.upgradePanelActive = true;
+        UIManager.Instance.upgradePanelActive = true;
     }
 
     void SortUpgrades(){
@@ -138,6 +139,6 @@ public class UpgradeChooser : MonoBehaviour
         textController.SetTrigger("Disabled");
         Time.timeScale = 1f;
         amntOfRerolls = 0;
-        UIManager.uiManagement.upgradePanelActive = false;
+        UIManager.Instance.upgradePanelActive = false;
     }
 }

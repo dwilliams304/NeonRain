@@ -3,23 +3,28 @@ using UnityEngine;
 
 public class HealthRegenerator : MonoBehaviour
 {
-    public float RegenTime = 6f;
-    public float RegenAmount = 1f;
+    public float RegenTime {get; private set;} = 6f;
+    public float RegenAmount {get; private set;} = 1f;
 
-    public static HealthRegenerator Instance;
 
-    void Awake(){
-        Instance = this;
+    [SerializeField] private HealthBehavior _health;
+    
+    public void ChangeRegenAmount(float amount){
+        RegenAmount += amount;
+    }
+
+    public void ChangeRegenTime(float amount){
+        RegenTime -= amount;
     }
     
     void Start(){
-        // StartCoroutine(RegenerateHealth());
-        Debug.LogWarning("<color=yellow>PLEASE IMPLEMENT HEALTH REGEN</color>");
+        _health = GetComponent<HealthBehavior>();
+        StartCoroutine(RegenerateHealth());
     }
 
-    // IEnumerator RegenerateHealth(){
-    //     yield return new WaitForSeconds(RegenTime);
-    //     PlayerStats.playerStats.IncreaseHealth(RegenAmount);
-    //     StartCoroutine(RegenerateHealth());
-    // }
+    IEnumerator RegenerateHealth(){
+        yield return new WaitForSeconds(RegenTime);
+        _health.InceaseCurrentHealth(RegenAmount);
+        StartCoroutine(RegenerateHealth());
+    }
 }

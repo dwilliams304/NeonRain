@@ -13,18 +13,16 @@ public class GameManager : MonoBehaviour
     }
     
     void OnEnable(){
-        PlayerStats.onPlayerDeath += LoseGame;
         KillTimer.timerCompleted += LoseGame;
     }
     void OnDisable(){
-        PlayerStats.onPlayerDeath -= LoseGame;
         KillTimer.timerCompleted -= LoseGame;
     }
 
     void LoseGame(){
         Time.timeScale = 0;
         player.SetActive(false);
-        UIManager.uiManagement.gameLost = true;
+        UIManager.Instance.gameLost = true;
     }
     
 

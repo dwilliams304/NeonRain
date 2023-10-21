@@ -3,15 +3,12 @@ using UnityEngine;
 public class PlayerStats : MonoBehaviour
 {
     public delegate void HandleLevelIncrease();
-    public delegate void HandlePlayerDeath();
     public static HandleLevelIncrease handleLevelIncrease;
-    public static HandlePlayerDeath onPlayerDeath;
+
+    public static PlayerStats Instance;
 
     [Header("Chosen Class")]
     public ClassData playerClass;
-
-    public int PlayerMaxHealth {get; private set;} = 100;
-    public int CurrentHealth {get; private set;}
 
 
     [Header("PlayerXP")]
@@ -24,11 +21,13 @@ public class PlayerStats : MonoBehaviour
     [SerializeField] AudioSource hitSource;
     [SerializeField] ParticleSystem p;
 
+    private UIManager _uiMngr;
+    private HealthBehavior _health;
+
     public bool shieldActivated = false;
     
-
     void Awake(){
-        CurrentHealth = PlayerMaxHealth;
+        Instance = this;
     }
 
     void OnEnable(){
@@ -41,14 +40,14 @@ public class PlayerStats : MonoBehaviour
     }
 
     void Start(){
-        UIManager.uiManagement.UpdateXPBar(ExperienceToNextLevel, CurrentPlayerXP, CurrentLevel);
+        _uiMngr = UIManager.Instance;
+        _health = GetComponent<HealthBehavior>();
+        _uiMngr.UpdateXPBar(ExperienceToNextLevel, CurrentPlayerXP, CurrentLevel);
         p = GetComponentInChildren<ParticleSystem>();
     }
 
     void ClassChosen(ClassData classChosen){
-        PlayerMaxHealth = classChosen.MaxHealth;
-        CurrentHealth = PlayerMaxHealth;
-        UIManager.uiManagement.UpdateHealthBar();
+        _uiMngr.UpdateHealthBar();
     }
 
     //Only public for Dev Tool
@@ -60,45 +59,29 @@ public class PlayerStats : MonoBehaviour
                 IncreaseLevel(overflow);
             }
         }
-        UIManager.uiManagement.UpdateXPBar(ExperienceToNextLevel, CurrentPlayerXP, CurrentLevel);
+        _uiMngr.UpdateXPBar(ExperienceToNextLevel, CurrentPlayerXP, CurrentLevel);
     }
     //Dev Tool Only
     public void DEV_IncreaseLevel(){
         IncreaseLevel(0);
-        UIManager.uiManagement.UpdateXPBar(ExperienceToNextLevel, CurrentPlayerXP, CurrentLevel);
+        _uiMngr.UpdateXPBar(ExperienceToNextLevel, CurrentPlayerXP, CurrentLevel);
     }
 
     void IncreaseLevel(int xpOverflow){
-        PlayerMaxHealth += 10;
+        // PlayerMaxHealth += 10;
+        // CurrentHealth = PlayerMaxHealth;
         p.Play();
-        CurrentHealth = PlayerMaxHealth;
         CurrentLevel++;
         CurrentPlayerXP = xpOverflow;
         DifficultyScaler.Instance.CheckDifficultyScale(CurrentLevel);
         ExperienceToNextLevel = Mathf.RoundToInt(xpScaling.Evaluate(CurrentLevel));
-        UIManager.uiManagement.UpdateHealthBar();
+        _uiMngr.UpdateHealthBar();
         handleLevelIncrease?.Invoke();
     }
 
 
-    public void IncreaseHealth(int amount){
-        CurrentHealth += amount;
-        UIManager.uiManagement.UpdateHealthBar();
-        if(CurrentHealth > PlayerMaxHealth){
-            CurrentHealth = PlayerMaxHealth;
-        }
+    public void ChangeHealth(float amount){
+        _health.IncreaseMaxHealth(amount);
     }
-
-    public void TakeDamage(float damage){
-        CurrentHealth -= Mathf.CeilToInt(damage * PlayerStatModifier.MOD_DamageTaken);
-        if(CurrentHealth <= 0){
-            onPlayerDeath?.Invoke();
-        }
-        UIManager.uiManagement.UpdateHealthBar();
-
-        //AudioManager.Instance.HITSFX();
-        hitSource.Play();
-    }
-
 
 }

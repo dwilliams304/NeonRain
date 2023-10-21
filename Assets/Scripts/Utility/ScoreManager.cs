@@ -17,11 +17,9 @@ public class ScoreManager : MonoBehaviour
         scoreManager = this;
     }
     void OnEnable(){
-        PlayerStats.onPlayerDeath += UpdateEndGameScoreText;
         KillTimer.timerCompleted += UpdateEndGameScoreText;
     }
     void OnDisable(){
-        PlayerStats.onPlayerDeath -= UpdateEndGameScoreText;
         KillTimer.timerCompleted -= UpdateEndGameScoreText;
     }
 

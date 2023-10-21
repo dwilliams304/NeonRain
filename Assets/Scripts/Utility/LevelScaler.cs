@@ -18,11 +18,9 @@ public class LevelScaler : MonoBehaviour
 
     void OnEnable(){
         PlayerStats.handleLevelIncrease += ScaleEnemies;
-        PlayerStats.onPlayerDeath += Reset;
     }
     void OnDisable(){
         PlayerStats.handleLevelIncrease -= ScaleEnemies;
-        PlayerStats.onPlayerDeath -= Reset;
     }
 
 

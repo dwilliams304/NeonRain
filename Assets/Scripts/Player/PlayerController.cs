@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public static PlayerController Instance;
     
     public Rigidbody2D rb;
     public Camera mainCam;
@@ -28,9 +27,6 @@ public class PlayerController : MonoBehaviour
     }
     void OnDisable(){
         ClassSelector.classChosen -= UpdateStats;
-    }
-    void Awake(){
-        Instance = this;
     }
 
 
@@ -83,7 +79,7 @@ public class PlayerController : MonoBehaviour
         rb.velocity = new Vector2(moveDir.x * _dashSpeed, moveDir.y * _dashSpeed);
         yield return new WaitForSeconds(_dashDuration);
         _isDashing = false;
-        UIManager.uiManagement.DashCoolDownBar(_dashCoolDown);
+        UIManager.Instance.DashCoolDownBar(_dashCoolDown);
         yield return new WaitForSeconds(_dashCoolDown);
         _canDash = true;
     }

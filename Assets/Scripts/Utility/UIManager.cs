@@ -4,7 +4,7 @@ using TMPro;
 
 public class UIManager : MonoBehaviour
 {
-    public static UIManager uiManagement;
+    public static UIManager Instance;
     [SerializeField] Inventory inventory;
     [Header("Player UI")]
     [Header("Player XP/Health")]
@@ -47,20 +47,18 @@ public class UIManager : MonoBehaviour
     private PlayerStats _playerStats;
 
     void Awake(){
-        uiManagement = this;
+        Instance = this;
     }
 
 
     void OnEnable(){
         HealthPotion.addHealth += UpdateHealthPotionUI;
-        PlayerStats.onPlayerDeath += LoseGameUI;
         KillTimer.timerCompleted += LoseGameUI;
         Inventory.addGold += UpdateGoldUI;
         // PlayerStats.handleLevelIncrease += AbilityUpgrades;
     }
     void OnDisable(){
         HealthPotion.addHealth -= UpdateHealthPotionUI;
-        PlayerStats.onPlayerDeath -= LoseGameUI;
         KillTimer.timerCompleted -= LoseGameUI;
         Inventory.addGold -= UpdateGoldUI;
         // PlayerStats.handleLevelIncrease -= AbilityUpgrades;
@@ -72,8 +70,8 @@ public class UIManager : MonoBehaviour
     void Start(){
         _playerStats = FindObjectOfType<PlayerStats>();
         //_playerLevel.text = "Lv. " + _playerStats.CurrentLevel.ToString();
-        _playerHealthBar.maxValue = _playerStats.PlayerMaxHealth;
-        _playerHealthBar.value = _playerStats.PlayerMaxHealth;
+        // _playerHealthBar.maxValue = _playerStats.PlayerMaxHealth;
+        // _playerHealthBar.value = _playerStats.PlayerMaxHealth;
         UpdateHealthBar();
         UpdateGoldUI(0);
     }
@@ -91,8 +89,8 @@ public class UIManager : MonoBehaviour
 
 
     public void UpdateHealthBar(){
-        _playerHealthBar.maxValue = _playerStats.PlayerMaxHealth;
-        _playerHealthBar.value = _playerStats.CurrentHealth;
+        // _playerHealthBar.maxValue = _playerStats.PlayerMaxHealth;
+        // _playerHealthBar.value = _playerStats.CurrentHealth;
         _playerHPText.text = $"{_playerHealthBar.value} / {_playerHealthBar.maxValue}";
     }
 

@@ -6,13 +6,10 @@ public class Combat : MonoBehaviour
 {
     public static Combat combat;
     private float lastShot;
-    [SerializeField] AudioSource gunSFX;
-    [SerializeField] AudioClip gunShot;
     [SerializeField] ParticleSystem muzzleFlash;
 
 #region Other variables
-
-    [SerializeField] private UIManager uiManager;
+    private UIManager _uiMngr;
     [SerializeField] private Inventory _inventory;
     [SerializeField] private GameObject _bulletPrefab;
     [SerializeField] private Transform _firePoint;
@@ -45,6 +42,7 @@ public class Combat : MonoBehaviour
     }
     void Start(){
         _inventory = GetComponent<Inventory>();
+        _uiMngr = UIManager.Instance;
         AssignWeaponStats(_inventory.weapon);
     }
 
@@ -71,12 +69,7 @@ public class Combat : MonoBehaviour
         rangedMaxDmg = weapon.maxDamage;
         rangedWeaponRange = weapon.weaponRange;
         rangedCritChance = weapon.critChance;
-        uiManager.UpdateAmmo(currentAmmo, magSize);
-    }
-
-    //If the gun is corrupted, do something -> might remove later
-    void CorruptedWeaponMod(int corruptionGain){
-
+        _uiMngr.UpdateAmmo(currentAmmo, magSize);
     }
 
 
@@ -85,10 +78,6 @@ public class Combat : MonoBehaviour
     public void Shoot(){
         if(currentAmmo > 0){ //Do we have ammo?
             if(Time.time > lastShot + (fireRate * FireRateMod)){ //If the last time we shot was more than the fire rate, we can shoot.
-                //AudioManager.Instance.GUNSFX();
-                // gunSFX.pitch = Random.Range(0.4f, 1f);
-                // gunSFX.volume = Random.Range(0.07f, 0.1f);
-                // gunSFX.Play();
                 MuzzleFlash();
                 lastShot = Time.time; //Start timer for the last time we shot
                 GameObject bullet = ObjectPooler.current.GetPooledPlayerBullet(); //Grab a bullet from the bullet pool
@@ -97,8 +86,9 @@ public class Combat : MonoBehaviour
                 bullet.transform.rotation = _firePoint.rotation; //Set the bullet to instantiate where the firing point is
                 bullet.SetActive(true); //Set it active
                 bullet.GetComponent<Rigidbody2D>().AddForce(_firePoint.up * projectileSpeed, ForceMode2D.Impulse); //Add force to it
+                bullet.GetComponent<Bullet>().DamageAmount = CalculateRangedDamage();
                 currentAmmo--; //Remove ammo
-                uiManager.UpdateAmmo(currentAmmo, magSize); //Change the ammo text
+                _uiMngr.UpdateAmmo(currentAmmo, magSize); //Change the ammo text
             }
         }
     }
@@ -110,11 +100,11 @@ public class Combat : MonoBehaviour
 
     public IEnumerator Reload(){
         isReloading = true; //Can't shoot while reloading, prevent that!
-        uiManager.ReloadBar(reloadSpeed);
+        _uiMngr.ReloadBar(reloadSpeed);
         yield return new WaitForSeconds(reloadSpeed); //Wait as long as the weapon's reload speed is
         currentAmmo = magSize; //Set our ammo to be equal to the max magazine size for the weapon
         isReloading = false; //They can reload again!
-        uiManager.UpdateAmmo(currentAmmo, magSize); //Update UI
+        _uiMngr.UpdateAmmo(currentAmmo, magSize); //Update UI
     }
     
     //This is the same as the melee damage calculation, just for ranged weapon
@@ -123,11 +113,9 @@ public class Combat : MonoBehaviour
         float dmgRoll = Random.Range(rangedMinDmg, rangedMaxDmg) * PlayerStatModifier.MOD_DamageDone;
         if(critRoll <= PlayerStatModifier.MOD_CritChance + rangedCritChance){
             float returnVal = Mathf.Ceil(dmgRoll *= PlayerStatModifier.MOD_CritDamage);
-            //Debug.Log("Crit! Dmg calc: " + returnVal);
             didCrit = true;
             return returnVal;
         }
-        //Debug.Log("No crit! Dmg calc: " + Mathf.Ceil(dmgRoll));
         didCrit = false;
         return Mathf.Ceil(dmgRoll);
     }
