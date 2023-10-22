@@ -25,9 +25,8 @@ public class LevelScaler : MonoBehaviour
 
 
     void ScaleEnemies(){
-        Debug.LogWarning("<color=yellow>PLEASE IMPLEMENT ENEMY SCALING!</color>");
-        // EnemyHealthModifier = enemyHpScaler.Evaluate(PlayerStats.playerStats.CurrentLevel);
-        // EnemyDamageModifier = enemyDmgScaler.Evaluate(PlayerStats.playerStats.CurrentLevel);
+        EnemyHealthModifier = enemyHpScaler.Evaluate(PlayerStats.Instance.CurrentLevel);
+        EnemyDamageModifier = enemyDmgScaler.Evaluate(PlayerStats.Instance.CurrentLevel);
     }
 
 

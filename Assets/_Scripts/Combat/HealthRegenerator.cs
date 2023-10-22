@@ -24,7 +24,6 @@ public class HealthRegenerator : MonoBehaviour
 
     IEnumerator RegenerateHealth(){
         yield return new WaitForSeconds(RegenTime);
-        Debug.Log($"Health regen tick. Adding {RegenAmount}!");
         _health.InceaseCurrentHealth(RegenAmount);
         StartCoroutine(RegenerateHealth());
     }

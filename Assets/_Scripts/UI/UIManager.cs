@@ -5,15 +5,11 @@ using TMPro;
 public class UIManager : MonoBehaviour
 {
     public static UIManager Instance;
-    [SerializeField] Inventory inventory;
     [Header("Player UI")]
     [Header("Player XP/Health")]
     [SerializeField] TMP_Text _playerLevel;
-    [SerializeField] Slider _playerHealthBar;
-    [SerializeField] TMP_Text _playerHPText;
     [SerializeField] Slider _playerXP;
     [SerializeField] TMP_Text _playerXPText;
-    [SerializeField] GameObject _playerXPIncreaseObject;
     [SerializeField] TMP_Text _playerLevelText;
     [Header("Right Side Player UI")]
     [SerializeField] TMP_Text _playerAmmo;
@@ -22,17 +18,6 @@ public class UIManager : MonoBehaviour
     [SerializeField] GameObject _ammoTextObject;
     [SerializeField] GameObject _dashCoolDownObject;
     [SerializeField] GameObject _reloadBarObject;
-    [Header("Consumables")]
-    [SerializeField] TMP_Text _amntOfHealthPots;
-
-
-    [Header("Boss UI")]
-    [SerializeField] TMP_Text _bossName;
-    [SerializeField] Slider _bossHealthBar;
-    
-    [Header("Other UI")]
-    [SerializeField] TMP_Text _corruptionTierText;
-    [SerializeField] Image _corruptionTierIcon;
     
     [Header("Pop-Up Panels")]
     [SerializeField] private GameObject loseUIPanel;
@@ -43,8 +28,6 @@ public class UIManager : MonoBehaviour
     public bool gameLost = false;
     public bool upgradePanelActive = false;
 
-    private PlayerStats _playerStats;
-
     void Awake(){
         Instance = this;
     }
@@ -53,23 +36,15 @@ public class UIManager : MonoBehaviour
     void OnEnable(){
         KillTimer.timerCompleted += LoseGameUI;
         Inventory.addGold += UpdateGoldUI;
-        // PlayerStats.handleLevelIncrease += AbilityUpgrades;
     }
     void OnDisable(){
         KillTimer.timerCompleted -= LoseGameUI;
         Inventory.addGold -= UpdateGoldUI;
-        // PlayerStats.handleLevelIncrease -= AbilityUpgrades;
-
     }
 
 
 
     void Start(){
-        _playerStats = FindObjectOfType<PlayerStats>();
-        //_playerLevel.text = "Lv. " + _playerStats.CurrentLevel.ToString();
-        // _playerHealthBar.maxValue = _playerStats.PlayerMaxHealth;
-        // _playerHealthBar.value = _playerStats.PlayerMaxHealth;
-        UpdateHealthBar();
         UpdateGoldUI(0);
     }
 
@@ -85,22 +60,12 @@ public class UIManager : MonoBehaviour
     }
 
 
-    public void UpdateHealthBar(){
-        // _playerHealthBar.maxValue = _playerStats.PlayerMaxHealth;
-        // _playerHealthBar.value = _playerStats.CurrentHealth;
-        _playerHPText.text = $"{_playerHealthBar.value} / {_playerHealthBar.maxValue}";
-    }
 
     public void UpdateXPBar(float toNextLevel, float currentXPAmnt, int level){
         _playerXP.maxValue = toNextLevel;
         _playerXP.value = currentXPAmnt;
         _playerLevelText.text = $"Lvl. {level}";
         _playerXPText.text = $"{_playerXP.value} / {_playerXP.maxValue}";
-    }
-
-    void UpdateHealthPotionUI(int healthAdded, int amountOfPotions){
-        _amntOfHealthPots.text = $"x{amountOfPotions}";
-        UpdateHealthBar();
     }
 
     public void UpdateAmmo(int currentAmmo, int magSize){

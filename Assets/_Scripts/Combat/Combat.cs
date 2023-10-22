@@ -74,10 +74,10 @@ public class Combat : MonoBehaviour
 
 
 
-    public void Shoot(){
+    void Shoot(){
         if(currentAmmo > 0){ //Do we have ammo?
             if(Time.time > lastShot + (fireRate * FireRateMod)){ //If the last time we shot was more than the fire rate, we can shoot.
-                MuzzleFlash();
+                muzzleFlash.Play();
                 lastShot = Time.time; //Start timer for the last time we shot
                 GameObject bullet = ObjectPooler.current.GetPooledPlayerBullet(); //Grab a bullet from the bullet pool
                 if(bullet == null) return; //If we don't have any bullets, do nothing (SHOULDNT HAPPEN)
@@ -92,12 +92,8 @@ public class Combat : MonoBehaviour
         }
     }
 
-    void MuzzleFlash(){
-        muzzleFlash.Play();
-    }
 
-
-    public IEnumerator Reload(){
+    IEnumerator Reload(){
         isReloading = true; //Can't shoot while reloading, prevent that!
         _uiMngr.ReloadBar(reloadSpeed);
         yield return new WaitForSeconds(reloadSpeed); //Wait as long as the weapon's reload speed is
@@ -107,7 +103,7 @@ public class Combat : MonoBehaviour
     }
     
     //This is the same as the melee damage calculation, just for ranged weapon
-    public float CalculateRangedDamage(){
+    float CalculateRangedDamage(){
         int critRoll = Random.Range(0, 100);
         float dmgRoll = Random.Range(rangedMinDmg, rangedMaxDmg) * PlayerStatModifier.MOD_DamageDone;
         if(critRoll <= PlayerStatModifier.MOD_CritChance + rangedCritChance){

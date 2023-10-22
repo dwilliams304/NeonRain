@@ -17,8 +17,6 @@ public class PlayerStats : MonoBehaviour
     public int ExperienceToNextLevel = 250;
     [SerializeField] private AnimationCurve xpScaling;
 
-
-    [SerializeField] AudioSource hitSource;
     [SerializeField] ParticleSystem p;
 
     private UIManager _uiMngr;
@@ -47,11 +45,10 @@ public class PlayerStats : MonoBehaviour
 
 
         _uiMngr.UpdateXPBar(ExperienceToNextLevel, CurrentPlayerXP, CurrentLevel);
-        p = GetComponentInChildren<ParticleSystem>();
     }
 
     void ClassChosen(ClassData classChosen){
-        _uiMngr.UpdateHealthBar();
+        // _uiMngr.UpdateHealthBar();
     }
 
     //Only public for Dev Tool
@@ -73,13 +70,12 @@ public class PlayerStats : MonoBehaviour
 
     void IncreaseLevel(int xpOverflow){
         IncreaseMaxHealth(10);
-        p.Play();
         CurrentLevel++;
         CurrentPlayerXP = xpOverflow;
         DifficultyScaler.Instance.CheckDifficultyScale(CurrentLevel);
         ExperienceToNextLevel = Mathf.RoundToInt(xpScaling.Evaluate(CurrentLevel));
-        _uiMngr.UpdateHealthBar();
         handleLevelIncrease?.Invoke();
+        p.Play();
     }
 
 
