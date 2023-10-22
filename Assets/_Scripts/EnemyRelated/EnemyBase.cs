@@ -1,34 +1,38 @@
 using UnityEngine;
 using TMPro;
 
-public class Enemy : MonoBehaviour
+public class EnemyBase : MonoBehaviour
 {
     public EnemyData enemyData;
     
     // [SerializeField] private string _enemyName;
-    [SerializeField] private float _minDamage;
-    [SerializeField] private float _maxDamage;
-    [SerializeField] private int _corruptionDrop;
-    [SerializeField] private int _goldDrop;
-    [SerializeField] private int _dropChance;
-    [SerializeField] private int _scoreAmnt;
-    [SerializeField] private float baseLuck;
-    [SerializeField] private float _xpAmount;
+    [SerializeField] float _minDamage;
+    [SerializeField] float _maxDamage;
+    [SerializeField] int _corruptionDrop;
+    [SerializeField] int _goldDrop;
+    [SerializeField] int _dropChance;
+    [SerializeField] int _scoreAmnt;
+    [SerializeField] float _baseLuck;
+    [SerializeField] float _xpAmount;
 
-    [SerializeField] private GameObject floatingDmgTextPref;
-    [SerializeField] private float dmgNumberYOffset;
+    [SerializeField] GameObject floatingDmgTextPref;
+    [SerializeField] float dmgNumberYOffset;
 
-    [SerializeField] private Color nonCritColor;
-    [SerializeField] private Color critColor;
+    [SerializeField] Color nonCritColor;
+    [SerializeField] Color critColor;
 
-    private HealthBehavior _health;
-    private LevelScaler _lvlScaler;
+    [SerializeField] Transform _player;
+
+    HealthBehavior _health;
+    LevelScaler _lvlScaler;
 
 
     void OnEnable(){
         _health = GetComponent<HealthBehavior>();
         _health.onDamage += ShowDamage;
         _health.onDeath += Die;
+
+        
     }
 
     void OnDisable(){
@@ -41,14 +45,16 @@ public class Enemy : MonoBehaviour
         _lvlScaler = LevelScaler.Instance;
         _health.SetMaxHealth(enemyData.maxHealth * _lvlScaler.EnemyHealthModifier);
 
-        _minDamage = Mathf.Ceil(enemyData.minDamage * _lvlScaler.EnemyDamageModifier);
-        _maxDamage = Mathf.Ceil(enemyData.maxDamage * _lvlScaler.EnemyDamageModifier);
+        _minDamage = Mathf.RoundToInt(enemyData.minDamage * _lvlScaler.EnemyDamageModifier);
+        _maxDamage = Mathf.RoundToInt(enemyData.maxDamage * _lvlScaler.EnemyDamageModifier);
 
         _xpAmount = enemyData.xpAmount;
         _corruptionDrop = enemyData.corruptionDrop;
         _goldDrop = enemyData.goldDrop;
         _dropChance = enemyData.dropChance;
         _scoreAmnt = enemyData.score;
+
+        _player = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
 
@@ -56,7 +62,7 @@ public class Enemy : MonoBehaviour
 
     void Die(){
         if(Extensions.Roll100(_dropChance)){
-            LootManager.Instance.DropLoot(transform.position, baseLuck);
+            LootManager.Instance.DropLoot(transform.position, _baseLuck);
         }
         Inventory.Instance.AddGold(_goldDrop);
         XPManager.Instance.AddExperience(Mathf.CeilToInt(_xpAmount));
@@ -66,9 +72,8 @@ public class Enemy : MonoBehaviour
     }
 
 
-    public float DoDamage(){
-        float dmgRoll = Mathf.Ceil(Random.Range(_minDamage, _maxDamage));
-        return dmgRoll;
+    float DoDamage(){
+        return Mathf.RoundToInt(Random.Range(_minDamage, _maxDamage));
     }
 
     void ShowDamage(float dmgAmnt){
