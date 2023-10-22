@@ -49,7 +49,7 @@ public class Room : MonoBehaviour
             RaycastHit2D[] hit = Physics2D.RaycastAll(transform.position, offset, LevelGenerator.prefabsDistance);
 
             for(int j = 0; j < hit.Length; j++){
-                if(hit[j].collider != null && hit[j].collider.gameObject != this.gameObject){
+                if(hit[j].collider != null && hit[j].collider.gameObject != gameObject){
                     roomDoors[i].leadsTo = hit[j].collider.GetComponentInChildren<Room>();
                     roomDoors[i].active = true;
                     roomDoors[i].spriteR.enabled = true;

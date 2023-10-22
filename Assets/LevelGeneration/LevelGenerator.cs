@@ -10,6 +10,11 @@ public class LevelGenerator : MonoBehaviour
     public int chanceForChests = 10;
     public int maxChestsPerRoom = 4;
 
+    public bool addHallwayBias = true;
+    public int hallWayBiasWeight = 30;
+
+    public bool finishedGeneration = false;
+
     public Room roomPrefab;
 
     public Color specialColor;
@@ -48,11 +53,35 @@ public class LevelGenerator : MonoBehaviour
     IEnumerator GenerateRooms(Room prefab){
         generatingRooms = true;
         Room.Directions dir;
+        Room.Directions lastDir = 0;
         Vector2 offset;
         Vector2 last = transform.position;
 
         for(int i = 0; i < amountOfRooms; i++){
             dir = (Room.Directions)Random.Range(0, 4);
+
+            //This if statement adds bias for hallways!
+            //The higher the number put into Roll100 -> the more likely it is for the next Room
+            //To go in the same direction, making it more of a hallway.
+            if(addHallwayBias){
+                if(Extensions.Roll100(hallWayBiasWeight)){
+                    switch(lastDir){
+                        case 0:
+                            dir = lastDir;
+                            break;
+                        case Room.Directions.right:
+                            dir = lastDir;
+                            break;
+                        case Room.Directions.down:
+                            dir = lastDir;
+                            break;
+                        case Room.Directions.left:
+                            dir = lastDir;
+                            break;
+                    }
+                }
+            }
+
             offset = offsets[(int)dir];
             Vector2 newRoomPos = last + offset;
 
@@ -77,6 +106,8 @@ public class LevelGenerator : MonoBehaviour
                 newRoom.amountOfChests = Random.Range(0, maxChestsPerRoom + 1);
                 Debug.Log($"<color=green>Successfull Roll! </color>{newRoom.gameObject.name} was given: <color=yellow>{newRoom.amountOfChests} chests! </color>");
             }
+
+            lastDir = dir;
             rooms.Add(newRoom);
             
         }
