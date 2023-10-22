@@ -2,7 +2,9 @@ using UnityEngine;
 
 public class Inventory : MonoBehaviour
 {
-    public Weapon weapon;
+    public Gun gun;
+    public Sword sword;
+
     public ScriptableObject usableItems;
     private Combat combat;
     public static Inventory Instance;
@@ -32,8 +34,13 @@ public class Inventory : MonoBehaviour
         addGold?.Invoke(PlayerGold);
     }
 
-    public void SwapWeapon(Weapon swap){
-        combat.AssignWeaponStats(swap);
-        weapon = swap;
+    public void SwapGuns(Gun swap){
+        combat.AssignRangedStats(swap);
+        gun = swap;
+    }
+
+    public void SwapSwords(Sword swap){
+        combat.AssignMeleeStats(swap);
+        sword = swap;
     }
 }

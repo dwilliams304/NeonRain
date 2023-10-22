@@ -7,7 +7,7 @@ public class SliderValuesText : MonoBehaviour
     private Slider slider;
     TMP_Text text;
 
-    void Start(){
+    void Awake(){
         slider = GetComponentInParent<Slider>();
         text = GetComponent<TMP_Text>();
 

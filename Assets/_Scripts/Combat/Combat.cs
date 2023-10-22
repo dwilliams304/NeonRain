@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 
@@ -6,10 +7,11 @@ public class Combat : MonoBehaviour
 {
     public static Combat Instance;
     private float lastShot;
+    private float lastSwing;
     [SerializeField] ParticleSystem muzzleFlash;
+    private UIManager _uiMngr;
 
 #region Other variables
-    private UIManager _uiMngr;
     [SerializeField] private Inventory _inventory;
     [SerializeField] private Transform _firePoint;
     [SerializeField] private LayerMask _enemyLayers; //For melee combat
@@ -32,9 +34,21 @@ public class Combat : MonoBehaviour
 
 #endregion
 
+#region Melee weapon variables
+    private float meleeMinDmg;
+    private float meleeMaxDmg;
+    private float swingCooldown;
+    private float swingSpeed;
+    private int meleeCritChance;
+#endregion
+
 
     private bool isReloading;
     public bool didCrit = false;
+
+    [Header("Melee Specific")]
+    [SerializeField] Animation meleeSwing;
+    [SerializeField] InMeleeCollider _collCheck;
     
     void Awake(){
         Instance = this;
@@ -42,13 +56,17 @@ public class Combat : MonoBehaviour
     void Start(){
         _inventory = GetComponent<Inventory>();
         _uiMngr = UIManager.Instance;
-        AssignWeaponStats(_inventory.weapon);
+        AssignRangedStats(_inventory.gun);
+        AssignMeleeStats(_inventory.sword);
     }
 
 
     void Update(){
         if(Input.GetButton("Fire1") && !isReloading){
             Shoot();
+        }
+        if(Input.GetButtonDown("Fire2")){
+            Melee();
         }
         else if(Input.GetButtonDown("Reload")){
             if(!isReloading){
@@ -58,17 +76,24 @@ public class Combat : MonoBehaviour
     }
 
     //Assign all the ranged weapon data
-    public void AssignWeaponStats(Weapon weapon){
-        fireRate = weapon.fireRate;
-        reloadSpeed = weapon.reloadSpeed;
-        magSize = weapon.magSize;
+    public void AssignRangedStats(Gun gun){
+        fireRate = gun.fireRate;
+        reloadSpeed = gun.reloadSpeed;
+        magSize = gun.magSize;
         currentAmmo = magSize;
-        projectileSpeed = weapon.projectileSpeed;
-        rangedMinDmg = weapon.minDamage;
-        rangedMaxDmg = weapon.maxDamage;
-        rangedWeaponRange = weapon.weaponRange;
-        rangedCritChance = weapon.critChance;
+        projectileSpeed = gun.projectileSpeed;
+        rangedMinDmg = gun.minDamage;
+        rangedMaxDmg = gun.maxDamage;
+        rangedCritChance = gun.critChance;
         _uiMngr.UpdateAmmo(currentAmmo, magSize);
+    }
+
+    public void AssignMeleeStats(Sword sword){
+        swingSpeed = sword.swingSpeed;
+        swingCooldown = sword.swingCoolDown;
+        meleeMinDmg = sword.minDamage;
+        meleeMaxDmg = sword.maxDamage;
+        meleeCritChance = sword.critChance;
     }
 
 
@@ -85,9 +110,19 @@ public class Combat : MonoBehaviour
                 bullet.transform.rotation = _firePoint.rotation; //Set the bullet to instantiate where the firing point is
                 bullet.SetActive(true); //Set it active
                 bullet.GetComponent<Rigidbody2D>().AddForce(_firePoint.up * projectileSpeed, ForceMode2D.Impulse); //Add force to it
-                bullet.GetComponent<Bullet>().DamageAmount = CalculateRangedDamage();
+                bullet.GetComponent<Bullet>().DamageAmount = CalculateDamage(true);
                 currentAmmo--; //Remove ammo
                 _uiMngr.UpdateAmmo(currentAmmo, magSize); //Change the ammo text
+            }
+        }
+    }
+
+    void Melee(){
+        if(Time.time > lastSwing + (swingCooldown * FireRateMod)){
+            lastSwing = Time.time;
+            meleeSwing.Play();
+            for(int i = 0; i < _collCheck.enemies.Count; i++){
+                _collCheck.enemies[i].DecreaseCurrentHealth(CalculateDamage(false));
             }
         }
     }
@@ -102,17 +137,21 @@ public class Combat : MonoBehaviour
         _uiMngr.UpdateAmmo(currentAmmo, magSize); //Update UI
     }
     
-    //This is the same as the melee damage calculation, just for ranged weapon
-    float CalculateRangedDamage(){
+    //Calculate and return the damage float, taking in a bool on whether it is a ranged attack or not
+    //Needs bool to decided whether to take in melee weapon stats or ranged weapon stats
+    //Better than having two separate methods that would do exactly this!
+    int CalculateDamage(bool isRanged){
         int critRoll = Random.Range(0, 100);
-        float dmgRoll = Random.Range(rangedMinDmg, rangedMaxDmg) * PlayerStatModifier.MOD_DamageDone;
-        if(critRoll <= PlayerStatModifier.MOD_CritChance + rangedCritChance){
-            float returnVal = Mathf.Ceil(dmgRoll *= PlayerStatModifier.MOD_CritDamage);
+        float dmgRoll = isRanged ? Random.Range(rangedMinDmg, rangedMaxDmg) : Random.Range(meleeMinDmg, meleeMaxDmg); //Check which weapon's damage stats to use
+        dmgRoll *= PlayerStatModifier.MOD_DamageDone; //No matter what this will apply.
+
+        if(critRoll <= PlayerStatModifier.MOD_CritChance + (isRanged ? rangedCritChance : meleeCritChance)){ //Check which weapon's crit chance to add onto this
             didCrit = true;
-            return returnVal;
+            return Mathf.RoundToInt(dmgRoll *= PlayerStatModifier.MOD_CritDamage);
         }
+
         didCrit = false;
-        return Mathf.Ceil(dmgRoll);
+        return Mathf.RoundToInt(dmgRoll);
     }
 
 }
