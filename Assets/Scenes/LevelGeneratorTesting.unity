@@ -574,6 +574,10 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 554947702188765566, guid: 72c93d641862ac54d95fe87e3e361d6c, type: 3}
+      propertyPath: hallWayBiasWeight
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 554947702188765566, guid: 72c93d641862ac54d95fe87e3e361d6c, type: 3}
       propertyPath: specialRoomChance
       value: 5
       objectReference: {fileID: 0}

@@ -23,12 +23,12 @@ public class EnemyBase : MonoBehaviour
 
     [SerializeField] Transform _player;
 
-    HealthBehavior _health;
+    HealthSystem _health;
     LevelScaler _lvlScaler;
 
 
     void OnEnable(){
-        _health = GetComponent<HealthBehavior>();
+        _health = GetComponent<HealthSystem>();
         _health.onDamage += ShowDamage;
         _health.onDeath += Die;
 

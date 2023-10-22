@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class HealthBehavior : MonoBehaviour
+public class HealthSystem : MonoBehaviour
 {
 
     public int CurrentHealth { get; private set; }

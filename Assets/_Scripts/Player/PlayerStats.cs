@@ -20,7 +20,7 @@ public class PlayerStats : MonoBehaviour
     [SerializeField] ParticleSystem p;
 
     private UIManager _uiMngr;
-    private HealthBehavior _health;
+    private HealthSystem _health;
     private HealthRegenerator _hRegen;
 
     public bool shieldActivated = false;
@@ -40,7 +40,7 @@ public class PlayerStats : MonoBehaviour
 
     void Start(){
         _uiMngr = UIManager.Instance;
-        _health = GetComponent<HealthBehavior>();
+        _health = GetComponent<HealthSystem>();
         _hRegen = GetComponent<HealthRegenerator>();
 
 

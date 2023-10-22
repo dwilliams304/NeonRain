@@ -6,7 +6,7 @@ public class Bullet : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision){
         gameObject.SetActive(false);
-        if(collision.gameObject.TryGetComponent<HealthBehavior>(out HealthBehavior h)){
+        if(collision.gameObject.TryGetComponent<HealthSystem>(out HealthSystem h)){
             h.DecreaseCurrentHealth(DamageAmount);
         }
     }

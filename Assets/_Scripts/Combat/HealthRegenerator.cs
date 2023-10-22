@@ -7,7 +7,7 @@ public class HealthRegenerator : MonoBehaviour
     public float RegenAmount {get; private set;} = 1f;
 
 
-    private HealthBehavior _health;
+    private HealthSystem _health;
     
     public void ChangeRegenAmount(float amount){
         RegenAmount += amount;
@@ -18,7 +18,7 @@ public class HealthRegenerator : MonoBehaviour
     }
     
     void Start(){
-        _health = GetComponent<HealthBehavior>();
+        _health = GetComponent<HealthSystem>();
         StartCoroutine(RegenerateHealth());
     }
 
