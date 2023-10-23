@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: TestingSword
   m_EditorClassIdentifier: 
   weaponName: Default Weapon
-  minDamage: 5
-  maxDamage: 10
-  critChance: 5
+  minDamage: 10
+  maxDamage: 20
+  critChance: 15
   isCorrupted: 0
   weaponSprite: {fileID: 0}
   corruptionGain: 0
@@ -23,5 +23,5 @@ MonoBehaviour:
   weaponType: 0
   rarity: 0
   swingSpeed: 1
-  swingCoolDown: 0.4
+  swingCoolDown: 1
   swordType: 0

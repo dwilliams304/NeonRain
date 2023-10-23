@@ -120,6 +120,7 @@ public class Combat : MonoBehaviour
     void Melee(){
         if(Time.time > lastSwing + (swingCooldown * FireRateMod)){
             lastSwing = Time.time;
+            _uiMngr.SwingCoolDownBar(swingCooldown);
             meleeSwing.Play();
             for(int i = 0; i < _collCheck.enemies.Count; i++){
                 _collCheck.enemies[i].DecreaseCurrentHealth(CalculateDamage(false));

@@ -17,6 +17,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] TMP_Text _ammoText;
     [SerializeField] GameObject _ammoTextObject;
     [SerializeField] GameObject _dashCoolDownObject;
+    [SerializeField] GameObject _swingCooldownObject;
     [SerializeField] GameObject _reloadBarObject;
     
     [Header("Pop-Up Panels")]
@@ -89,6 +90,10 @@ public class UIManager : MonoBehaviour
     public void ReloadBar(float reloadSpeed){
         _reloadBarObject.LeanScaleX(0.02f, 0);
         _reloadBarObject.LeanScaleX(0, reloadSpeed);
+    }
+    public void SwingCoolDownBar(float swingCooldownSpeed){
+        _swingCooldownObject.LeanScaleY(0.04f, 0);
+        _swingCooldownObject.LeanScaleY(0, swingCooldownSpeed);
     }
 
     public void UpdateGoldUI(int total){
