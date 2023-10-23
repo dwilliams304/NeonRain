@@ -23,5 +23,5 @@ MonoBehaviour:
   weaponType: 0
   rarity: 0
   swingSpeed: 1
-  swingCoolDown: 0.75
+  swingCoolDown: 0.4
   swordType: 0

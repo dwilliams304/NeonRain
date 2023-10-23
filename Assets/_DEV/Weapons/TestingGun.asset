@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: TestingGun
   m_EditorClassIdentifier: 
   weaponName: Default Weapon
-  minDamage: 5
-  maxDamage: 10
-  critChance: 5
+  minDamage: 7
+  maxDamage: 11
+  critChance: 10
   isCorrupted: 0
   weaponSprite: {fileID: 0}
   corruptionGain: 0
@@ -24,6 +24,6 @@ MonoBehaviour:
   rarity: 0
   projectileSpeed: 30
   reloadSpeed: 0.5
-  fireRate: 0.5
-  magSize: 30
-  gunType: 0
+  fireRate: 0.1
+  magSize: 150
+  gunType: 1

@@ -26,6 +26,8 @@ public class EnemyBase : MonoBehaviour
     HealthSystem _health;
     LevelScaler _lvlScaler;
 
+    DamageFlash _damageFlash;
+
 
     void OnEnable(){
         _health = GetComponent<HealthSystem>();
@@ -43,6 +45,7 @@ public class EnemyBase : MonoBehaviour
 
     void Start(){
         _lvlScaler = LevelScaler.Instance;
+        _damageFlash = GetComponent<DamageFlash>();
         _health.SetMaxHealth(enemyData.maxHealth * _lvlScaler.EnemyHealthModifier);
 
         _minDamage = Mathf.RoundToInt(enemyData.minDamage * _lvlScaler.EnemyDamageModifier);
@@ -77,6 +80,7 @@ public class EnemyBase : MonoBehaviour
     }
 
     void ShowDamage(float dmgAmnt){
+        _damageFlash.CallDamageFlash();
         if(floatingDmgTextPref){
             Vector3 offset = new Vector3(Random.Range(-1f, 2f), dmgNumberYOffset, 0);
             GameObject prefab = Instantiate(floatingDmgTextPref, transform.position + offset, Quaternion.identity);

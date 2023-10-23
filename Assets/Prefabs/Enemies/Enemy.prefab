@@ -93,6 +93,7 @@ GameObject:
   - component: {fileID: 5079347804097027066}
   - component: {fileID: 8975534052674734087}
   - component: {fileID: -626739581257726993}
+  - component: {fileID: -823088109182315059}
   - component: {fileID: 2374658633820697682}
   m_Layer: 0
   m_Name: Enemy
@@ -136,12 +137,13 @@ MonoBehaviour:
   _goldDrop: 0
   _dropChance: 0
   _scoreAmnt: 0
-  baseLuck: 0
+  _baseLuck: 0
   _xpAmount: 0
   floatingDmgTextPref: {fileID: 1801837051691845774, guid: f9db660384cd000428f77b2483f47893, type: 3}
   dmgNumberYOffset: 0
   nonCritColor: {r: 1, g: 0.9815198, b: 0, a: 1}
   critColor: {r: 1, g: 0, b: 0, a: 1}
+  _player: {fileID: 0}
 --- !u!114 &-626739581257726993
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -155,6 +157,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _healthBar: {fileID: 5079347805775335840}
+--- !u!114 &-823088109182315059
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5079347804097027061}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2b5a0b9fdf332646b4bc10192fe9b69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _flashColor: {r: 1, g: 1, b: 1, a: 1}
+  _flashDuration: 0.25
 --- !u!58 &2374658633820697682
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -297,7 +313,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 10d3d6b4dcfdbf947b5dcdbde1fb49ba, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
