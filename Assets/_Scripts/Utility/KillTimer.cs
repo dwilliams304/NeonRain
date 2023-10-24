@@ -42,13 +42,13 @@ public class KillTimer : MonoBehaviour
     void StartTimer(){
         timerTextObject.SetActive(true);
         timerActive = true;
-        currentTime = 180f;
+        currentTime = 90f;
 
     }
     void StopTimer(){
         timerTextObject.SetActive(false);
         timerActive = false;
-        currentTime = 180f;
+        currentTime = 90f;
         
     }
 

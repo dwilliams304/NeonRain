@@ -5,7 +5,13 @@ public class GameManager : MonoBehaviour
     public static GameManager gameManager;
     [SerializeField] private GameObject player;
 
-
+    public enum GameState {
+        Loading,
+        Spawning,
+        Start,
+        Pause,
+        Lose
+    }
     
     void Awake(){
         gameManager = this;

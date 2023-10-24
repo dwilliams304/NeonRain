@@ -50,11 +50,11 @@ public class UIManager : MonoBehaviour
     }
 
     void Update(){
-        if(!gameLost && !upgradePanelActive){
-            if(Input.GetButtonDown("PauseGame")){
-                if(weaponSwapPanel.activeInHierarchy){
-                    return;
-                }
+        if(Input.GetButtonDown("PauseGame")){
+            if(weaponSwapPanel.activeInHierarchy){
+                return;
+            }
+            else{
                 PauseGame();
             }
         }
@@ -111,7 +111,7 @@ public class UIManager : MonoBehaviour
         if(isPaused){
             Time.timeScale = 0;
         }else{
-            Time.timeScale = 1;
+            Time.timeScale = 1f;
         }
         pauseGamePanel.SetActive(isPaused);
     }
