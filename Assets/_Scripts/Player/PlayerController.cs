@@ -20,6 +20,8 @@ public class PlayerController : MonoBehaviour
     private bool _isDashing;
     private bool _canDash;
 
+    [SerializeField] AudioClip _dashSound;
+
 
 
     void OnEnable(){
@@ -74,6 +76,7 @@ public class PlayerController : MonoBehaviour
 
 
     private IEnumerator Dash(){
+        SoundManager.Instance.PlayEffectAudio(_dashSound);
         _canDash = false;
         _isDashing = true;
         rb.velocity = new Vector2(moveDir.x * _dashSpeed, moveDir.y * _dashSpeed);

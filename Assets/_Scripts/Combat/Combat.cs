@@ -16,6 +16,7 @@ public class Combat : MonoBehaviour
     [SerializeField] private Transform _firePoint;
     [SerializeField] private LayerMask _enemyLayers; //For melee combat
 
+
 #endregion
 
 
@@ -43,9 +44,12 @@ public class Combat : MonoBehaviour
     private int meleeCritChance;
 #endregion
 
+    [Header("Audio Clips")]
+    [SerializeField] AudioClip _gunShot;
+    [SerializeField] AudioClip _swordSing;
 
     private bool isReloading;
-    public bool didCrit = false;
+    [HideInInspector] public bool didCrit = false;
 
     private WaitForSeconds reloadSpeedWait;
 
@@ -125,12 +129,14 @@ public class Combat : MonoBehaviour
                 bullet.GetComponent<Bullet>().DamageAmount = CalculateDamage(true); //Set the calculated damage to the bullet's value.
                 currentAmmo--; //Remove ammo
                 _uiMngr.UpdateAmmo(currentAmmo, magSize); //Change the ammo text
+                SoundManager.Instance.PlayEffectAudio(_gunShot);
             }
         }
     }
 
     void Melee(){
         if(Time.time > lastSwing + (swingCooldown * FireRateMod)){
+            SoundManager.Instance.PlayEffectAudio(_swordSing);
             lastSwing = Time.time;
             _uiMngr.SwingCoolDownBar(swingCooldown);
             meleeSwing.Play();
