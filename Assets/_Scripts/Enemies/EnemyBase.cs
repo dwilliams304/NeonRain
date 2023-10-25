@@ -75,7 +75,7 @@ public class EnemyBase : MonoBehaviour
     }
 
 
-    float DoDamage(){
+    int DoDamage(){
         return Mathf.RoundToInt(Random.Range(_minDamage, _maxDamage));
     }
 

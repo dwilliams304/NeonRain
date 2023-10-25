@@ -15,6 +15,16 @@ public class HealthSystem : MonoBehaviour
 
     [SerializeField] private Slider _healthBar;
 
+    //FOR TESTING
+    void Start(){
+        SetMaxHealth(100);
+    }
+    void Update(){
+        if(Input.GetKeyDown(KeyCode.G)){
+            DecreaseCurrentHealth(5);
+        }
+    }
+
     public void SetMaxHealth(float amount){ //This will only SET the max health, not add to its current value
         MaxHealth = Mathf.RoundToInt(amount);
         CurrentHealth = MaxHealth;

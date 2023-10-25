@@ -1,28 +1,16 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 
 public class Combat : MonoBehaviour
 {
+    public delegate void OnPlayerDeath();
+    public static OnPlayerDeath onPlayerDeath;
     public static Combat Instance;
-    private float lastShot;
-    private float lastSwing;
-    [SerializeField] ParticleSystem muzzleFlash;
-    private UIManager _uiMngr;
-
-#region Other variables
-    [SerializeField] private Inventory _inventory;
-    [SerializeField] private Transform _firePoint;
-    [SerializeField] private LayerMask _enemyLayers; //For melee combat
-
-
-#endregion
-
-
+    
 #region Ranged weapon variables
-
     private float fireRate;
+    private float lastShot;
     public float FireRateMod = 1f;
     private float reloadSpeed;
     private int magSize;
@@ -33,7 +21,9 @@ public class Combat : MonoBehaviour
     private int rangedWeaponRange;
     bool isRifle;
     private float rangedCritChance;
-
+    private bool isReloading;
+    private WaitForSeconds reloadSpeedWait;
+    [SerializeField] ParticleSystem muzzleFlash;
 #endregion
 
 #region Melee weapon variables
@@ -41,30 +31,52 @@ public class Combat : MonoBehaviour
     private float meleeMaxDmg;
     private float swingCooldown;
     private float swingSpeed;
+    private float lastSwing;
     private int meleeCritChance;
 #endregion
+
+    [Header("Melee Specific")]
+    [SerializeField] Animation meleeSwing;
+    [SerializeField] InMeleeCollider _collCheck;
 
     [Header("Audio Clips")]
     [SerializeField] AudioClip _gunShot;
     [SerializeField] AudioClip _swordSing;
 
-    private bool isReloading;
-    [HideInInspector] public bool didCrit = false;
+    [Header("Death Related Stuff")]
+    [SerializeField] ParticleSystem _deathPS;
+    [SerializeField] SpriteRenderer _playerSprite;
+    PlayerController _playerController;
 
-    private WaitForSeconds reloadSpeedWait;
-
-    [Header("Melee Specific")]
-    [SerializeField] Animation meleeSwing;
-    [SerializeField] InMeleeCollider _collCheck;
+#region Misc. variables
+    [Header("Other")]
+    [SerializeField] private Transform _firePoint;
+    [SerializeField] HealthSystem _healthSystem;
+    private Inventory _inventory;
+    private UIManager _uiMngr;
     
+    [HideInInspector] public bool didCrit = false;
+#endregion
+    
+
     void Awake(){
         Instance = this;
     }
     void Start(){
         _inventory = GetComponent<Inventory>();
+        _playerController = GetComponent<PlayerController>();
         _uiMngr = UIManager.Instance;
+        // _healthSystem = GetComponent<HealthSystem>();
         AssignRangedStats(_inventory.gun);
         AssignMeleeStats(_inventory.sword);
+    }
+
+    void OnEnable(){
+        _healthSystem.onDeath += Die;
+    }
+
+    void OnDisable(){
+        _healthSystem.onDeath -= Die;
     }
 
 
@@ -171,6 +183,22 @@ public class Combat : MonoBehaviour
 
         didCrit = false;
         return Mathf.RoundToInt(dmgRoll);
+    }
+
+
+    void Die(){
+        StartCoroutine(HandleDeathEffects());
+    }
+
+    IEnumerator HandleDeathEffects(){
+        GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+        _playerController.enabled = false;
+        Time.timeScale = 0.2f;
+        _playerSprite.enabled = false;
+        _deathPS.Play();
+        yield return new WaitForSeconds(1f);
+        Time.timeScale = 0f;
+        onPlayerDeath?.Invoke();
     }
 
 }
