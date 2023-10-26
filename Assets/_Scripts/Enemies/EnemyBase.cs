@@ -29,6 +29,10 @@ public class EnemyBase : MonoBehaviour
 
     DamageFlash _damageFlash;
 
+    private AIPath path;
+    // public AIDestinationSetter setter;
+
+
 
     void OnEnable(){
         _health = GetComponent<HealthSystem>();
@@ -43,7 +47,9 @@ public class EnemyBase : MonoBehaviour
         _health.onDeath -= Die;
     }
 
-
+    void Awake(){
+        path = GetComponent<AIPath>();
+    }
     void Start(){
         _lvlScaler = LevelScaler.Instance;
         _damageFlash = GetComponent<DamageFlash>();
@@ -52,6 +58,9 @@ public class EnemyBase : MonoBehaviour
         _minDamage = Mathf.RoundToInt(enemyData.minDamage * _lvlScaler.EnemyDamageModifier);
         _maxDamage = Mathf.RoundToInt(enemyData.maxDamage * _lvlScaler.EnemyDamageModifier);
 
+        path.maxSpeed = enemyData.moveSpeed;
+        
+
         _xpAmount = enemyData.xpAmount;
         _corruptionDrop = enemyData.corruptionDrop;
         _goldDrop = enemyData.goldDrop;
@@ -59,6 +68,7 @@ public class EnemyBase : MonoBehaviour
         _scoreAmnt = enemyData.score;
 
         _player = GameObject.FindGameObjectWithTag("Player").transform;
+        GetComponent<AIDestinationSetter>().target = _player;
     }
 
 

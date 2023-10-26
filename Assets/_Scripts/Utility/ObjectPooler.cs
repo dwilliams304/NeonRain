@@ -19,6 +19,11 @@ public class ObjectPooler : MonoBehaviour
 
     [SerializeField] private bool willGrow;
 
+    [Header("Impact effects")]
+    [SerializeField] private GameObject bulletImpactPrefab;
+    [SerializeField] private int impactAmount;
+    private List<GameObject> pooledBulletImpacts;
+
     
     
 
@@ -29,6 +34,7 @@ public class ObjectPooler : MonoBehaviour
     void Start()
     {
         pooledPlayerBullets = new List<GameObject>();
+        pooledBulletImpacts = new List<GameObject>();
         pooledEnemyBullets = new List<GameObject>();
         for(int i = 0; i < playerBulletsAmnt; i++){
             GameObject playerBullet = Instantiate(playerBulletObj);
@@ -44,6 +50,14 @@ public class ObjectPooler : MonoBehaviour
 
             enemyBullet.SetActive(false);
             pooledEnemyBullets.Add(enemyBullet);
+        }
+
+        for(int i = 0; i < impactAmount; i++){
+            GameObject impact = Instantiate(bulletImpactPrefab);
+            impact.transform.parent = gameObject.transform;
+
+            impact.SetActive(false);
+            pooledBulletImpacts.Add(impact);
         }
     }
 
@@ -70,6 +84,20 @@ public class ObjectPooler : MonoBehaviour
                 GameObject enemyBullet = Instantiate(enemyBulletObj);
                 pooledEnemyBullets.Add(enemyBullet);
                 return enemyBullet;
+            }
+        }
+        return null;
+    }
+
+    public GameObject GetPooledBulletImpact(){
+        for(int i = 0; i < pooledBulletImpacts.Count; i++){
+            if(!pooledBulletImpacts[i].activeInHierarchy){
+                return pooledBulletImpacts[i];
+            }
+            if(willGrow){
+                GameObject impact = Instantiate(bulletImpactPrefab);
+                pooledBulletImpacts.Add(impact);
+                return impact;
             }
         }
         return null;
