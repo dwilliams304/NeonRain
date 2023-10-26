@@ -20,11 +20,11 @@ public class NotificationManager : MonoBehaviour
 
     void OnEnable(){
         DifficultyScaler.diffIncreased += DifficultyIncreasedNotification;
-        CorruptionManager.corruptionTierIncrease += CorruptionTierNotification;
+        // CorruptionManager.corruptionTierIncrease += CorruptionTierNotification;
         // XPManager.Instance.onXPChange += AddedXPText;
     }
     void OnDisable(){
-        CorruptionManager.corruptionTierIncrease -= CorruptionTierNotification;
+        // CorruptionManager.corruptionTierIncrease -= CorruptionTierNotification;
         DifficultyScaler.diffIncreased -= DifficultyIncreasedNotification;
 
     }

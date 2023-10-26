@@ -69,7 +69,7 @@ public class EnemyBase : MonoBehaviour
         }
         Inventory.Instance.AddGold(_goldDrop);
         XPManager.Instance.AddExperience(Mathf.CeilToInt(_xpAmount));
-        CorruptionManager.Instance.AddCorruption(_corruptionDrop);
+        // CorruptionManager.Instance.AddCorruption(_corruptionDrop);
         ScoreManager.scoreManager.AddToScore(_scoreAmnt);
         Destroy(gameObject);
     }

@@ -14,12 +14,12 @@ public class CorruptionPostProcessing : MonoBehaviour
     [SerializeField] private Color vignette3;
     [SerializeField] private Color vignette4;
     [SerializeField] private Color vignette5;
-    void OnEnable(){
-        CorruptionManager.corruptionTierIncrease += ChangePostProcessing;
-    }
-    void OnDisable(){
-        CorruptionManager.corruptionTierIncrease -= ChangePostProcessing;
-    }
+    // void OnEnable(){
+    //     CorruptionManager.corruptionTierIncrease += ChangePostProcessing;
+    // }
+    // void OnDisable(){
+    //     CorruptionManager.corruptionTierIncrease -= ChangePostProcessing;
+    // }
 
     void Start(){
         postProcessVol = GetComponent<Volume>();
