@@ -5,6 +5,8 @@ using UnityEngine;
 public class WeightedSpawner : MonoBehaviour
 {
 
+    public float spawnerDelay;
+
     public List<Spawnable> spawnables = new List<Spawnable>();
 
     [System.Serializable]

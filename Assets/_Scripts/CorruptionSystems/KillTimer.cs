@@ -15,15 +15,6 @@ public class KillTimer : MonoBehaviour
     public delegate void TimerCompleted();
     public static TimerCompleted timerCompleted;
 
-    // void OnEnable(){
-    //     CorruptionManager.startKillTimer += StartTimer;
-    //     CorruptionManager.stopKillTimer += StopTimer;
-    // }
-    // void OnDisable(){
-    //     CorruptionManager.startKillTimer -= StartTimer;
-    //     CorruptionManager.stopKillTimer -= StopTimer;
-    // }
-
 
 
     void Update(){
@@ -39,13 +30,13 @@ public class KillTimer : MonoBehaviour
         }
     }
 
-    void StartTimer(){
+    public void StartTimer(){
         timerTextObject.SetActive(true);
         timerActive = true;
         currentTime = 90f;
 
     }
-    void StopTimer(){
+    public void StopTimer(){
         timerTextObject.SetActive(false);
         timerActive = false;
         currentTime = 90f;

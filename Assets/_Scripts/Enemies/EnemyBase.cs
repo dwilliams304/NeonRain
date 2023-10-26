@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using Pathfinding;
 
 public class EnemyBase : MonoBehaviour
 {
