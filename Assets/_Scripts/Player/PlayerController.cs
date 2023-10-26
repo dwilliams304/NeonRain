@@ -20,6 +20,8 @@ public class PlayerController : MonoBehaviour
     private bool _isDashing;
     private bool _canDash;
 
+    TrailRenderer tr;
+
     [SerializeField] AudioClip _dashSound;
 
 
@@ -34,7 +36,7 @@ public class PlayerController : MonoBehaviour
 
     void Start(){
         _canDash = true;
-        
+        tr = GetComponent<TrailRenderer>();
     }
 
     void UpdateStats(ClassData classChosen){
@@ -69,7 +71,7 @@ public class PlayerController : MonoBehaviour
         if(_isDashing){
             return;
         }
-        rb.velocity = new Vector2(moveDir.x * _moveSpeed, moveDir.y * _moveSpeed);
+        rb.velocity = new Vector2(moveDir.x * _moveSpeed * PlayerStatModifier.MOD_MoveSpeed, moveDir.y * _moveSpeed * PlayerStatModifier.MOD_MoveSpeed);
 
 
     }
@@ -77,11 +79,13 @@ public class PlayerController : MonoBehaviour
 
     private IEnumerator Dash(){
         SoundManager.Instance.PlayEffectAudio(_dashSound);
+        tr.emitting = true;
         _canDash = false;
         _isDashing = true;
         rb.velocity = new Vector2(moveDir.x * _dashSpeed, moveDir.y * _dashSpeed);
         yield return new WaitForSeconds(_dashDuration);
         _isDashing = false;
+        tr.emitting = false;
         UIManager.Instance.DashCoolDownBar(_dashCoolDown);
         yield return new WaitForSeconds(_dashCoolDown);
         _canDash = true;

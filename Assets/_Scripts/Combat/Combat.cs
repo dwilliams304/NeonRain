@@ -131,7 +131,7 @@ public class Combat : MonoBehaviour
         if(currentAmmo > 0){ //Do we have ammo?
             if(Time.time > lastShot + (fireRate * FireRateMod)){ //If the current time is greater than the last time we shot + current weapon's fire rate, we can shoot.
                 muzzleFlash.Play(); //Play particle effect!
-                lastShot = Time.time; //Start timer for the last time we shot
+                lastShot = Time.time; //Set lastShot to be equal to current time
                 GameObject bullet = ObjectPooler.current.GetPooledPlayerBullet(); //Grab a bullet from the bullet pool
                 if(bullet == null) return; //If we don't have any bullets, do nothing (SHOULDNT HAPPEN)
                 bullet.transform.position = _firePoint.position;
@@ -147,13 +147,13 @@ public class Combat : MonoBehaviour
     }
 
     void Melee(){
-        if(Time.time > lastSwing + (swingCooldown * FireRateMod)){
+        if(Time.time > lastSwing + (swingCooldown * FireRateMod)){ //Basically same logic as shooting
             SoundManager.Instance.PlayEffectAudio(_swordSing);
             lastSwing = Time.time;
             _uiMngr.SwingCoolDownBar(swingCooldown);
             meleeSwing.Play();
             for(int i = 0; i < _collCheck.enemies.Count; i++){
-                _collCheck.enemies[i].DecreaseCurrentHealth(CalculateDamage(false));
+                _collCheck.enemies[i].DecreaseCurrentHealth(CalculateDamage(false)); //damage every enemy in our melee collider!
             }
         }
     }
