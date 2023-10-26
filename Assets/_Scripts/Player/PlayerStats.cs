@@ -17,7 +17,7 @@ public class PlayerStats : MonoBehaviour
     public int ExperienceToNextLevel = 250;
     [SerializeField] private AnimationCurve xpScaling;
 
-    [SerializeField] ParticleSystem p;
+    [SerializeField] ParticleSystem _levelUpParticles;
 
     private UIManager _uiMngr;
     private HealthSystem _health;
@@ -75,7 +75,7 @@ public class PlayerStats : MonoBehaviour
         DifficultyScaler.Instance.CheckDifficultyScale(CurrentLevel);
         ExperienceToNextLevel = Mathf.RoundToInt(xpScaling.Evaluate(CurrentLevel));
         handleLevelIncrease?.Invoke();
-        p.Play();
+        _levelUpParticles.Play();
     }
 
 
