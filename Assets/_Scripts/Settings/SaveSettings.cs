@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,7 +9,6 @@ public class SaveSettings : MonoBehaviour
     public void ConfirmSaveSettings(){
         foreach(Slider slider in _volumeSliders){
             PlayerPrefs.SetFloat(slider.name, slider.value);
-            Debug.Log("Slider value: " + slider.value + "Slider name: " + slider.name + " Saved value: " + PlayerPrefs.GetFloat(slider.name));
         }
     }
 }

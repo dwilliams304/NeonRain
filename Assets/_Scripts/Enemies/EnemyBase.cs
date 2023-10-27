@@ -9,12 +9,13 @@ public class EnemyBase : MonoBehaviour
     // [SerializeField] private string _enemyName;
     [SerializeField] float _minDamage;
     [SerializeField] float _maxDamage;
-    [SerializeField] int _corruptionDrop;
-    [SerializeField] int _goldDrop;
-    [SerializeField] int _dropChance;
-    [SerializeField] int _scoreAmnt;
     [SerializeField] float _baseLuck;
     [SerializeField] float _xpAmount;
+    [SerializeField] float _attackRange;
+    int _goldDrop;
+    int _corruptionDrop;
+    int _dropChance;
+    int _scoreAmnt;
 
     [SerializeField] GameObject floatingDmgTextPref;
     [SerializeField] float dmgNumberYOffset;
@@ -38,8 +39,6 @@ public class EnemyBase : MonoBehaviour
         _health = GetComponent<HealthSystem>();
         _health.onDamage += ShowDamage;
         _health.onDeath += Die;
-
-        
     }
 
     void OnDisable(){
@@ -57,6 +56,7 @@ public class EnemyBase : MonoBehaviour
 
         _minDamage = Mathf.RoundToInt(enemyData.minDamage * _lvlScaler.EnemyDamageModifier);
         _maxDamage = Mathf.RoundToInt(enemyData.maxDamage * _lvlScaler.EnemyDamageModifier);
+        _attackRange = enemyData.attackRange;
 
         path.maxSpeed = enemyData.moveSpeed;
         
@@ -71,7 +71,7 @@ public class EnemyBase : MonoBehaviour
         GetComponent<AIDestinationSetter>().target = _player;
     }
 
-
+    
 
 
     void Die(){

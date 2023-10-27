@@ -18,7 +18,6 @@ public class Combat : MonoBehaviour
     private float projectileSpeed;
     private float rangedMinDmg;
     private float rangedMaxDmg;
-    private int rangedWeaponRange;
     bool isRifle;
     private float rangedCritChance;
     private bool isReloading;
@@ -30,7 +29,6 @@ public class Combat : MonoBehaviour
     private float meleeMinDmg;
     private float meleeMaxDmg;
     private float swingCooldown;
-    private float swingSpeed;
     private float lastSwing;
     private int meleeCritChance;
 #endregion
@@ -117,7 +115,7 @@ public class Combat : MonoBehaviour
     }
 
     public void AssignMeleeStats(Sword sword){
-        swingSpeed = sword.swingSpeed;
+        // swingSpeed = sword.swingSpeed;
         swingCooldown = sword.swingCoolDown;
         meleeMinDmg = sword.minDamage;
         meleeMaxDmg = sword.maxDamage;
