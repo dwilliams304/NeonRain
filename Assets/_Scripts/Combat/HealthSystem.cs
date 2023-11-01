@@ -35,6 +35,7 @@ public class HealthSystem : MonoBehaviour
     public void IncreaseMaxHealth(float amount){ //Add onto current maxhealth value
         MaxHealth += Mathf.RoundToInt(amount);
         CurrentHealth = MaxHealth;
+        SetHealthBarMaxValue(MaxHealth);
     }
 
     public void InceaseCurrentHealth(float amount){

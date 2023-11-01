@@ -70,7 +70,7 @@ public class UIManager : MonoBehaviour
     }
 
     public void UpdateAmmo(int currentAmmo, int magSize){
-        _playerAmmo.text = $"{currentAmmo} / {magSize}";
+        _playerAmmo.text = $"{currentAmmo}/{magSize}";
         if(currentAmmo == 0){
             _ammoText.text = "No ammo!";
             _ammoText.color = Color.red;
@@ -97,7 +97,7 @@ public class UIManager : MonoBehaviour
     }
 
     public void UpdateGoldUI(int total){
-        _goldAmount.text = $"Gold: {total}";
+        _goldAmount.text = total.ToString();
     }
 
     void LoseGameUI(){

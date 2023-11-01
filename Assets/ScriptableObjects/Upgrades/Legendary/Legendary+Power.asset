@@ -17,4 +17,4 @@ MonoBehaviour:
   toolTipDescription: Add 10% damage to your character
   increaseAmount: 0.1
   isPercentUpgrade: 0
-  rarity: 3
+  rarity: 4

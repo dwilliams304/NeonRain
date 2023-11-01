@@ -17,4 +17,4 @@ MonoBehaviour:
   toolTipDescription: Add 10% speed to your character.
   increaseAmount: 0.1
   isPercentUpgrade: 1
-  rarity: 3
+  rarity: 4

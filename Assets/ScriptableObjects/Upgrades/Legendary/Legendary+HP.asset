@@ -17,4 +17,4 @@ MonoBehaviour:
   toolTipDescription: Add 200 health to your character.
   increaseAmount: 200
   isPercentUpgrade: 0
-  rarity: 3
+  rarity: 4

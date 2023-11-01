@@ -9,7 +9,6 @@ public class UpgradeHolder : MonoBehaviour
     [SerializeField] private TMP_Text buttonText;
 
 
-    [SerializeField] private GameObject toolTipObject;
     [SerializeField] private TMP_Text toolTipText;
     private Image buttonImg;
 
@@ -17,7 +16,6 @@ public class UpgradeHolder : MonoBehaviour
 
     void Start(){
         buttonText = upgradeButton.GetComponentInChildren<TMP_Text>();
-        toolTipObject.SetActive(false);
     }
 
     public void SwitchUpgrade(PlayerUpgrades upgradeGenerated){
@@ -46,6 +44,5 @@ public class UpgradeHolder : MonoBehaviour
 
     public void OnClick(){
         upgrade.UpgradeChosen();
-        toolTipObject.SetActive(false);
     }
 }
