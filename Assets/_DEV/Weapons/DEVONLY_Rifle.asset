@@ -22,7 +22,7 @@ MonoBehaviour:
   currentWepTier: 5
   weaponType: 0
   rarity: 5
-  projectileSpeed: 50
+  projectileSpeed: 60
   reloadSpeed: 0.1
   fireRate: 0.1
   magSize: 100
