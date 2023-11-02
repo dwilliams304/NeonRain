@@ -194,7 +194,7 @@ public class Combat : MonoBehaviour
         Time.timeScale = 0.2f;
         _playerSprite.enabled = false;
         _deathPS.Play();
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(2f);
         Time.timeScale = 0f;
         onPlayerDeath?.Invoke();
     }
