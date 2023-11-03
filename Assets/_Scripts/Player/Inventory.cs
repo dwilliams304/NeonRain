@@ -34,12 +34,12 @@ public class Inventory : MonoBehaviour
         addGold?.Invoke(PlayerGold);
     }
 
-    public void SwapGuns(Gun swap){
+    void SwapGuns(Gun swap){
         combat.AssignRangedStats(swap);
         gun = swap;
     }
 
-    public void SwapSwords(Sword swap){
+    void SwapSwords(Sword swap){
         combat.AssignMeleeStats(swap);
         sword = swap;
     }

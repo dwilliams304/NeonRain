@@ -18,7 +18,7 @@ public class Combat : MonoBehaviour
     private float projectileSpeed;
     private float rangedMinDmg;
     private float rangedMaxDmg;
-    bool isRifle;
+    // bool isRifle;
     private float rangedCritChance;
     private bool isReloading;
     private WaitForSeconds reloadSpeedWait;
@@ -109,8 +109,8 @@ public class Combat : MonoBehaviour
         rangedMinDmg = gun.minDamage;
         rangedMaxDmg = gun.maxDamage;
         rangedCritChance = gun.critChance;
-        if(gun.gunType == GunType.AutomaticRifle){ isRifle = true; }
-        else{ isRifle = false; }
+        // if(gun.gunType == GunType.Automatic_Rifle){ isRifle = true; }
+        // else{ isRifle = false; }
         _uiMngr.UpdateAmmo(currentAmmo, magSize);
     }
 

@@ -2,9 +2,11 @@ using UnityEngine;
 
 public enum GunType{
     Pistol,
-    AutomaticRifle,
+    Revolver,
+    Automatic_Rifle,
     Shotgun,
-    Sniper
+    Sniper,
+    Submachine_Gun
 }
 
 [CreateAssetMenu(menuName = "Weapons/Gun")]

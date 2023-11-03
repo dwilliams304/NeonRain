@@ -4,7 +4,7 @@ using TMPro;
 public class FPSUpdater : MonoBehaviour
 {
     float fps;
-    float updateTimer = 0.2f;
+    float updateTimer = 0.3f;
 
     [SerializeField] private TMP_Text fpsText;
 
@@ -17,7 +17,7 @@ public class FPSUpdater : MonoBehaviour
         if(updateTimer <= 0){
             fps = 1f / Time.unscaledDeltaTime;
             fpsText.text = "FPS: " + Mathf.RoundToInt(fps);
-            updateTimer = 0.2f;
+            updateTimer = 0.3f;
         }
     }
 }

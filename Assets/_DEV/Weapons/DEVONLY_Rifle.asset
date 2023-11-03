@@ -17,7 +17,7 @@ MonoBehaviour:
   maxDamage: 35
   critChance: 50
   isCorrupted: 0
-  weaponSprite: {fileID: 21300000, guid: 2e43f0691f0d7404eae8d01381da65a0, type: 3}
+  weaponSprite: {fileID: 21300000, guid: 863e4d7f6ce98d745a26934f637237f6, type: 3}
   corruptionGain: 0
   currentWepTier: 5
   weaponType: 0

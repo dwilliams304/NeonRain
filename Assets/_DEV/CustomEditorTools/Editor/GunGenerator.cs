@@ -95,7 +95,7 @@ public class GunGenerator : EditorWindow
                     gun.gunType = GunType.Pistol;
                     break;
                 case 1:
-                    gun.gunType = GunType.AutomaticRifle;
+                    gun.gunType = GunType.Automatic_Rifle;
                     break;
                 case 2:
                     gun.gunType = GunType.Shotgun;

@@ -6,12 +6,12 @@ public class LootManager : MonoBehaviour
     public static LootManager Instance;
 
     [Header("Loot Pool")]
-    [SerializeField] List<Weapon> _commonDrops;
-    [SerializeField] List<Weapon> _uncommonDrops;
-    [SerializeField] List<Weapon> _rareDrops;
-    [SerializeField] List<Weapon> _legendaryDrops;
-    [SerializeField] List<Weapon> _corruptedDrops;
-    [SerializeField] Weapon _uniqueWeapon;
+    [SerializeField] List<Gun> _commonDrops;
+    [SerializeField] List<Gun> _uncommonDrops;
+    [SerializeField] List<Gun> _rareDrops;
+    [SerializeField] List<Gun> _legendaryDrops;
+    [SerializeField] List<Gun> _corruptedDrops;
+    [SerializeField] Gun _uniqueWeapon;
 
 
     [Header("Loot Drop Prefabs")]
@@ -74,9 +74,9 @@ public class LootManager : MonoBehaviour
         }
     }
 
-    GameObject GenerateLootObject(GameObject prefab, Weapon weaponToSet){
+    GameObject GenerateLootObject(GameObject prefab, Gun gunToSet){
         LootObject lootObj = prefab.GetComponent<LootObject>();
-        lootObj.weaponData = weaponToSet;
+        lootObj.weaponData = gunToSet;
         return prefab;
     }
 

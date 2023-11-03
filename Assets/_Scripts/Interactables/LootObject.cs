@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class LootObject : MonoBehaviour
 {
-    public Weapon weaponData;
+    public Gun weaponData;
     [SerializeField] private GameObject toolTip;
     // bool playerInRange = false;
 
