@@ -27,3 +27,5 @@ MonoBehaviour:
   fireRate: 0.1
   magSize: 100
   gunType: 1
+  color: {r: 0.7264151, g: 0.3200515, b: 0, a: 1}
+  gunShot: {fileID: 8300000, guid: a764377339b869e459f5e53fb9258f73, type: 3}

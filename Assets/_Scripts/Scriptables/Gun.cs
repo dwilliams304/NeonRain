@@ -17,4 +17,6 @@ public class Gun : Weapon
     public float fireRate = 0.5f;
     public int magSize = 30;
     public GunType gunType = GunType.Pistol;
+    public Color color;
+    public AudioClip gunShot;
 }

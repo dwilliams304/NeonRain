@@ -44,12 +44,11 @@ public class Inventory : MonoBehaviour
     }
 
     void SwapGuns(Gun swap, int idx){
-        combat.AssignRangedStats(swap);
         gun = swap;
     }
 
-    void SwapSwords(Sword swap){
-        combat.AssignMeleeStats(swap);
-        sword = swap;
-    }
+    // void SwapSwords(Sword swap){
+    //     combat.AssignMeleeStats(swap);
+    //     sword = swap;
+    // }
 }

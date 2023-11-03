@@ -21,6 +21,7 @@ public class GunGenerator : EditorWindow
     float reloadSpeed = 0.5f;
     int magSize = 20;
     int projectileSpeed = 30;
+    AudioClip gunShotSound;
 
     int detailedType = 0;
     int wepRarity = 0;
@@ -64,6 +65,10 @@ public class GunGenerator : EditorWindow
         GUILayout.Space(10);
         GUILayout.Label("0 - Common, 1 - Uncommon, 2 - Rare, 3 - Corrupted, 4 - Legendary, 5 - Unique");
         wepRarity = EditorGUILayout.IntField("Rarity", wepRarity);
+
+        GUILayout.Space(20);
+        GUILayout.Label("Gunshot Sound!");
+        gunShotSound = (AudioClip)EditorGUILayout.ObjectField("Sound", gunShotSound, typeof(AudioClip), true);
         
 
         if(GUILayout.Button("Generate Guns!")){
@@ -114,21 +119,27 @@ public class GunGenerator : EditorWindow
             switch(wepRarity){
                 case 0:
                     gun.rarity = Rarity.Common;
+                    gun.color = Color.white;
                     break;
                 case 1:
                     gun.rarity = Rarity.Uncommon;
+                    gun.color = Color.green;
                     break;
                 case 2:
                     gun.rarity = Rarity.Rare;
+                    gun.color = Color.blue;
                     break;
                 case 3:
                     gun.rarity = Rarity.Corrupted;
+                    gun.color = Color.red;
                     break;
                 case 4:
                     gun.rarity = Rarity.Legendary;
+                    gun.color = Color.yellow;
                     break;
                 case 5:
                     gun.rarity = Rarity.Unique;
+                    gun.color = Color.magenta;
                     break;
             }
             amountCreated++;
@@ -139,6 +150,7 @@ public class GunGenerator : EditorWindow
             gun.weaponName = fileName;
             gun.minDamage = Mathf.Ceil(Random.Range(minDamage - weaponDamageVariance, minDamage + weaponDamageVariance));
             gun.maxDamage = Mathf.Ceil(Random.Range(maxDamage - weaponDamageVariance, maxDamage + weaponDamageVariance));
+            gun.gunShot = gunShotSound;
             if(gun.maxDamage <= gun.minDamage){ gun.maxDamage = Mathf.Ceil(gun.minDamage + weaponDamageVariance);}
             gun.critChance = Random.Range(critChance - critChanceVariance, critChance + critChanceVariance);
             gun.fireRate = Mathf.Round(Random.Range(fireRate - fireRateVariance, fireRate + fireRateVariance) * 100f) / 100f;

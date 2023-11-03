@@ -65,15 +65,17 @@ public class Combat : MonoBehaviour
         _playerController = GetComponent<PlayerController>();
         _uiMngr = UIManager.Instance;
         // _healthSystem = GetComponent<HealthSystem>();
-        AssignRangedStats(_inventory.gun);
+        AssignRangedGunData(_inventory.gun, 0);
         AssignMeleeStats(_inventory.sword);
     }
 
     void OnEnable(){
         _healthSystem.onDeath += Die;
+        WeaponSwapSystem.onGunSwap += AssignRangedGunData;
     }
 
     void OnDisable(){
+        WeaponSwapSystem.onGunSwap -= AssignRangedGunData;
         _healthSystem.onDeath -= Die;
     }
 
@@ -99,7 +101,7 @@ public class Combat : MonoBehaviour
     }
 
     //Assign all the ranged weapon data
-    public void AssignRangedStats(Gun gun){
+    void AssignRangedGunData(Gun gun, int idx){
         fireRate = gun.fireRate;
         reloadSpeed = gun.reloadSpeed;
         reloadSpeedWait = new WaitForSeconds(reloadSpeed); //cache this anytime we swap weapons and reload speed changes
@@ -109,6 +111,7 @@ public class Combat : MonoBehaviour
         rangedMinDmg = gun.minDamage;
         rangedMaxDmg = gun.maxDamage;
         rangedCritChance = gun.critChance;
+        _gunShot = gun.gunShot;
         // if(gun.gunType == GunType.Automatic_Rifle){ isRifle = true; }
         // else{ isRifle = false; }
         _uiMngr.UpdateAmmo(currentAmmo, magSize);
