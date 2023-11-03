@@ -16,11 +16,20 @@ public class Inventory : MonoBehaviour
 
     // public delegate void SwapWeapon(Weapon weapon);
     // public static SwapWeapon swapWeapon;
+
+    void OnEnable(){
+        WeaponSwapSystem.onGunSwap += SwapGuns;
+    }
+    void OnDisable(){
+        WeaponSwapSystem.onGunSwap -= SwapGuns;
+    }
+
     void Awake(){
         Instance = this;
     }
     void Start(){
         combat = GetComponent<Combat>();
+        addGold?.Invoke(0);
     }
 
     public void AddGold(int amount){
@@ -34,7 +43,7 @@ public class Inventory : MonoBehaviour
         addGold?.Invoke(PlayerGold);
     }
 
-    void SwapGuns(Gun swap){
+    void SwapGuns(Gun swap, int idx){
         combat.AssignRangedStats(swap);
         gun = swap;
     }

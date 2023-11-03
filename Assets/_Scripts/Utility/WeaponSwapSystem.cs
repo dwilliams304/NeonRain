@@ -6,12 +6,13 @@ using UnityEngine.UI;
 
 public class WeaponSwapSystem : MonoBehaviour
 {
-    public delegate void OnGunSwap(Gun gun);
+    public delegate void OnGunSwap(Gun gun, int idx);
     public delegate void OnSwordSwap(Sword sword);
     public static OnGunSwap onGunSwap;
     public static OnSwordSwap onSwordSwap;
 
-    private bool _swapping = false;
+    public static bool Swapping = false;
+    private float _previousTimeScale = 1f;
 
 
     [SerializeField] private GameObject _wepSwapPanel;
@@ -45,7 +46,7 @@ public class WeaponSwapSystem : MonoBehaviour
     }
 
     void Update(){
-        if(!_swapping) {
+        if(!Swapping) {
             return;
         }
         else{
@@ -55,15 +56,24 @@ public class WeaponSwapSystem : MonoBehaviour
             else if(Input.GetKeyDown(KeyCode.D)){
                 ScrollRight();
             }
+            else if(Input.GetKeyDown(KeyCode.C)){
+                Confirm();
+            }
+            else if(Input.GetKeyDown(KeyCode.Escape)){
+                ClosePanel();
+            }
         }
     }
 
     void ShowPanel(List<Gun> possibleGuns, Gun currentGun){
-        _swapping = true;
+        _cur = 0;
+        Swapping = true;
+        _previousTimeScale = Time.timeScale;
         _guns = possibleGuns;
         _currentlyEquippedGun = currentGun;
-        _currentlyViewedGun = _guns[0];
+        _currentlyViewedGun = _guns[_cur];
         _wepSwapPanel.SetActive(true);
+        Time.timeScale = 0;
         UpdateEquippedGunText();
         UpdateViewedGunText();
     }
@@ -82,6 +92,19 @@ public class WeaponSwapSystem : MonoBehaviour
         }
         else _cur++;
         UpdateViewedGun();
+    }
+
+    void Confirm(){
+        onGunSwap?.Invoke(_currentlyViewedGun, _cur);
+        ClosePanel();
+
+    }
+
+    void ClosePanel(){
+        Swapping = false;
+        _wepSwapPanel.SetActive(false);
+        _guns.Clear();
+        Time.timeScale = _previousTimeScale;
     }
 
     void UpdateViewedGun(){

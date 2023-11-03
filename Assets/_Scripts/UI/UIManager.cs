@@ -22,8 +22,6 @@ public class UIManager : MonoBehaviour
     
     [Header("Pop-Up Panels")]
     [SerializeField] private GameObject loseUIPanel;
-    [SerializeField] private GameObject pauseGamePanel;
-    [SerializeField] private GameObject weaponSwapPanel;
 
     bool isPaused = false;
     public bool gameLost = false;
@@ -45,19 +43,8 @@ public class UIManager : MonoBehaviour
 
 
 
-    void Start(){
-        UpdateGoldUI(0);
-    }
-
     void Update(){
-        if(Input.GetButtonDown("PauseGame")){
-            if(weaponSwapPanel.activeInHierarchy){
-                return;
-            }
-            else{
-                PauseGame();
-            }
-        }
+        
     }
 
 
@@ -96,7 +83,7 @@ public class UIManager : MonoBehaviour
         _swingCooldownObject.LeanScaleY(0, swingCooldownSpeed);
     }
 
-    public void UpdateGoldUI(int total){
+    void UpdateGoldUI(int total){
         _goldAmount.text = total.ToString();
     }
 
@@ -105,16 +92,6 @@ public class UIManager : MonoBehaviour
         Time.timeScale = 0f;
     }
 
-
-    void PauseGame(){
-        isPaused = !isPaused;
-        if(isPaused){
-            Time.timeScale = 0;
-        }else{
-            Time.timeScale = 1f;
-        }
-        pauseGamePanel.SetActive(isPaused);
-    }
 
 
 }
