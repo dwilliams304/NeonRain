@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
@@ -66,7 +65,6 @@ public class WeaponSwapSystem : MonoBehaviour
     }
 
     void ShowPanel(List<Gun> possibleGuns, Gun currentGun){
-        _cur = 0;
         Swapping = true;
         _previousTimeScale = Time.timeScale;
         _guns = possibleGuns;
@@ -78,18 +76,22 @@ public class WeaponSwapSystem : MonoBehaviour
         UpdateViewedGunText();
     }
 
+    void ClosePanel(){
+        Swapping = false;
+        _cur = 0;
+        _wepSwapPanel.SetActive(false);
+        _guns.Clear();
+        Time.timeScale = _previousTimeScale;
+    }
+
     void ScrollLeft(){
-        if(_cur < 1){
-            _cur = _guns.Count - 1;
-        }
+        if(_cur < 1)  _cur = _guns.Count - 1;
         else _cur--;
         UpdateViewedGun();
     }
 
     void ScrollRight(){
-        if(_cur == _guns.Count - 1){
-            _cur = 0;
-        }
+        if(_cur == _guns.Count - 1) _cur = 0;
         else _cur++;
         UpdateViewedGun();
     }
@@ -97,21 +99,12 @@ public class WeaponSwapSystem : MonoBehaviour
     void Confirm(){
         onGunSwap?.Invoke(_currentlyViewedGun, _cur);
         ClosePanel();
-
-    }
-
-    void ClosePanel(){
-        Swapping = false;
-        _wepSwapPanel.SetActive(false);
-        _guns.Clear();
-        Time.timeScale = _previousTimeScale;
     }
 
     void UpdateViewedGun(){
         _currentlyViewedGun = _guns[_cur];
         UpdateViewedGunText();
     }
-
 
     //0 = name
     //1 = type

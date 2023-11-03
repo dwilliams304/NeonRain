@@ -59,7 +59,7 @@ public class GunGenerator : EditorWindow
         GUILayout.Space(30);
 
         GUILayout.Label("Weapon Type and Rarity", EditorStyles.boldLabel);
-        GUILayout.Label("0 - Pistol, 1 - AutomaticRifle, 2 - Shotgun, 3 - Sniper");
+        GUILayout.Label("0 - Pistol, 1 - Revolver, 2 - Automatic_Rifle, 3 - Shotgun, 4 - Sniper, 5 - Submachine_Gun");
         detailedType = EditorGUILayout.IntField("Type", detailedType);
         GUILayout.Space(10);
         GUILayout.Label("0 - Common, 1 - Uncommon, 2 - Rare, 3 - Corrupted, 4 - Legendary, 5 - Unique");
@@ -95,14 +95,20 @@ public class GunGenerator : EditorWindow
                     gun.gunType = GunType.Pistol;
                     break;
                 case 1:
-                    gun.gunType = GunType.Automatic_Rifle;
+                    gun.gunType = GunType.Revolver;
                     break;
                 case 2:
-                    gun.gunType = GunType.Shotgun;
+                    gun.gunType = GunType.Automatic_Rifle;
                     break;
                 case 3:
+                    gun.gunType = GunType.Shotgun;
+                    break;
+                case 4:
                     gun.gunType = GunType.Sniper;
-                    break;  
+                    break;
+                case 5:
+                    gun.gunType = GunType.Submachine_Gun;
+                    break;
             }
 
             switch(wepRarity){
