@@ -5,9 +5,6 @@ public class PlayerStatModifier : MonoBehaviour
 {
     public static PlayerStatModifier playerMods;
 
-    //MOVE SPEED
-    public static float MOD_MoveSpeed  {get; private set; } = 1f;
-
     //DAMAGE DONE/TAKEN
     public static float MOD_DamageDone  {get; private set; } = 1f;
     public static float MOD_DamageTaken  {get; private set; } = 1f;
@@ -16,7 +13,11 @@ public class PlayerStatModifier : MonoBehaviour
     public static int MOD_CritChance {get; private set; } = 10;
     public static float MOD_CritDamage  {get; private set; } = 3f;
 
+    //MOVE SPEED
+    public static float MOD_MoveSpeed  {get; private set; } = 1f;
+
     //MISC.
+    public static float MOD_AdditonalXP {get; private set;} = 1f;
     public static float MOD_AdditionalGold { get; private set; } = 1f;
 
     public static void ChangeClassMods(ClassData classChosen){
