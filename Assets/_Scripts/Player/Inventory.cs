@@ -29,7 +29,6 @@ public class Inventory : MonoBehaviour
     }
     void Start(){
         combat = GetComponent<Combat>();
-        addGold?.Invoke(0);
     }
 
     public void AddGold(int amount){
