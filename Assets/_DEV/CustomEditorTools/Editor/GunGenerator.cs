@@ -21,12 +21,12 @@ public class GunGenerator : EditorWindow
     float reloadSpeed = 0.5f;
     int magSize = 20;
     int projectileSpeed = 30;
-    Color gunColor;
+    Color gunColor = Color.white;
     AudioClip gunShotSound;
     Sprite gunSprite;
 
-    int detailedType = 0;
-    int wepRarity = 0;
+    GunType detailedType = 0;
+    Rarity wepRarity = 0;
 
     [MenuItem("Tools/Weapon Generator/Gun Generator")]
     public static void ShowWindow(){
@@ -62,11 +62,8 @@ public class GunGenerator : EditorWindow
         GUILayout.Space(30);
 
         GUILayout.Label("Weapon Type and Rarity", EditorStyles.boldLabel);
-        GUILayout.Label("0 - Pistol, 1 - Revolver, 2 - Automatic_Rifle, 3 - Shotgun, 4 - Sniper, 5 - Submachine_Gun");
-        detailedType = EditorGUILayout.IntField("Type", detailedType);
-        GUILayout.Space(10);
-        GUILayout.Label("0 - Common, 1 - Uncommon, 2 - Rare, 3 - Corrupted, 4 - Legendary, 5 - Unique");
-        wepRarity = EditorGUILayout.IntField("Rarity", wepRarity);
+        detailedType = (GunType)EditorGUILayout.EnumPopup("Type", detailedType);
+        wepRarity = (Rarity)EditorGUILayout.EnumPopup("Rarity", wepRarity);
         gunColor = EditorGUILayout.ColorField("Color", gunColor);
         GUILayout.Space(20);
         GUILayout.Label("Gunshot Sound");
@@ -87,59 +84,11 @@ public class GunGenerator : EditorWindow
 
     void CreateWeapons(){
         int amountCreated = 0;
-        if(wepRarity > 5 || wepRarity < 0){
-            Debug.LogWarning($"Invalid Weapon Rarity, Entered: {wepRarity}. -> Defaulting to 'Common' ( 0 )");
-            wepRarity = 0;
-        }
-        if(detailedType > 3 || detailedType < 0){
-            Debug.LogWarning($"Invalid Weapon Type, Entered: {detailedType}. -> Defaulting to 'Pistol!' ( 0 )");
-            detailedType = 0;
-        }
         //weaponName = weaponName + amountCreated.ToString();
         while(amountCreated < amountToCreate){
 
             Gun gun = ScriptableObject.CreateInstance<Gun>();
-            switch(detailedType){
-                case 0:
-                    gun.gunType = GunType.Pistol;
-                    break;
-                case 1:
-                    gun.gunType = GunType.Revolver;
-                    break;
-                case 2:
-                    gun.gunType = GunType.Automatic_Rifle;
-                    break;
-                case 3:
-                    gun.gunType = GunType.Shotgun;
-                    break;
-                case 4:
-                    gun.gunType = GunType.Sniper;
-                    break;
-                case 5:
-                    gun.gunType = GunType.Submachine_Gun;
-                    break;
-            }
-
-            switch(wepRarity){
-                case 0:
-                    gun.rarity = Rarity.Common;
-                    break;
-                case 1:
-                    gun.rarity = Rarity.Uncommon;
-                    break;
-                case 2:
-                    gun.rarity = Rarity.Rare;
-                    break;
-                case 3:
-                    gun.rarity = Rarity.Corrupted;
-                    break;
-                case 4:
-                    gun.rarity = Rarity.Legendary;
-                    break;
-                case 5:
-                    gun.rarity = Rarity.Unique;
-                    break;
-            }
+            
             amountCreated++;
 
             string fileName = $"{gun.rarity} {gun.gunType} {amountCreated}";
@@ -148,6 +97,8 @@ public class GunGenerator : EditorWindow
             gun.weaponName = fileName;
             gun.minDamage = Mathf.Ceil(Random.Range(minDamage - weaponDamageVariance, minDamage + weaponDamageVariance));
             gun.maxDamage = Mathf.Ceil(Random.Range(maxDamage - weaponDamageVariance, maxDamage + weaponDamageVariance));
+            gun.gunType = detailedType;
+            gun.rarity = wepRarity;
             gun.color = gunColor;
             gun.gunShot = gunShotSound;
             gun.weaponSprite = gunSprite;

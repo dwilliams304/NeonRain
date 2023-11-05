@@ -40,6 +40,7 @@ public class Combat : MonoBehaviour
     [Header("Audio Clips")]
     [SerializeField] AudioClip _gunShot;
     [SerializeField] AudioClip _swordSing;
+    [SerializeField] AudioClip _hurt;
 
     [Header("Death Related Stuff")]
     [SerializeField] ParticleSystem _deathPS;
@@ -71,12 +72,14 @@ public class Combat : MonoBehaviour
 
     void OnEnable(){
         _healthSystem.onDeath += Die;
+        _healthSystem.onDamage += TakeDamage;
         WeaponSwapSystem.onGunSwap += AssignRangedGunData;
     }
 
     void OnDisable(){
         WeaponSwapSystem.onGunSwap -= AssignRangedGunData;
         _healthSystem.onDeath -= Die;
+        _healthSystem.onDamage -= TakeDamage;
     }
 
 
@@ -98,6 +101,10 @@ public class Combat : MonoBehaviour
                 StartCoroutine(Reload());
             }
         }
+    }
+
+    void TakeDamage(float amnt){
+        SoundManager.Instance.PlayEffectAudio(_hurt);
     }
 
     //Assign all the ranged weapon data

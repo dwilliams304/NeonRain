@@ -17,6 +17,8 @@ public class EnemyBase : MonoBehaviour
     int _dropChance;
     int _scoreAmnt;
 
+    float lastAtk;
+    float atkSpeed;
     [SerializeField] GameObject floatingDmgTextPref;
     [SerializeField] float dmgNumberYOffset;
 
@@ -24,6 +26,7 @@ public class EnemyBase : MonoBehaviour
     [SerializeField] Color critColor;
 
     [SerializeField] Transform _player;
+    HealthSystem _playerHealth;
 
     HealthSystem _health;
     LevelScaler _lvlScaler;
@@ -66,9 +69,20 @@ public class EnemyBase : MonoBehaviour
         _goldDrop = enemyData.goldDrop;
         _dropChance = enemyData.dropChance;
         _scoreAmnt = enemyData.score;
+        atkSpeed = enemyData.attackSpeed;
 
         _player = GameObject.FindGameObjectWithTag("Player").transform;
         GetComponent<AIDestinationSetter>().target = _player;
+        _playerHealth = _player.GetComponent<HealthSystem>();
+    }
+
+    void Update(){
+        if(Vector2.Distance(transform.position, _player.position) < _attackRange){
+            if(Time.time > lastAtk + atkSpeed){
+                lastAtk = Time.time;
+                _playerHealth.DecreaseCurrentHealth(DoDamage());
+            }
+        }
     }
 
     

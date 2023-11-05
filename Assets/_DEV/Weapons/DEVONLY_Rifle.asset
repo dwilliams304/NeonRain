@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: DEVONLY_Rifle
   m_EditorClassIdentifier: 
   weaponName: Default Weapon
-  minDamage: 25
-  maxDamage: 35
-  critChance: 50
+  minDamage: 10
+  maxDamage: 15
+  critChance: 10
   isCorrupted: 0
   weaponSprite: {fileID: 21300000, guid: 863e4d7f6ce98d745a26934f637237f6, type: 3}
   corruptionGain: 0
@@ -23,9 +23,9 @@ MonoBehaviour:
   weaponType: 0
   rarity: 5
   projectileSpeed: 60
-  reloadSpeed: 0.1
+  reloadSpeed: 0.3
   fireRate: 0.1
-  magSize: 100
-  gunType: 1
+  magSize: 50
+  gunType: 2
   color: {r: 0.7264151, g: 0.3200515, b: 0, a: 1}
   gunShot: {fileID: 8300000, guid: a764377339b869e459f5e53fb9258f73, type: 3}

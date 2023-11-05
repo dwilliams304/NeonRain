@@ -1,4 +1,7 @@
+using System.Collections.Generic;
 using UnityEngine;
+
+
 
 public class PlayerStats : MonoBehaviour
 {
@@ -6,6 +9,7 @@ public class PlayerStats : MonoBehaviour
     public static HandleLevelIncrease handleLevelIncrease;
 
     public static PlayerStats Instance;
+    
 
     [Header("Chosen Class")]
     public ClassData playerClass;
@@ -43,9 +47,12 @@ public class PlayerStats : MonoBehaviour
         _health = GetComponent<HealthSystem>();
         _hRegen = GetComponent<HealthRegenerator>();
 
+        _health.SetMaxHealth(100);
+
 
         _uiMngr.UpdateXPBar(ExperienceToNextLevel, CurrentPlayerXP, CurrentLevel);
     }
+
 
     void ClassChosen(ClassData classChosen){
         // _uiMngr.UpdateHealthBar();
