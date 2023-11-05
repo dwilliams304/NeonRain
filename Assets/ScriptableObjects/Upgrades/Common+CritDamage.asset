@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   icon: {fileID: 0}
   upgradeName: +Crit Damage
-  toolTipDescription: Add (amount) to your critical hit damage.
-  increaseAmount: 0
+  toolTipDescription: Add 10% to your critical hit damage.
+  increaseAmount: 0.1
   isPercentUpgrade: 0
   rarity: 0

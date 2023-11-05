@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f7f8b79bb7d07df4b9ac4f7984b9f7a2, type: 3}
-  m_Name: Common Submachine_Gun 5
+  m_Name: Rare Submachine_Gun 5
   m_EditorClassIdentifier: 
-  weaponName: Common Submachine_Gun 5
+  weaponName: Rare Submachine_Gun 5
   minDamage: 6
   maxDamage: 19
   critChance: 3

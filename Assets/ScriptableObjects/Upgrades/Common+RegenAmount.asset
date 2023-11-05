@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   icon: {fileID: 0}
   upgradeName: +Health Regen Amount
-  toolTipDescription: Your health regen amount is increased by (amount.)
-  increaseAmount: 0
+  toolTipDescription: Your health regen amount is increased by 1
+  increaseAmount: 1
   isPercentUpgrade: 0
   rarity: 0

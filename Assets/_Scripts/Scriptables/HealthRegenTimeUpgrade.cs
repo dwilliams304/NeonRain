@@ -6,6 +6,6 @@ public class HealthRegenTimeUpgrade : PlayerUpgrades
 {
     public override void UpgradeChosen()
     {
-        Debug.LogError("NOT IMPLEMENTED!");
+        PlayerStatModifier.ChangeHealthRegenTime(-increaseAmount);
     }
 }

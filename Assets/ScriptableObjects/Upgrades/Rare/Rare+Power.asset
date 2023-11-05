@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   icon: {fileID: 0}
   upgradeName: +Power
-  toolTipDescription: Add 4% damage to your character.
-  increaseAmount: 0.04
+  toolTipDescription: Add 10% damage to your character.
+  increaseAmount: 0.1
   isPercentUpgrade: 0
   rarity: 2

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   icon: {fileID: 0}
   upgradeName: +Speed
-  toolTipDescription: Add 1% speed to your character.
-  increaseAmount: 0.01
+  toolTipDescription: Add 2% speed to your character.
+  increaseAmount: 0.02
   isPercentUpgrade: 1
   rarity: 0

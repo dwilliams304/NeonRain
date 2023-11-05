@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class PlayerStats : MonoBehaviour
 {
-    public delegate void HandleLevelIncrease();
+    public delegate void HandleLevelIncrease(int newLevel);
     public static HandleLevelIncrease handleLevelIncrease;
 
     public static PlayerStats Instance;
@@ -81,7 +81,7 @@ public class PlayerStats : MonoBehaviour
         CurrentPlayerXP = xpOverflow;
         DifficultyScaler.Instance.CheckDifficultyScale(CurrentLevel);
         ExperienceToNextLevel = Mathf.RoundToInt(xpScaling.Evaluate(CurrentLevel));
-        handleLevelIncrease?.Invoke();
+        handleLevelIncrease?.Invoke(CurrentLevel);
         _levelUpParticles.Play();
     }
 

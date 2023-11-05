@@ -91,9 +91,9 @@ public class GunGenerator : EditorWindow
             
             amountCreated++;
 
-            string fileName = $"{gun.rarity} {gun.gunType} {amountCreated}";
+            string fileName = $"{wepRarity} {detailedType} {amountCreated}";
             //weaponName += amountCreated;
-            AssetDatabase.CreateAsset(gun, $"Assets/Created Weapons/Guns/{gun.gunType}/{gun.rarity}/{fileName}.asset");
+            AssetDatabase.CreateAsset(gun, $"Assets/Created Weapons/Guns/{detailedType}/{wepRarity}/{fileName}.asset");
             gun.weaponName = fileName;
             gun.minDamage = Mathf.Ceil(Random.Range(minDamage - weaponDamageVariance, minDamage + weaponDamageVariance));
             gun.maxDamage = Mathf.Ceil(Random.Range(maxDamage - weaponDamageVariance, maxDamage + weaponDamageVariance));

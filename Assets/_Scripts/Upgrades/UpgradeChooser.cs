@@ -42,7 +42,7 @@ public class UpgradeChooser : MonoBehaviour
         SortUpgrades();
     }
 
-    void OpenPanel(){
+    void OpenPanel(int x){
         upgradePanel.SetActive(true);
         controller.SetTrigger("Enabled");
         textController.SetTrigger("Enabled");
@@ -100,10 +100,10 @@ public class UpgradeChooser : MonoBehaviour
         reRollCost = Mathf.RoundToInt(100 * PlayerStats.Instance.CurrentLevel / 2);
         Inventory.Instance.RemoveGold(reRollCost);
         amntOfRerolls++;
-        GenerateUpgrades();
+        GenerateUpgrades(0);
     }
 
-    public void GenerateUpgrades(){
+    public void GenerateUpgrades(int x){
         ClearUpgrades();
         SortUpgrades();
         int i = 0;

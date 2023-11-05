@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7f8b79bb7d07df4b9ac4f7984b9f7a2, type: 3}
   m_Name: Corrupted Sniper
   m_EditorClassIdentifier: 
-  weaponName: Corrupted Pistol 1
+  weaponName: Corrupted Sniper
   minDamage: 125
   maxDamage: 150
   critChance: 5

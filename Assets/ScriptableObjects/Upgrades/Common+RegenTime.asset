@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   icon: {fileID: 0}
   upgradeName: +Health Regen Frequency
-  toolTipDescription: Your health regeneration ticks (amount) faster.
-  increaseAmount: 0
+  toolTipDescription: Your health regeneration ticks 0.5s faster.
+  increaseAmount: 0.5
   isPercentUpgrade: 0
   rarity: 0

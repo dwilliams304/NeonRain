@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f7f8b79bb7d07df4b9ac4f7984b9f7a2, type: 3}
-  m_Name: Common Submachine_Gun 2
+  m_Name: Rare Submachine_Gun 1
   m_EditorClassIdentifier: 
-  weaponName: Common Submachine_Gun 2
-  minDamage: 11
-  maxDamage: 18
-  critChance: 3
+  weaponName: Rare Submachine_Gun 1
+  minDamage: 9
+  maxDamage: 14
+  critChance: 2
   isCorrupted: 0
   weaponSprite: {fileID: 21300000, guid: 5a656081981d71d45a4e359753144e5f, type: 3}
   corruptionGain: 0
@@ -24,8 +24,8 @@ MonoBehaviour:
   rarity: 2
   projectileSpeed: 40
   reloadSpeed: 0.23
-  fireRate: 0.08
-  magSize: 49
+  fireRate: 0.14
+  magSize: 47
   gunType: 5
   color: {r: 0, g: 0.31493044, b: 1, a: 1}
   gunShot: {fileID: 8300000, guid: 6739c01659ad96d47987f4ddee226b36, type: 3}

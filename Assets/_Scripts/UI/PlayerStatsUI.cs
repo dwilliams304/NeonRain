@@ -13,6 +13,9 @@ public class PlayerStatsUI : MonoBehaviour
 
     [SerializeField] GameObject _statsPanel;
 
+    void OnEnable() => PlayerStatModifier.onStatChange += UpdateStatsText;
+    void OnDisable() => PlayerStatModifier.onStatChange -= UpdateStatsText;
+
     void Start(){
         UpdateStatsText();
     }

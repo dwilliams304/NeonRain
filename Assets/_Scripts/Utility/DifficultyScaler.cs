@@ -43,6 +43,13 @@ public class DifficultyScaler : MonoBehaviour
         Instance = this;
     }
 
+    void OnEnable(){
+        PlayerStats.handleLevelIncrease += CheckDifficultyScale;
+    }
+    void OnDisable(){
+        PlayerStats.handleLevelIncrease -= CheckDifficultyScale;
+    }
+
 
     void ActivateSpawners(List<GameObject> spawnerList){
         if(spawnerList.Count != 0){

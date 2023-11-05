@@ -6,6 +6,6 @@ public class HealthRegenAmountUpgrade : PlayerUpgrades
 {
     public override void UpgradeChosen()
     {
-        Debug.LogError("NOT IMPLEMENTED!");
+        PlayerStatModifier.ChangeHealthRegenAmount(increaseAmount);
     }
 }

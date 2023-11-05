@@ -22,7 +22,7 @@ public class LevelScaler : MonoBehaviour
     }
 
 
-    void ScaleEnemies(){
+    void ScaleEnemies(int x){
         EnemyHealthModifier = enemyHpScaler.Evaluate(PlayerStats.Instance.CurrentLevel);
         EnemyDamageModifier = enemyDmgScaler.Evaluate(PlayerStats.Instance.CurrentLevel);
     }
