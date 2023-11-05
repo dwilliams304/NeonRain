@@ -10,10 +10,8 @@ public class EnemyBase : MonoBehaviour
     [SerializeField] float _minDamage;
     [SerializeField] float _maxDamage;
     [SerializeField] float _baseLuck;
-    [SerializeField] float _xpAmount;
     [SerializeField] float _attackRange;
     int _goldDrop;
-    int _corruptionDrop;
     int _dropChance;
     int _scoreAmnt;
 
@@ -63,9 +61,6 @@ public class EnemyBase : MonoBehaviour
 
         path.maxSpeed = enemyData.moveSpeed;
         
-
-        _xpAmount = enemyData.xpAmount;
-        _corruptionDrop = enemyData.corruptionDrop;
         _goldDrop = enemyData.goldDrop;
         _dropChance = enemyData.dropChance;
         _scoreAmnt = enemyData.score;
@@ -93,7 +88,8 @@ public class EnemyBase : MonoBehaviour
             LootManager.Instance.DropLoot(transform.position, _baseLuck);
         }
         Inventory.Instance.AddGold(_goldDrop);
-        XPManager.Instance.AddExperience(Mathf.CeilToInt(_xpAmount));
+        LevelSystem.Instance.AddExperience(Mathf.RoundToInt(enemyData.xpAmount));
+        CorruptionManager.Instance.IncreaseCorruptionAmount(enemyData.corruptionDrop);
         // CorruptionManager.Instance.AddCorruption(_corruptionDrop);
         ScoreManager.scoreManager.AddToScore(_scoreAmnt);
         Destroy(gameObject);

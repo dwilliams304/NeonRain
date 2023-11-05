@@ -1,17 +1,10 @@
 using UnityEngine;
-using UnityEngine.UI;
 using TMPro;
 
 public class UIManager : MonoBehaviour
 {
     public static UIManager Instance;
     [Header("Player UI")]
-    [Header("Player XP/Health")]
-    [SerializeField] TMP_Text _playerLevel;
-    [SerializeField] Slider _playerXP;
-    [SerializeField] TMP_Text _playerXPText;
-    [SerializeField] TMP_Text _playerLevelText;
-    [Header("Right Side Player UI")]
     [SerializeField] TMP_Text _playerAmmo;
     [SerializeField] TMP_Text _goldAmount;
     [SerializeField] TMP_Text _ammoText;
@@ -23,7 +16,6 @@ public class UIManager : MonoBehaviour
     [Header("Pop-Up Panels")]
     [SerializeField] private GameObject loseUIPanel;
 
-    bool isPaused = false;
     public bool gameLost = false;
     public bool upgradePanelActive = false;
 
@@ -41,20 +33,6 @@ public class UIManager : MonoBehaviour
         Inventory.addGold -= UpdateGoldUI;
     }
 
-
-
-    void Update(){
-        
-    }
-
-
-
-    public void UpdateXPBar(float toNextLevel, float currentXPAmnt, int level){
-        _playerXP.maxValue = toNextLevel;
-        _playerXP.value = currentXPAmnt;
-        _playerLevelText.text = $"Lvl. {level}";
-        _playerXPText.text = $"{_playerXP.value} / {_playerXP.maxValue}";
-    }
 
     public void UpdateAmmo(int currentAmmo, int magSize){
         _playerAmmo.text = $"{currentAmmo}/{magSize}";

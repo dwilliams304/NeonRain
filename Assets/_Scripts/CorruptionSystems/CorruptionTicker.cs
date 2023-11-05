@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CorruptionTicker : MonoBehaviour
@@ -13,11 +12,6 @@ public class CorruptionTicker : MonoBehaviour
 
     void Awake() => Instance = this;
 
-    void Update(){
-        if(Input.GetKeyDown(KeyCode.H)){
-            AddToTickAmount(10);
-        }
-    }
 
     public void AddToTickAmount(int amnt){
         tickAmount += amnt;

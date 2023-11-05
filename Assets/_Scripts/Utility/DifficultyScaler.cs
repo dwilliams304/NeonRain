@@ -37,17 +37,12 @@ public class DifficultyScaler : MonoBehaviour
 #endregion
 
 
-    public static DifficultyScaler Instance;
-
-    void Awake(){
-        Instance = this;
-    }
 
     void OnEnable(){
-        PlayerStats.handleLevelIncrease += CheckDifficultyScale;
+        LevelSystem.onLevelChange += CheckDifficultyScale;
     }
     void OnDisable(){
-        PlayerStats.handleLevelIncrease -= CheckDifficultyScale;
+        LevelSystem.onLevelChange -= CheckDifficultyScale;
     }
 
 
@@ -68,7 +63,7 @@ public class DifficultyScaler : MonoBehaviour
         }
     }
 
-    public void CheckDifficultyScale(int currentLevel){
+    void CheckDifficultyScale(int currentLevel){
         if(currentLevel == _tier10Break){
             ActivateSpawners(SpawnerTier10);
         }

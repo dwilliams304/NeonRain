@@ -3,10 +3,6 @@ using TMPro;
 
 public class XPManager : MonoBehaviour
 {
-    public static XPManager Instance;
-
-    public delegate void XPChangeHandler(int amount);
-    public event XPChangeHandler onXPChange;
     [SerializeField] private GameObject xpIncreaseTextPrefab;
     [SerializeField] Transform xpIncreaseLocation;
     
@@ -14,21 +10,9 @@ public class XPManager : MonoBehaviour
 
     [SerializeField] Canvas UI;
 
-    void Awake(){
-        if(Instance != null & Instance != this){
-            Destroy(this);
-        }else{
-            Instance = this;
-        }
-    }
-
-    public void ChangeXPModifier(float amount){
-        XPModifier += amount;
-    }
 
     public void AddExperience(int amount){
         int xpAfterMod = Mathf.RoundToInt(amount * XPModifier);
-        onXPChange?.Invoke(xpAfterMod);
         AddedXPText(xpAfterMod);
     }
     void AddedXPText(int amount){

@@ -15,16 +15,16 @@ public class LevelScaler : MonoBehaviour
     }
 
     void OnEnable(){
-        PlayerStats.handleLevelIncrease += ScaleEnemies;
+        LevelSystem.onLevelChange += ScaleEnemies;
     }
     void OnDisable(){
-        PlayerStats.handleLevelIncrease -= ScaleEnemies;
+        LevelSystem.onLevelChange -= ScaleEnemies;
     }
 
 
-    void ScaleEnemies(int x){
-        EnemyHealthModifier = enemyHpScaler.Evaluate(PlayerStats.Instance.CurrentLevel);
-        EnemyDamageModifier = enemyDmgScaler.Evaluate(PlayerStats.Instance.CurrentLevel);
+    void ScaleEnemies(int level){
+        EnemyHealthModifier = enemyHpScaler.Evaluate(level);
+        EnemyDamageModifier = enemyDmgScaler.Evaluate(level);
     }
 
 

@@ -114,7 +114,7 @@ public class DEVTools : MonoBehaviour
         //Player stats Update
         playerDamageDone.text = $"Damage done: {PlayerStatModifier.MOD_DamageDone * 100}%";
         playerDamageTaken.text = $"Damage taken: {PlayerStatModifier.MOD_DamageTaken * 100}%";
-        playerXPIncrease.text = $"XP Increase: {XPManager.Instance.XPModifier * 100}%";
+        // playerXPIncrease.text = $"XP Increase: {XPManager.Instance.XPModifier * 100}%";
         playerLuckModifier.text = $"N/A";
         playerGoldModifier.text = $"Gold modifier: {PlayerStatModifier.MOD_AdditionalGold}x";
         playerCritChanceModifier.text = $"Crit chance: {PlayerStatModifier.MOD_CritChance}%";
