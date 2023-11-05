@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-// using TMPro;
+using TMPro;
 
 
 public enum CorruptionTier {
@@ -29,12 +29,16 @@ public class CorruptionManager : MonoBehaviour
 
     private KillTimer _killTimer;
 
-    // public TMP_Text corrAmnt;
-    // public TMP_Text corrTier;
+    public TMP_Text corrAmnt;
+    public TMP_Text corrTier;
 
     void Awake() => Instance = this;
 
-    void Start() => _killTimer = GetComponent<KillTimer>();
+    void Start(){
+        _killTimer = GetComponent<KillTimer>();
+        IncreaseCorruptionAmount(0);
+        changeCorruptionTier?.Invoke(0);
+    }
 
     void Update(){
         if(Input.GetKeyDown(KeyCode.KeypadPlus)){
@@ -63,8 +67,8 @@ public class CorruptionManager : MonoBehaviour
             }
         }
         addCorruption?.Invoke(currentCorruptionAmount, corruptionToNextTier);
-        // corrAmnt.text = $"{currentCorruptionAmount} / {corruptionToNextTier}";
-        // corrTier.text = $"{currentTier}";
+        corrAmnt.text = $"{currentCorruptionAmount} / {corruptionToNextTier}";
+        corrTier.text = $"{currentTier}";
     }
 
     public void DecreaseCorruptionAmount(int amount){
@@ -79,8 +83,8 @@ public class CorruptionManager : MonoBehaviour
             }
         }
         addCorruption?.Invoke(currentCorruptionAmount, corruptionToNextTier);
-        // corrAmnt.text = $"{currentCorruptionAmount} / {corruptionToNextTier}";
-        // corrTier.text = $"{currentTier}";
+        corrAmnt.text = $"{currentCorruptionAmount} / {corruptionToNextTier}";
+        corrTier.text = $"{currentTier}";
     }
 
     public void ForceIncreaseTier() => GoToNextTier(currentTier, 0);

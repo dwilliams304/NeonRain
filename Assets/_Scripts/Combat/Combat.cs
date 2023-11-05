@@ -105,6 +105,7 @@ public class Combat : MonoBehaviour
 
     void TakeDamage(float amnt){
         SoundManager.Instance.PlayEffectAudio(_hurt);
+        CameraShaker.Instance.ShakeCamera(4f, 0.2f);
     }
 
     //Assign all the ranged weapon data

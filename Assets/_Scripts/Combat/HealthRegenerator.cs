@@ -14,7 +14,7 @@ public class HealthRegenerator : MonoBehaviour
     }
 
     public void ChangeRegenTime(float amount){
-        RegenTime -= amount;
+        RegenTime *= amount;
     }
     
     void Start(){

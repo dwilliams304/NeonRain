@@ -14,12 +14,12 @@ public class CorruptionPostProcessing : MonoBehaviour
     [SerializeField] private Color vignette3;
     [SerializeField] private Color vignette4;
     [SerializeField] private Color vignette5;
-    // void OnEnable(){
-    //     CorruptionManager.corruptionTierIncrease += ChangePostProcessing;
-    // }
-    // void OnDisable(){
-    //     CorruptionManager.corruptionTierIncrease -= ChangePostProcessing;
-    // }
+    void OnEnable(){
+        CorruptionManager.changeCorruptionTier += ChangePostProcessing;
+    }
+    void OnDisable(){
+        CorruptionManager.changeCorruptionTier -= ChangePostProcessing;
+    }
 
     void Start(){
         postProcessVol = GetComponent<Volume>();
@@ -27,34 +27,34 @@ public class CorruptionPostProcessing : MonoBehaviour
         postProcessVol.profile.TryGet(out c);
     }
 
-    void ChangePostProcessing(int tier){
+    void ChangePostProcessing(CorruptionTier tier){
         switch(tier){
-            case 0:
+            case CorruptionTier.Tier0:
             v.color.Override(vignette0);
             c.intensity.value = 0f;
                 break;
                 
-            case 1:
+            case CorruptionTier.Tier1:
             v.color.Override(vignette1);
             c.intensity.value = 0.05f;
                 break;
 
-            case 2:
+            case CorruptionTier.Tier2:
             v.color.Override(vignette2);
             c.intensity.value = 0.1f;
                 break;
 
-            case 3:
+            case CorruptionTier.Tier3:
             v.color.Override(vignette3);
             c.intensity.value = 0.15f;
                 break;
 
-            case 4:
+            case CorruptionTier.Tier4:
             v.color.Override(vignette4);
             c.intensity.value = 0.2f;
                 break;
 
-            case 5:
+            case CorruptionTier.Tier5:
             v.color.Override(vignette5);
             c.intensity.value = 0.25f;
                 break;
