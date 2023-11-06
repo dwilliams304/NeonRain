@@ -6,12 +6,13 @@ public class LootManager : MonoBehaviour
     public static LootManager Instance;
 
     [Header("Loot Pool")]
-    [SerializeField] List<Gun> _commonDrops;
-    [SerializeField] List<Gun> _uncommonDrops;
-    [SerializeField] List<Gun> _rareDrops;
-    [SerializeField] List<Gun> _legendaryDrops;
-    [SerializeField] List<Gun> _corruptedDrops;
-    [SerializeField] Gun _uniqueWeapon;
+    [SerializeField] List<Gun> allGuns;
+    List<Gun> _commonDrops = new List<Gun>();
+    List<Gun> _uncommonDrops = new List<Gun>();
+    List<Gun> _rareDrops = new List<Gun>();
+    List<Gun> _legendaryDrops = new List<Gun>();
+    List<Gun> _corruptedDrops = new List<Gun>();
+    Gun _uniqueWeapon;
 
 
     [Header("Loot Drop Prefabs")]
@@ -41,6 +42,32 @@ public class LootManager : MonoBehaviour
 
     void Start(){
         _DEVTOOLS_ = DEVTools.__DEV;
+        SortIntoGroups();
+    }
+
+    void SortIntoGroups(){
+        foreach(Gun gun in allGuns){
+            switch(gun.rarity){
+                case Rarity.Common:
+                _commonDrops.Add(gun);
+                    break;
+                case Rarity.Uncommon:
+                _uncommonDrops.Add(gun);
+                    break;
+                case Rarity.Rare:
+                _rareDrops.Add(gun);
+                    break;
+                case Rarity.Corrupted:
+                _corruptedDrops.Add(gun);
+                    break;
+                case Rarity.Legendary:
+                _legendaryDrops.Add(gun);
+                    break;
+                case Rarity.Unique:
+                _uniqueWeapon = gun;
+                    break;
+            }
+        }
     }
 
     public void DropLoot(Vector3 position, float additionalLuck){
