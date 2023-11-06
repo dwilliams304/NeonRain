@@ -6,7 +6,6 @@ public class UIManager : MonoBehaviour
     public static UIManager Instance;
     [Header("Player UI")]
     [SerializeField] TMP_Text _playerAmmo;
-    [SerializeField] TMP_Text _goldAmount;
     [SerializeField] TMP_Text _ammoText;
     [SerializeField] GameObject _ammoTextObject;
     [SerializeField] GameObject _dashCoolDownObject;
@@ -26,11 +25,9 @@ public class UIManager : MonoBehaviour
 
     void OnEnable(){
         KillTimer.timerCompleted += LoseGameUI;
-        Inventory.addGold += UpdateGoldUI;
     }
     void OnDisable(){
         KillTimer.timerCompleted -= LoseGameUI;
-        Inventory.addGold -= UpdateGoldUI;
     }
 
 
@@ -59,10 +56,6 @@ public class UIManager : MonoBehaviour
     public void SwingCoolDownBar(float swingCooldownSpeed){
         _swingCooldownObject.LeanScaleY(0.04f, 0);
         _swingCooldownObject.LeanScaleY(0, swingCooldownSpeed);
-    }
-
-    void UpdateGoldUI(int total){
-        _goldAmount.text = total.ToString();
     }
 
     void LoseGameUI(){

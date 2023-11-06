@@ -21,12 +21,12 @@ public class PlayerStatsUI : MonoBehaviour
     }
 
     void UpdateStatsText(){
-        _dmgText.text = (PlayerStatModifier.MOD_DamageDone * 100).ToString() + "%";
-        _critDmgText.text = (PlayerStatModifier.MOD_CritDamage * 100).ToString() + "%";
-        _critChanceText.text = PlayerStatModifier.MOD_CritChance.ToString() + "%";
-        _speedText.text = (PlayerStatModifier.MOD_MoveSpeed * 100).ToString() + "%";
-        _xpMultText.text = (PlayerStatModifier.MOD_AdditonalXP * 100).ToString() + "%";
-        _goldMultText.text = (PlayerStatModifier.MOD_AdditionalGold * 100).ToString() + "%";
+        _dmgText.text = (PlayerStatModifier.Instance.MOD_DamageDone * 100).ToString() + "%";
+        _critDmgText.text = (PlayerStatModifier.Instance.MOD_CritDamage * 100).ToString() + "%";
+        _critChanceText.text = PlayerStatModifier.Instance.MOD_CritChance.ToString() + "%";
+        _speedText.text = (PlayerStatModifier.Instance.MOD_MoveSpeed * 100).ToString() + "%";
+        _xpMultText.text = (PlayerStatModifier.Instance.MOD_AdditonalXP * 100).ToString() + "%";
+        _goldMultText.text = (PlayerStatModifier.Instance.MOD_AdditionalGold * 100).ToString() + "%";
     }
 
     public void ChangePanelVisiblity(){

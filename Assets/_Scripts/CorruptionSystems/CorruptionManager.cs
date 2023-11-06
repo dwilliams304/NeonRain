@@ -26,12 +26,15 @@ public class CorruptionManager : MonoBehaviour
 
     private KillTimer _killTimer;
 
+    private PlayerStatModifier psm;
+
     void Awake() => Instance = this;
 
     void Start(){
         _killTimer = GetComponent<KillTimer>();
         IncreaseCorruptionAmount(0);
         changeCorruptionTier?.Invoke(0);
+        psm = PlayerStatModifier.Instance;
     }
 
     public void IncreaseCorruptionAmount(int amount){
@@ -132,6 +135,64 @@ public class CorruptionManager : MonoBehaviour
     void HandleTierChange(){
         corruptionToNextTier = Mathf.RoundToInt(corruptionScaling.Evaluate((int)currentTier));
         changeCorruptionTier?.Invoke(currentTier);
+        switch(currentTier){
+            case CorruptionTier.Tier0:
+                PlayerStatModifier.Instance.CorruptionAmountsSwitched();
+                psm.Corruption_DamageDone = 0f;
+                psm.Corruption_DamageTaken = 0f;
+                psm.Corruption_CritChance = 0;
+                psm.Corruption_CritDamage = 0f;
+                psm.Corruption_MoveSpeed = 0f;
+                psm.Corruption_AdditionalXP = 0f;
+                psm.Corruption_AdditionalGold = 0f;
+            break;
+            case CorruptionTier.Tier1:
+                psm.Corruption_DamageDone = 0.1f;
+                psm.Corruption_DamageTaken = 0.15f;
+                psm.Corruption_CritChance = 5;
+                psm.Corruption_CritDamage = 0.1f;
+                psm.Corruption_MoveSpeed = 0f;
+                psm.Corruption_AdditionalXP = 0.25f;
+                psm.Corruption_AdditionalGold = 0.1f;
+            break;
+            case CorruptionTier.Tier2:
+                psm.Corruption_DamageDone = 0.2f;
+                psm.Corruption_DamageTaken = 0.3f;
+                psm.Corruption_CritChance = 10;
+                psm.Corruption_CritDamage = 0.3f;
+                psm.Corruption_MoveSpeed = 0f;
+                psm.Corruption_AdditionalXP = 0.5f;
+                psm.Corruption_AdditionalGold = 0.25f;
+            break;
+            case CorruptionTier.Tier3:
+                psm.Corruption_DamageDone = 0.4f;
+                psm.Corruption_DamageTaken = 0.60f;
+                psm.Corruption_CritChance = 15;
+                psm.Corruption_CritDamage = 0.5f;
+                psm.Corruption_MoveSpeed = 0f;
+                psm.Corruption_AdditionalXP = 1f;
+                psm.Corruption_AdditionalGold = 0.5f;
+            break;
+            case CorruptionTier.Tier4:
+                psm.Corruption_DamageDone = 1f;
+                psm.Corruption_DamageTaken = 1.5f;
+                psm.Corruption_CritChance = 20;
+                psm.Corruption_CritDamage = 1f;
+                psm.Corruption_MoveSpeed = 0f;
+                psm.Corruption_AdditionalXP = 1.75f;
+                psm.Corruption_AdditionalGold = 1f;
+            break;
+            case CorruptionTier.Tier5:
+                psm.Corruption_DamageDone = 1.5f;
+                psm.Corruption_DamageTaken = 2.5f;
+                psm.Corruption_CritChance = 25;
+                psm.Corruption_CritDamage = 2f;
+                psm.Corruption_MoveSpeed = 0f;
+                psm.Corruption_AdditionalXP = 3f;
+                psm.Corruption_AdditionalGold = 2f;
+            break;
+        }
+        PlayerStatModifier.Instance.CorruptionAmountsSwitched();
     }
 
 }

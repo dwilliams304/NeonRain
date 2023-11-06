@@ -7,6 +7,6 @@ public class PowerUpgrade : PlayerUpgrades
 
     public override void UpgradeChosen()
     {
-        PlayerStatModifier.ChangeDamageDoneMod(increaseAmount);
+        PlayerStatModifier.Instance.ChangeDamageDoneMod(increaseAmount);
     }
 }

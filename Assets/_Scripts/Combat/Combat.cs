@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Runtime.InteropServices;
 using UnityEngine;
 
 
@@ -8,18 +7,21 @@ public class Combat : MonoBehaviour
     public delegate void OnPlayerDeath();
     public static OnPlayerDeath onPlayerDeath;
     public static Combat Instance;
+
+    float damageMod;
+    int critChanceMod;
+    float critDamageMod;
+    float fireRateMod;
     
 #region Ranged weapon variables
     private float fireRate;
     private float lastShot;
-    public float FireRateMod = 1f;
     private float reloadSpeed;
     private int magSize;
     private int currentAmmo;
     private float projectileSpeed;
     private float rangedMinDmg;
     private float rangedMaxDmg;
-    // bool isRifle;
     private float rangedCritChance;
     private bool isReloading;
     private WaitForSeconds reloadSpeedWait;
@@ -59,8 +61,6 @@ public class Combat : MonoBehaviour
 #endregion
     
 
-    [SerializeField] private Vector3 shotgunOffsets = new Vector3(-1, 1, 0);
-
     void Awake(){
         Instance = this;
     }
@@ -71,20 +71,29 @@ public class Combat : MonoBehaviour
         // _healthSystem = GetComponent<HealthSystem>();
         AssignRangedGunData(_inventory.gun);
         AssignMeleeStats(_inventory.sword);
+        UpdateMods();
     }
 
     void OnEnable(){
         _healthSystem.onDeath += Die;
         _healthSystem.onDamage += TakeDamage;
         WeaponSwapSystem.onGunSwap += AssignRangedGunData;
+        PlayerStatModifier.onStatChange += UpdateMods;
     }
 
     void OnDisable(){
+        PlayerStatModifier.onStatChange -= UpdateMods;
         WeaponSwapSystem.onGunSwap -= AssignRangedGunData;
         _healthSystem.onDeath -= Die;
         _healthSystem.onDamage -= TakeDamage;
     }
 
+    void UpdateMods(){
+        damageMod = PlayerStatModifier.Instance.MOD_DamageDone;
+        critChanceMod = PlayerStatModifier.Instance.MOD_CritChance;
+        critDamageMod = PlayerStatModifier.Instance.MOD_CritDamage;
+        fireRateMod = PlayerStatModifier.Instance.MOD_FireRate;
+    }
 
     void Update(){
         /* Only add if I want it to where you can only hold down fire button with rifles
@@ -96,13 +105,13 @@ public class Combat : MonoBehaviour
         if(!isReloading && Input.GetButton("Fire1")){
             Shoot();
         }
-        if(Input.GetButtonDown("Fire2")){
-            Melee();
-        }
         else if(Input.GetButtonDown("Reload")){
             if(!isReloading){
                 StartCoroutine(Reload());
             }
+        }
+        if(Input.GetButtonDown("Fire2")){
+            Melee();
         }
     }
 
@@ -141,7 +150,7 @@ public class Combat : MonoBehaviour
 
     void Shoot(){
         if(currentAmmo > 0){ //Do we have ammo?
-            if(Time.time > lastShot + (fireRate * FireRateMod)){ //If the current time is greater than the last time we shot + current weapon's fire rate, we can shoot.
+            if(Time.time > lastShot + (fireRate * fireRateMod)){ //If the current time is greater than the last time we shot + current weapon's fire rate, we can shoot.
                 muzzleFlash.Play(); //Play particle effect!
                 lastShot = Time.time; //Set lastShot to be equal to current time
                 GameObject bullet = ObjectPooler.current.GetPooledPlayerBullet(); //Grab a bullet from the bullet pool
@@ -160,7 +169,7 @@ public class Combat : MonoBehaviour
 
 
     void Melee(){
-        if(Time.time > lastSwing + (swingCooldown * FireRateMod)){ //Basically same logic as shooting
+        if(Time.time > lastSwing + (swingCooldown * fireRateMod)){ //Basically same logic as shooting
             SoundManager.Instance.PlayEffectAudio(_swordSing);
             lastSwing = Time.time;
             _uiMngr.SwingCoolDownBar(swingCooldown);
@@ -187,11 +196,11 @@ public class Combat : MonoBehaviour
     int CalculateDamage(bool isRangedAttack){
         int critRoll = Random.Range(0, 100);
         float dmgRoll = isRangedAttack ? Random.Range(rangedMinDmg, rangedMaxDmg) : Random.Range(meleeMinDmg, meleeMaxDmg); //Check which weapon's damage stats to use
-        dmgRoll *= PlayerStatModifier.MOD_DamageDone; //No matter what this will apply.
+        dmgRoll *= damageMod; //No matter what this will apply.
 
-        if(critRoll <= PlayerStatModifier.MOD_CritChance + (isRangedAttack ? rangedCritChance : meleeCritChance)){ //Check which weapon's crit chance to add onto this
+        if(critRoll <= critChanceMod + (isRangedAttack ? rangedCritChance : meleeCritChance)){ //Check which weapon's crit chance to add onto this
             didCrit = true;
-            return Mathf.RoundToInt(dmgRoll *= PlayerStatModifier.MOD_CritDamage);
+            return Mathf.RoundToInt(dmgRoll *= critDamageMod);
         }
 
         didCrit = false;

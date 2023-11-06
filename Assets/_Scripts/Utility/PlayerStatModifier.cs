@@ -3,72 +3,97 @@ using UnityEngine;
 
 public class PlayerStatModifier : MonoBehaviour
 {
-    public static PlayerStatModifier playerMods;
+    public static PlayerStatModifier Instance;
     public delegate void OnStatChange();
     public static OnStatChange onStatChange;
 
-    [SerializeField] private PlayerStats player;
     //DAMAGE DONE/TAKEN
-    public static float MOD_DamageDone  {get; private set; } = 1f;
-    public static float MOD_DamageTaken  {get; private set; } = 1f;
+    private float _damageDone = 1f;
+    private float _damageTaken = 1f;
+    public float Corruption_DamageDone = 0;
+    public float Corruption_DamageTaken = 0;
     
     //CRIT STRIKES
-    public static int MOD_CritChance {get; private set; } = 10;
-    public static float MOD_CritDamage  {get; private set; } = 3f;
+    private int _critChance = 10;
+    private float _critDamage = 3f;
+    public int Corruption_CritChance = 0;
+    public float Corruption_CritDamage = 0;
 
     //MOVE SPEED
-    public static float MOD_MoveSpeed  {get; private set; } = 1f;
+    private float _moveSpeed = 1f;
+    public float Corruption_MoveSpeed = 0;
 
     //MISC.
-    public static float MOD_AdditonalXP {get; private set;} = 1f;
-    public static float MOD_AdditionalGold { get; private set; } = 1f;
+    private float _fireRateMod = 1f;
+    private float _additonalXP = 1f;
+    private float _additionalGold = 1f;
+    public float Corruption_AdditionalGold = 0;
+    public float Corruption_AdditionalXP = 0;
+    
+    //Returns
+    public float MOD_DamageDone => _damageDone + Corruption_DamageDone;
+    public float MOD_DamageTaken => _damageTaken + Corruption_DamageTaken;
+    public int MOD_CritChance => _critChance + Corruption_CritChance;
+    public float MOD_CritDamage => _critDamage + Corruption_CritDamage;
+    public float MOD_FireRate => _fireRateMod;
+    public float MOD_MoveSpeed => _moveSpeed + Corruption_MoveSpeed;
+    public float MOD_AdditonalXP => _additonalXP + Corruption_AdditionalXP;
+    public float MOD_AdditionalGold => _additionalGold + Corruption_AdditionalGold;
 
-    public static void ChangeClassMods(ClassData classChosen){
-        MOD_MoveSpeed = classChosen.MoveSpeed;
-        MOD_DamageDone = classChosen.DamageDone;
-        MOD_DamageTaken = classChosen.DamageTaken;
-        MOD_CritChance = classChosen.CritChance;
-        MOD_CritDamage = classChosen.CritMultiplier;
-        MOD_AdditionalGold = classChosen.GoldMod;
+
+    void Awake(){
+        Instance = this;
+    }
+    public void ChangeClassMods(ClassData classChosen){
+        _moveSpeed = classChosen.MoveSpeed;
+        _damageDone = classChosen.DamageDone;
+        _damageTaken = classChosen.DamageTaken;
+        _critChance = classChosen.CritChance;
+        _critDamage = classChosen.CritMultiplier;
+        _additionalGold = classChosen.GoldMod;
 
     }
 
-
-    public static void ChangeMoveSpeedMod(float amount){
-        MOD_MoveSpeed += amount;
+    public void CorruptionAmountsSwitched(){
         onStatChange?.Invoke();
     }
 
-    public static void ChangeDamageTakenMod(float amount){
-        MOD_DamageTaken += amount;
+
+    public void ChangeMoveSpeedMod(float amount){
+        _moveSpeed += amount;
         onStatChange?.Invoke();
     }
 
-    public static void ChangeDamageDoneMod(float amount){
-        MOD_DamageDone += amount;
+    public void ChangeDamageTakenMod(float amount){
+        _damageTaken += amount;
         onStatChange?.Invoke();
     }
 
-    public static void ChangeCritChanceMod(int amount){
-        MOD_CritChance += amount;
+    public void ChangeDamageDoneMod(float amount){
+        _damageDone += amount;
         onStatChange?.Invoke();
     }
 
-    public static void ChangeCritDamageMod(float amount){
-        MOD_CritDamage += amount;
+    public void ChangeCritChanceMod(int amount){
+        _critChance += amount;
         onStatChange?.Invoke();
     }
 
-    public static void ChangeAdditionalGoldMod(float amount){
-        MOD_AdditionalGold += amount;
+    public void ChangeCritDamageMod(float amount){
+        _critDamage += amount;
         onStatChange?.Invoke();
     }
 
-    public static void ChangeHealthRegenAmount(float amount){
+    public void ChangeAdditionalGoldMod(float amount){
+        _additionalGold += amount;
+        onStatChange?.Invoke();
+    }
+
+    public void ChangeHealthRegenAmount(float amount){
         PlayerStats.Instance.IncreaseHealthRegenAmount(amount);
         onStatChange?.Invoke();
     }
-    public static void ChangeHealthRegenTime(float amount){
+    public void ChangeHealthRegenTime(float amount){
         PlayerStats.Instance.DecreaseHealthRegenTime(amount);
         onStatChange?.Invoke();
     }

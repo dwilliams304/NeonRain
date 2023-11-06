@@ -6,40 +6,40 @@ public class Inventory : MonoBehaviour
     public Sword sword;
 
     public ScriptableObject usableItems;
-    private Combat combat;
     public static Inventory Instance;
-    public delegate void AddedPlayerGold(int amount);
+    public delegate void AddedPlayerGold(int amount, int total);
     public static AddedPlayerGold addGold;
 
     public int PlayerGold = 0;
-    public float GoldModifier = 1f;
-
-    // public delegate void SwapWeapon(Weapon weapon);
-    // public static SwapWeapon swapWeapon;
+    float GoldMod = 1f;
 
     void OnEnable(){
         WeaponSwapSystem.onGunSwap += SwapGuns;
+        PlayerStatModifier.onStatChange += UpdateGoldMod;
     }
     void OnDisable(){
         WeaponSwapSystem.onGunSwap -= SwapGuns;
+        PlayerStatModifier.onStatChange -= UpdateGoldMod;
     }
 
     void Awake(){
         Instance = this;
     }
-    void Start(){
-        combat = GetComponent<Combat>();
+
+    void UpdateGoldMod(){
+        GoldMod = PlayerStatModifier.Instance.MOD_AdditionalGold;
     }
 
     public void AddGold(int amount){
-        PlayerGold += Mathf.RoundToInt(amount * GoldModifier);
-        addGold?.Invoke(amount);
+        int amntAfterMod = Mathf.RoundToInt(amount * GoldMod);
+        PlayerGold += amntAfterMod;
+        addGold?.Invoke(amntAfterMod, PlayerGold);
         
     }
 
     public void RemoveGold(int amount){
         PlayerGold -= amount;
-        addGold?.Invoke(amount);
+        addGold?.Invoke(amount, PlayerGold);
     }
 
     void SwapGuns(Gun newGun){

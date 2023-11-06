@@ -6,6 +6,6 @@ public class CritDamageUpgrade : PlayerUpgrades
 {
     public override void UpgradeChosen()
     {
-        PlayerStatModifier.ChangeCritDamageMod(increaseAmount);
+        PlayerStatModifier.Instance.ChangeCritDamageMod(increaseAmount);
     }
 }

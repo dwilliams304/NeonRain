@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
 
     //MoveSpeed
     private float _moveSpeed = 11f;
+    float moveSpeedMod;
 
     //Dash variables
     private float _dashSpeed = 35f;
@@ -28,20 +29,27 @@ public class PlayerController : MonoBehaviour
 
     void OnEnable(){
         ClassSelector.classChosen += UpdateStats;
+        PlayerStatModifier.onStatChange += UpdateSpeedMod;
     }
     void OnDisable(){
         ClassSelector.classChosen -= UpdateStats;
+        PlayerStatModifier.onStatChange -= UpdateSpeedMod;
     }
 
 
     void Start(){
         _canDash = true;
         tr = GetComponent<TrailRenderer>();
+        UpdateSpeedMod();
     }
 
     void UpdateStats(ClassData classChosen){
         _dashSpeed = classChosen.DashSpeed;
         _dashCoolDown = classChosen.DashCooldown;
+    }
+
+    void UpdateSpeedMod(){
+        moveSpeedMod = PlayerStatModifier.Instance.MOD_MoveSpeed;
     }
 
 
@@ -71,7 +79,7 @@ public class PlayerController : MonoBehaviour
         if(_isDashing){
             return;
         }
-        rb.velocity = new Vector2(moveDir.x * _moveSpeed * PlayerStatModifier.MOD_MoveSpeed, moveDir.y * _moveSpeed * PlayerStatModifier.MOD_MoveSpeed);
+        rb.velocity = new Vector2(moveDir.x * _moveSpeed * moveSpeedMod, moveDir.y * _moveSpeed * moveSpeedMod);
 
 
     }

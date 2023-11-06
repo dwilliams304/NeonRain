@@ -6,6 +6,6 @@ public class CritChanceUpgrade : PlayerUpgrades
 {
     public override void UpgradeChosen()
     {
-        PlayerStatModifier.ChangeCritChanceMod(Mathf.RoundToInt(increaseAmount));
+        PlayerStatModifier.Instance.ChangeCritChanceMod(Mathf.RoundToInt(increaseAmount));
     }
 }

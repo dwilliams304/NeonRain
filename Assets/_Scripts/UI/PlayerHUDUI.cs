@@ -8,6 +8,7 @@ public class PlayerHUDUI : MonoBehaviour
     [SerializeField] private TMP_Text _lvlText;
     [SerializeField] private TMP_Text _xpIncreaseText;
     [SerializeField] private TMP_Text _goldIncreaseText;
+    [SerializeField] private TMP_Text _goldActualText;
     [SerializeField] Animation _xpIncrease;
     [SerializeField] Animation _goldIncrease;
 
@@ -39,8 +40,10 @@ public class PlayerHUDUI : MonoBehaviour
         _lvlText.text = "Level " + level;
     }
 
-    void ShowGoldText(int amount){
+    void ShowGoldText(int amount, int totalGold){
+        _goldActualText.text = totalGold.ToString();
         _goldIncreaseText.text = "+" + amount;
+        _goldIncreaseText.color = amount < 0 ? Color.red : Color.green;
         _goldIncrease.Play();
     }
 }

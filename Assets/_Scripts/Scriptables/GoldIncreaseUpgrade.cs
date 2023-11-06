@@ -6,6 +6,6 @@ public class GoldIncreaseUpgrade : PlayerUpgrades
 {
     public override void UpgradeChosen()
     {
-        PlayerStatModifier.ChangeAdditionalGoldMod(increaseAmount);
+        PlayerStatModifier.Instance.ChangeAdditionalGoldMod(increaseAmount);
     }
 }
