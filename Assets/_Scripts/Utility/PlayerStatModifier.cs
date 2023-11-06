@@ -84,6 +84,11 @@ public class PlayerStatModifier : MonoBehaviour
         onStatChange?.Invoke();
     }
 
+    public void ChangeFireRateMod(float amount){
+        _fireRateMod += amount;
+        onStatChange?.Invoke();
+    }
+
     public void ChangeAdditionalGoldMod(float amount){
         _additionalGold += amount;
         onStatChange?.Invoke();
