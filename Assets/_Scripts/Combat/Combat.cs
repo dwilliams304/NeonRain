@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Runtime.InteropServices;
 using UnityEngine;
 
 
@@ -58,6 +59,8 @@ public class Combat : MonoBehaviour
 #endregion
     
 
+    [SerializeField] private Vector3 shotgunOffsets = new Vector3(-1, 1, 0);
+
     void Awake(){
         Instance = this;
     }
@@ -93,7 +96,7 @@ public class Combat : MonoBehaviour
         if(!isReloading && Input.GetButton("Fire1")){
             Shoot();
         }
-        else if(Input.GetButtonDown("Fire2")){
+        if(Input.GetButtonDown("Fire2")){
             Melee();
         }
         else if(Input.GetButtonDown("Reload")){
@@ -154,6 +157,7 @@ public class Combat : MonoBehaviour
             }
         }
     }
+
 
     void Melee(){
         if(Time.time > lastSwing + (swingCooldown * FireRateMod)){ //Basically same logic as shooting

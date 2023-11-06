@@ -20,7 +20,7 @@ public class CorruptionCleanseTotem : MonoBehaviour, IInteractable
     public void Interacted(){
         if(!interactedWith){
             interactedWith = true;
-            // CorruptionManager.Instance.CleanseCorruption();
+            CorruptionManager.Instance.ForceDecreaseTier();
             // Debug.Log("Relocating!");
             text.text = "Relocating...";
             StartCoroutine(Relocate());

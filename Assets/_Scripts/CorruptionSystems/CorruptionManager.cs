@@ -62,9 +62,15 @@ public class CorruptionManager : MonoBehaviour
         addCorruption?.Invoke(currentCorruptionAmount, corruptionToNextTier);
     }
 
-    public void ForceIncreaseTier() => GoToNextTier(currentTier, 0);
+    public void ForceIncreaseTier() {
+        GoToNextTier(currentTier, 0);
+        DecreaseCorruptionAmount(currentCorruptionAmount);
+    }
 
-    public void ForceDecreaseTier() => GoDownATier(currentTier, 0);
+    public void ForceDecreaseTier() {
+        GoDownATier(currentTier, 0);  
+        DecreaseCorruptionAmount(currentCorruptionAmount);
+    } 
     
 
     void GoToNextTier(CorruptionTier tier, int overflow){
