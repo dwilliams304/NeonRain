@@ -141,7 +141,7 @@ public class GunGenerator : EditorWindow
             
 
             string fileName = $"{wepRarity} {detailedType} {amountCreated}";
-            AssetDatabase.CreateAsset(gun, $"Assets/Created Weapons/Guns/{detailedType}/{wepRarity}/{fileName}.asset");
+            AssetDatabase.CreateAsset(gun, $"Assets/Created Weapons/Guns/{wepRarity}/{fileName}.asset");
             gun.weaponName = fileName;
             gun.gunType = detailedType;
             gun.rarity = wepRarity;

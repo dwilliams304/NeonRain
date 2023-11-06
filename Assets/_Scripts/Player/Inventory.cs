@@ -42,8 +42,12 @@ public class Inventory : MonoBehaviour
         addGold?.Invoke(amount);
     }
 
-    void SwapGuns(Gun swap){
-        gun = swap;
+    void SwapGuns(Gun newGun){
+        CorruptionTicker.Instance.AddToTickAmount(-gun.corruptionGain); //Remove whatever the previous gun had added
+        if(newGun.corruptionGain > 0){
+            CorruptionTicker.Instance.AddToTickAmount(newGun.corruptionGain); //If they have corruption, add it 
+        }
+        gun = newGun;
     }
 
     // void SwapSwords(Sword swap){
