@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class WeaponSwapSystem : MonoBehaviour
 {
-    public delegate void OnGunSwap(Gun gun, int idx);
+    public delegate void OnGunSwap(Gun gun);
     public delegate void OnSwordSwap(Sword sword);
     public static OnGunSwap onGunSwap;
     public static OnSwordSwap onSwordSwap;
@@ -23,17 +23,18 @@ public class WeaponSwapSystem : MonoBehaviour
     [SerializeField] private Image _currentIcon;
     [SerializeField] private Image _otherIcon;
 
-    private List<Gun> _guns = new List<Gun>();
+    [SerializeField] private List<GameObject> lootObjs = new List<GameObject>();
+    [SerializeField] private List<Gun> _guns = new List<Gun>();
     private int _cur = 0;
     private Gun _currentlyViewedGun;
     private Gun _currentlyEquippedGun;
     
 
     void OnEnable(){
-        LootInteractor.gunSwapInitiated += ShowPanel;
+        Interactor.gunSwapInitiated += ShowPanel;
     }
     void OnDisable(){
-        LootInteractor.gunSwapInitiated -= ShowPanel;
+        Interactor.gunSwapInitiated -= ShowPanel;
     }
 
     void Update(){
@@ -56,10 +57,15 @@ public class WeaponSwapSystem : MonoBehaviour
         }
     }
 
-    void ShowPanel(List<Gun> possibleGuns, Gun currentGun){
+    void ShowPanel(List<GameObject> possibleGuns, Gun currentGun){
         Swapping = true;
         _previousTimeScale = Time.timeScale;
-        _guns = possibleGuns;
+        lootObjs = possibleGuns;
+        foreach(GameObject obj in possibleGuns){
+            if(obj.TryGetComponent<LootObject>(out LootObject gun)){
+                _guns.Add(gun.weaponData);
+            }
+        }
         _currentlyEquippedGun = currentGun;
         _currentlyViewedGun = _guns[_cur];
         _wepSwapPanel.SetActive(true);
@@ -73,6 +79,7 @@ public class WeaponSwapSystem : MonoBehaviour
         _cur = 0;
         _wepSwapPanel.SetActive(false);
         _guns.Clear();
+        lootObjs.Clear();
         Time.timeScale = _previousTimeScale;
     }
 
@@ -89,7 +96,8 @@ public class WeaponSwapSystem : MonoBehaviour
     }
 
     void Confirm(){
-        onGunSwap?.Invoke(_currentlyViewedGun, _cur);
+        onGunSwap?.Invoke(_currentlyViewedGun);
+        Destroy(lootObjs[_cur]);
         ClosePanel();
     }
 

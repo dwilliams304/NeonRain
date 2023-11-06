@@ -69,7 +69,7 @@ public class Combat : MonoBehaviour
         _playerController = GetComponent<PlayerController>();
         _uiMngr = UIManager.Instance;
         // _healthSystem = GetComponent<HealthSystem>();
-        AssignRangedGunData(_inventory.gun, 0);
+        AssignRangedGunData(_inventory.gun);
         AssignMeleeStats(_inventory.sword);
     }
 
@@ -112,7 +112,7 @@ public class Combat : MonoBehaviour
     }
 
     //Assign all the ranged weapon data
-    void AssignRangedGunData(Gun gun, int idx){
+    void AssignRangedGunData(Gun gun){
         fireRate = gun.fireRate;
         reloadSpeed = gun.reloadSpeed;
         reloadSpeedWait = new WaitForSeconds(reloadSpeed); //cache this anytime we swap weapons and reload speed changes

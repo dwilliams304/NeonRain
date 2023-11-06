@@ -33,16 +33,16 @@ public class Inventory : MonoBehaviour
 
     public void AddGold(int amount){
         PlayerGold += Mathf.RoundToInt(amount * GoldModifier);
-        addGold?.Invoke(PlayerGold);
+        addGold?.Invoke(amount);
         
     }
 
     public void RemoveGold(int amount){
         PlayerGold -= amount;
-        addGold?.Invoke(PlayerGold);
+        addGold?.Invoke(amount);
     }
 
-    void SwapGuns(Gun swap, int idx){
+    void SwapGuns(Gun swap){
         gun = swap;
     }
 

@@ -10,7 +10,7 @@ public class SwapGunIcon : MonoBehaviour
     void OnEnable() => WeaponSwapSystem.onGunSwap += SwapIcons;
     void OnDisable() => WeaponSwapSystem.onGunSwap -= SwapIcons;
 
-    void SwapIcons(Gun gun, int idx) {
+    void SwapIcons(Gun gun) {
         _icon.sprite = gun.weaponSprite;
         _icon.color = gun.color;
     }
