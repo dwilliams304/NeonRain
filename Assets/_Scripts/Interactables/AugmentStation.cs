@@ -8,6 +8,8 @@ public class AugmentStation : MonoBehaviour, IInteractable
     public static OnAugmentStationInteracted onAugmentStationInteracted;
     [SerializeField] private AnimationCurve _goldCostScaler;
 
+    public List<PlayerAugment> augments = new List<PlayerAugment>();
+
     public void Interacted()
     {
         Debug.Log("Augment Station interacted!");

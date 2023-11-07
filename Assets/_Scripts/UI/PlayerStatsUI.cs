@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 
@@ -10,6 +11,10 @@ public class PlayerStatsUI : MonoBehaviour
     [SerializeField] TMP_Text _speedText;
     [SerializeField] TMP_Text _xpMultText;
     [SerializeField] TMP_Text _goldMultText;
+
+    [SerializeField] Image btnImg;
+    [SerializeField] Sprite showImg;
+    [SerializeField] Sprite hideImg;
 
     [SerializeField] GameObject _statsPanel;
 
@@ -30,7 +35,13 @@ public class PlayerStatsUI : MonoBehaviour
     }
 
     public void ChangePanelVisiblity(){
-        if(_statsPanel.activeInHierarchy) _statsPanel.SetActive(false);
-        else _statsPanel.SetActive(true);
+        if(_statsPanel.activeInHierarchy) {
+            _statsPanel.SetActive(false);
+            btnImg.sprite = showImg;
+        }
+        else {
+            _statsPanel.SetActive(true);
+            btnImg.sprite = hideImg;
+        }
     }
 }
