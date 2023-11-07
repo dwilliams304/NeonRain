@@ -26,7 +26,7 @@ public class UpgradeChooser : MonoBehaviour
 
     int reRollCost;
     int amntOfRerolls = 0;
-    float currentScale = 0f;
+    float currentScale;
 
 
     void OnEnable(){
@@ -43,10 +43,10 @@ public class UpgradeChooser : MonoBehaviour
     }
 
     void OpenPanel(int x){
+        currentScale = Time.timeScale;
         upgradePanel.SetActive(true);
         controller.SetTrigger("Enabled");
         textController.SetTrigger("Enabled");
-        currentScale = Time.timeScale;
         Time.timeScale = 0f;
         UIManager.Instance.upgradePanelActive = true;
     }

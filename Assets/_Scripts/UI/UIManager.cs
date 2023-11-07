@@ -14,9 +14,14 @@ public class UIManager : MonoBehaviour
     
     [Header("Pop-Up Panels")]
     [SerializeField] private GameObject loseUIPanel;
+    [SerializeField] private GameObject pauseGamePanel;
+    [SerializeField] private GameObject upgradePanel;
 
     public bool gameLost = false;
+    bool gamePaused;
     public bool upgradePanelActive = false;
+
+    float curTime;
 
     void Awake(){
         Instance = this;
@@ -30,6 +35,12 @@ public class UIManager : MonoBehaviour
     void OnDisable(){
         KillTimer.timerCompleted -= LoseGameUI;
         Combat.onPlayerDeath -= LoseGameUI;
+    }
+
+    void Update(){
+        if(Input.GetKeyDown(KeyCode.Escape)){
+            PauseGame();
+        }
     }
 
 
@@ -58,6 +69,19 @@ public class UIManager : MonoBehaviour
     public void SwingCoolDownBar(float swingCooldownSpeed){
         _swingCooldownObject.LeanScaleY(0.04f, 0);
         _swingCooldownObject.LeanScaleY(0, swingCooldownSpeed);
+    }
+
+    public void PauseGame(){
+        if(!upgradePanel.activeInHierarchy && !loseUIPanel.activeInHierarchy){
+            gamePaused = !gamePaused;
+            if(gamePaused){
+                curTime = Time.timeScale;
+                if(curTime != 0f) Time.timeScale = 0f;
+            }else{
+                Time.timeScale = curTime;
+            }
+            pauseGamePanel.SetActive(gamePaused);
+        }
     }
 
     void LoseGameUI(){
