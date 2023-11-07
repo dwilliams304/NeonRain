@@ -12,6 +12,8 @@ public class Combat : MonoBehaviour
     int critChanceMod;
     float critDamageMod;
     float fireRateMod;
+
+    bool isDead;
     
 #region Ranged weapon variables
     private float fireRate;
@@ -68,6 +70,7 @@ public class Combat : MonoBehaviour
         _inventory = GetComponent<Inventory>();
         _playerController = GetComponent<PlayerController>();
         _uiMngr = UIManager.Instance;
+        isDead = false;
         // _healthSystem = GetComponent<HealthSystem>();
         AssignRangedGunData(_inventory.gun);
         AssignMeleeStats(_inventory.sword);
@@ -116,8 +119,11 @@ public class Combat : MonoBehaviour
     }
 
     void TakeDamage(float amnt){
-        SoundManager.Instance.PlayEffectAudio(_hurt);
-        CameraShaker.Instance.ShakeCamera(4f, 0.2f);
+        if(!isDead){
+            SoundManager.Instance.PlayEffectAudio(_hurt);
+            CameraShaker.Instance.ShakeCamera(4f, 0.2f);
+            GameStats.damageTaken += amnt;
+        }
     }
 
     //Assign all the ranged weapon data
@@ -209,6 +215,7 @@ public class Combat : MonoBehaviour
 
 
     void Die(){
+        isDead = true;
         StartCoroutine(HandleDeathEffects());
     }
 

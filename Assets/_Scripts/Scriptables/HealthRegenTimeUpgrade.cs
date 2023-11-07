@@ -6,6 +6,6 @@ public class HealthRegenTimeUpgrade : PlayerUpgrades
 {
     public override void UpgradeChosen()
     {
-        PlayerStatModifier.Instance.ChangeHealthRegenTime(-increaseAmount);
+        PlayerStatModifier.Instance.ChangeHealthRegenTime(increaseAmount);
     }
 }

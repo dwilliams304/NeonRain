@@ -29,6 +29,7 @@ public class LevelSystem : MonoBehaviour
     }
     public void AddExperience(int amount){
         int newXPAmnt = Mathf.RoundToInt(amount * XPMultiplier);
+        GameStats.xpEarned += newXPAmnt;
         CurrentXP += newXPAmnt;
         addXP?.Invoke(newXPAmnt);
         if(CurrentXP >= XPToNextLevel){

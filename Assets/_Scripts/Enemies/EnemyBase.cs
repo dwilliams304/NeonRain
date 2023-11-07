@@ -92,6 +92,7 @@ public class EnemyBase : MonoBehaviour
         CorruptionManager.Instance.IncreaseCorruptionAmount(enemyData.corruptionDrop);
         // CorruptionManager.Instance.AddCorruption(_corruptionDrop);
         ScoreManager.scoreManager.AddToScore(_scoreAmnt);
+        GameStats.enemiesKilled++;
         Destroy(gameObject);
     }
 
@@ -107,6 +108,7 @@ public class EnemyBase : MonoBehaviour
             GameObject prefab = Instantiate(floatingDmgTextPref, transform.position + offset, Quaternion.identity);
             TMP_Text textComponent = prefab.GetComponentInChildren<TMP_Text>();
             textComponent.text = dmgAmnt.ToString();
+            GameStats.damageDone += dmgAmnt;
             if(Combat.Instance.didCrit){
                 textComponent.color = critColor;
                 textComponent.fontSize = 12;

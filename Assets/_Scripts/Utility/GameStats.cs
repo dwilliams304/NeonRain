@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class GameStats : MonoBehaviour
 {
-    public static int damageDone;
+    public static float damageDone;
+    public static float damageTaken;
     public static int enemiesKilled;
     public static int miniBossesKilled;
     public static int bossesKilled;
@@ -17,4 +18,5 @@ public class GameStats : MonoBehaviour
     public static int chestsOpened;
     public static int upgradesPicked;
     public static int weaponsSwapped;
+    public static int abilitiesUsed;
 }

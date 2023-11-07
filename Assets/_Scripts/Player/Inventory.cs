@@ -32,6 +32,7 @@ public class Inventory : MonoBehaviour
 
     public void AddGold(int amount){
         int amntAfterMod = Mathf.RoundToInt(amount * GoldMod);
+        GameStats.goldEarned += amntAfterMod;
         PlayerGold += amntAfterMod;
         addGold?.Invoke(amntAfterMod, PlayerGold);
         
@@ -39,6 +40,7 @@ public class Inventory : MonoBehaviour
 
     public void RemoveGold(int amount){
         PlayerGold -= amount;
+        GameStats.goldSpent += amount;
         addGold?.Invoke(amount, PlayerGold);
     }
 

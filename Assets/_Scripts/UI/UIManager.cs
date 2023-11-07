@@ -25,9 +25,11 @@ public class UIManager : MonoBehaviour
 
     void OnEnable(){
         KillTimer.timerCompleted += LoseGameUI;
+        Combat.onPlayerDeath += LoseGameUI;
     }
     void OnDisable(){
         KillTimer.timerCompleted -= LoseGameUI;
+        Combat.onPlayerDeath -= LoseGameUI;
     }
 
 

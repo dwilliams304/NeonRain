@@ -49,6 +49,7 @@ public class AbilityHolder : MonoBehaviour
                         ability.UseAbility();
                         state = AState.active;
                         activeTime = ability.activeTime;
+                        GameStats.abilitiesUsed++;
                     }
                 }
                 break;
