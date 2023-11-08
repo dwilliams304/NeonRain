@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   icon: {fileID: 0}
   upgradeName: +Crit Chance
-  toolTipDescription: Add (amount) to your critical hit chance.
-  increaseAmount: 0
+  toolTipDescription: Add 1% to your critical hit chance.
+  increaseAmount: 1
   isPercentUpgrade: 0
   rarity: 0

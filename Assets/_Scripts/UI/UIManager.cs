@@ -49,7 +49,7 @@ public class UIManager : MonoBehaviour
         if(currentAmmo == 0){
             _ammoText.text = "No ammo!";
             _ammoText.color = Color.red;
-        }else if(currentAmmo <= 7){
+        }else if(currentAmmo <= 4){
             _ammoText.text = "Low ammo!";
             _ammoText.color = Color.yellow;
             _ammoTextObject.SetActive(true);

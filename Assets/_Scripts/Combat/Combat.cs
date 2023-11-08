@@ -155,7 +155,7 @@ public class Combat : MonoBehaviour
 
 
     void Shoot(){
-        if(currentAmmo > 0){ //Do we have ammo?
+        if(currentAmmo > 0 && !isDead){ //Do we have ammo?
             if(Time.time > lastShot + (fireRate * fireRateMod)){ //If the current time is greater than the last time we shot + current weapon's fire rate, we can shoot.
                 muzzleFlash.Play(); //Play particle effect!
                 lastShot = Time.time; //Set lastShot to be equal to current time
@@ -175,7 +175,7 @@ public class Combat : MonoBehaviour
 
 
     void Melee(){
-        if(Time.time > lastSwing + (swingCooldown * fireRateMod)){ //Basically same logic as shooting
+        if(Time.time > lastSwing + (swingCooldown * fireRateMod) && !isDead){ //Basically same logic as shooting
             SoundManager.Instance.PlayEffectAudio(_swordSing);
             lastSwing = Time.time;
             _uiMngr.SwingCoolDownBar(swingCooldown);

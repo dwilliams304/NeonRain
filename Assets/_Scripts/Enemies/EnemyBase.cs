@@ -93,6 +93,7 @@ public class EnemyBase : MonoBehaviour
         // CorruptionManager.Instance.AddCorruption(_corruptionDrop);
         ScoreManager.scoreManager.AddToScore(_scoreAmnt);
         GameStats.enemiesKilled++;
+        GameStats.currentAmountOfEnemies--;
         Destroy(gameObject);
     }
 

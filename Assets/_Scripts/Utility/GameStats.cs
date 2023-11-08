@@ -19,4 +19,7 @@ public class GameStats : MonoBehaviour
     public static int upgradesPicked;
     public static int weaponsSwapped;
     public static int abilitiesUsed;
+
+    public static int totalAllowedEnemies = 75;
+    public static int currentAmountOfEnemies;
 }

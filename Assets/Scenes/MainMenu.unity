@@ -1658,19 +1658,18 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '- 2 enemy variants (ranged and melee)
+  m_text: '-End Game stats system
 
-    - Basic common weapon templates
+    -Working weapon swapping
 
-    -
-    Slightly improved A.I
+    -Corruption
+    system
 
-    - Leveling system + enemy level scaling (more hp/dmg
-    based off of level)
+    -Level Upgrades
 
-    - Mock settings UI
+    -Health Regen
 
-    - Some button functionality'
+    -Other misc. features'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1804,20 +1803,23 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '- Art - Some enemies, icons, world elements, better UI, fonts, some styling
-    changes
+  m_text: 'There is a lot that is still needed to do. Currently wip:
 
-    - Sounds - some gunshots, enemy sounds, UI sounds, maybe music
+    -Augment
+    Station
 
-    -
-    Working settings menu
+    -Actual mini bosses/bosses
 
-    - A.I pathfinding
+    -Ranged enemies
 
-    - More fleshed out level (instead
-    of a box you''re trapped in)
+    -Treasure chests
 
-    -Corruption system'
+    -General
+    enemy drops (2x score, infinite ammo)
+
+    -More abilities
+
+    -Class system(?)'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2534,7 +2536,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Next Build:'
+  m_text: 'To-Do:'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2668,7 +2670,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 
+  m_text: A lot of this build is actually just going back and refactoring old code.
+    The tuning on many things is still pretty bad as that is being worked out later.
+    There are still some bugs and whatnot but we're much closer. Thank you for playing,
+    I appreciate you :)
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

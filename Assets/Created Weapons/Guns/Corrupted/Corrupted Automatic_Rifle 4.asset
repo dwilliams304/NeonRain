@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: Corrupted Automatic_Rifle 4
   m_EditorClassIdentifier: 
   weaponName: Corrupted Automatic_Rifle 4
-  minDamage: 18
-  maxDamage: 22
-  critChance: 5
+  minDamage: 30
+  maxDamage: 75
+  critChance: 0
   isCorrupted: 0
   weaponSprite: {fileID: 21300000, guid: 5a656081981d71d45a4e359753144e5f, type: 3}
-  corruptionGain: 100
+  corruptionGain: 95
   currentWepTier: 0
   weaponType: 0
   rarity: 3

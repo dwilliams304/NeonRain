@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   icon: {fileID: 0}
   upgradeName: +Gold
-  toolTipDescription: Multiply all gold gains by an additional (amount).
-  increaseAmount: 0
+  toolTipDescription: Multiply all gold gains by an additional 5%.
+  increaseAmount: 0.05
   isPercentUpgrade: 0
   rarity: 0

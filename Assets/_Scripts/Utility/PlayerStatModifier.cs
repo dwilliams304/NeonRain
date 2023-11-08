@@ -14,7 +14,7 @@ public class PlayerStatModifier : MonoBehaviour
     public float Corruption_DamageTaken = 0;
     
     //CRIT STRIKES
-    private int _critChance = 10;
+    private int _critChance = 0;
     private float _critDamage = 3f;
     public int Corruption_CritChance = 0;
     public float Corruption_CritDamage = 0;

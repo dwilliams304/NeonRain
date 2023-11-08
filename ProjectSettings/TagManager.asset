@@ -8,6 +8,8 @@ TagManager:
   - Spawner
   - CorruptionTotem
   - Loot
+  - Bounds
+  - World
   layers:
   - Default
   - TransparentFX

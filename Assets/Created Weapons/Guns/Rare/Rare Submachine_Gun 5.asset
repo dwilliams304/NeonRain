@@ -24,7 +24,7 @@ MonoBehaviour:
   rarity: 2
   projectileSpeed: 40
   reloadSpeed: 0.2
-  fireRate: 0.15
+  fireRate: 0.085
   magSize: 49
   gunType: 5
   color: {r: 0, g: 0.31493044, b: 1, a: 1}
