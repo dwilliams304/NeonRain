@@ -5,10 +5,12 @@ public class MenuButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
 {
     [SerializeField] private bool _scaleOnHover, _backOnHover, _soundOnHover = true;
     [SerializeField] private GameObject _backingImage;
-    
 
-    void Start(){
-        transform.localScale = new Vector2(1f, 1f);
+    [SerializeField] private Vector2 _originalSize = new Vector2(1f, 1f);
+    [SerializeField] private Vector2 _toScaleTo = new Vector2(1.1f, 1.1f);
+    
+    void OnEnable(){
+        transform.localScale = _originalSize;
     }
 
     public void OnPointerClick(PointerEventData eventData)
@@ -19,13 +21,13 @@ public class MenuButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     public void OnPointerEnter(PointerEventData eventData)
     {
         if(_soundOnHover) SoundManager.Instance.UI_PlayHoverSound();
-        if(_scaleOnHover) transform.localScale = new Vector2(1.1f, 1.1f);
+        if(_scaleOnHover) transform.localScale = _toScaleTo;
         if(_backOnHover && _backingImage != null) _backingImage.SetActive(true);
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        if(_scaleOnHover) transform.localScale = new Vector2(1f, 1f);
+        if(_scaleOnHover) transform.localScale = _originalSize;
         if(_backOnHover && _backingImage != null) _backingImage.SetActive(false);
     }
 

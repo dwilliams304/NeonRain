@@ -13,9 +13,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] GameObject _reloadBarObject;
     
     [Header("Pop-Up Panels")]
-    [SerializeField] private GameObject loseUIPanel;
-    [SerializeField] private GameObject pauseGamePanel;
-    [SerializeField] private GameObject upgradePanel;
+    [SerializeField] private GameObject loseUIPanel, pauseGamePanel, upgradePanel, weaponPanel;
 
     public bool gameLost = false;
     bool gamePaused;
@@ -72,7 +70,7 @@ public class UIManager : MonoBehaviour
     }
 
     public void PauseGame(){
-        if(!upgradePanel.activeInHierarchy && !loseUIPanel.activeInHierarchy){
+        if(!upgradePanel.activeInHierarchy && !loseUIPanel.activeInHierarchy && !weaponPanel.activeInHierarchy){
             gamePaused = !gamePaused;
             if(gamePaused){
                 curTime = Time.timeScale;

@@ -11,6 +11,11 @@ public class FollowingSpawner : MonoBehaviour
     [SerializeField] private float _spawnInterval = 3f;
     [SerializeField] private int _toSpawnEachInterval;
 
+    public delegate void OnGameStart(float startingDelay);
+    public static OnGameStart onGameStart;
+    public delegate void OnStartGameFinished();
+    public static OnStartGameFinished onStartGameFinished;
+
 
     
     public bool IsSpawning = true;
@@ -61,7 +66,9 @@ public class FollowingSpawner : MonoBehaviour
     private IEnumerator SpawnEnemies(){
         //Set all the variables we are going to use
         WaitForSeconds wait = new WaitForSeconds(_spawnInterval);
+        onGameStart?.Invoke(_startingDelay);
         yield return new WaitForSeconds(_startingDelay);
+        onStartGameFinished?.Invoke();
         while(IsSpawning){ //While we are set to spawn...
             yield return wait; //Wait the set amount of time from the interval
             _amountSpawned = 0; //Set i to 0
