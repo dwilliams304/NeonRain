@@ -37,4 +37,5 @@ public class AsyncLoader : MonoBehaviour
         int i = Random.Range(0, loadingFlavorText.Count);
         flavorText.text = loadingFlavorText[i];
     }
+
 }
