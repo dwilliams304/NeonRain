@@ -23,6 +23,7 @@ public class UpgradeChooser : MonoBehaviour
     [SerializeField] GameObject notEnoughGoldText;
     [SerializeField] Button rerollButton;
     [SerializeField] AnimationCurve rerollCostIncrease;
+    [SerializeField] private AudioClip _upgradeChosenSound;
 
     int reRollCost;
     int amntOfRerolls = 0;
@@ -140,6 +141,7 @@ public class UpgradeChooser : MonoBehaviour
         textController.SetTrigger("Disabled");
         Time.timeScale = currentScale;
         amntOfRerolls = 0;
+        SoundManager.Instance.PlayEffectAudio(_upgradeChosenSound);
         UIManager.Instance.upgradePanelActive = false;
     }
 }

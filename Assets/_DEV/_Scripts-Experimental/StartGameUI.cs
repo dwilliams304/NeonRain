@@ -36,8 +36,8 @@ public class StartGameUI : MonoBehaviour
     }
 
     IEnumerator ChangeText(){
-        _startingText.text = "Spawning enemies...";
-        yield return new WaitForSeconds(1f);
+        _startingText.text = "Good luck...";
+        yield return new WaitForSeconds(2f);
         anim.Play("Fade Out");
         yield return new WaitForSeconds(2f);
         _startingPanel.SetActive(false);

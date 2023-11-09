@@ -41,9 +41,10 @@ public class PlayerHUDUI : MonoBehaviour
     }
 
     void ShowGoldText(int amount, int totalGold){
+        bool removing = totalGold < 0 ? true : false;
         _goldActualText.text = totalGold.ToString();
-        _goldIncreaseText.text = "+" + amount;
-        _goldIncreaseText.color = amount < 0 ? Color.red : Color.green;
+        _goldIncreaseText.text = removing ? "-" + amount : "+" + amount;
+        _goldIncreaseText.color = removing ? Color.red : Color.yellow;
         _goldIncrease.Play();
     }
 }
