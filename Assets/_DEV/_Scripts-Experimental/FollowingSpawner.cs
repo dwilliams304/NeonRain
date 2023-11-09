@@ -35,12 +35,9 @@ public class FollowingSpawner : MonoBehaviour
         StartCoroutine(SpawnEnemies());
     }
 
-    // Update is called once per frame
     void Update()
     {
-        foreach(Spawner spawner in spawners){
-            spawner.SpawnLoc.position = _playerTarget.position + spawner.Offset;
-        }
+        transform.position = _playerTarget.position;
     }
 
     public void AddSpawnableEnemy(GameObject spawnable){
