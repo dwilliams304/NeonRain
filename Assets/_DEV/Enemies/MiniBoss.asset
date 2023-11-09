@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: MiniBoss
   m_EditorClassIdentifier: 
   enemyName: 
-  maxHealth: 750
+  maxHealth: 500
   moveSpeed: 7
   minDamage: 35
   maxDamage: 50

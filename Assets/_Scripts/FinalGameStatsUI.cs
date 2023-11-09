@@ -51,24 +51,17 @@ public class FinalGameStatsUI : MonoBehaviour
         WaitForSecondsRealtime wait = new WaitForSecondsRealtime(timeStep);
         int incrementer = 1;
         int j = 0;
-        if(numToGetTo > 1000000){
-            incrementer = 10000;
-        }
-        else if(numToGetTo > 100000){
-            incrementer = 1000;
-        }
-        else if(numToGetTo > 10000){
-            incrementer = 100;
-        }
-        else if(numToGetTo > 1000){
-            incrementer = 10;
+        //If our number is greater than 1000, we want the number to count a little bit faster!
+        if(numToGetTo > 1000){
+            int toPowerOf = Mathf.RoundToInt(Mathf.Log10(numToGetTo)) - 2;
+            incrementer = Mathf.RoundToInt(Mathf.Pow(10, toPowerOf));
         }
         for(int i = 0; i < numToGetTo + 1; i += incrementer){
             textToSet.text = i.ToString();
             j = i;
             yield return wait;
         }
-        if(j > numToGetTo || j < numToGetTo){
+        if(j > numToGetTo || j < numToGetTo){ //Number will count over based off of the incrementer, after we finish just set the number!
             j = numToGetTo;
             textToSet.text = j.ToString();
         }
