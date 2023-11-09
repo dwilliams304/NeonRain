@@ -8,7 +8,10 @@ public class ObjectPooler : MonoBehaviour
     [Header("Player Objects")]
     [SerializeField] private GameObject playerBulletObj;
     [SerializeField] private int playerBulletsAmnt = 50;
+    [SerializeField] private GameObject sniperBulletObj;
+    [SerializeField] private int sniperBulletsAmnt = 25;
     private List<GameObject> pooledPlayerBullets;
+    private List<GameObject> pooledSniperBullets;
     
     [Header("Enemy Objects")]
     [SerializeField] private GameObject enemyBulletObj;
@@ -34,6 +37,8 @@ public class ObjectPooler : MonoBehaviour
     void Start()
     {
         pooledPlayerBullets = new List<GameObject>();
+        pooledSniperBullets = new List<GameObject>();
+
         pooledBulletImpacts = new List<GameObject>();
         pooledEnemyBullets = new List<GameObject>();
         for(int i = 0; i < playerBulletsAmnt; i++){
@@ -42,6 +47,13 @@ public class ObjectPooler : MonoBehaviour
 
             playerBullet.SetActive(false);
             pooledPlayerBullets.Add(playerBullet);
+        }
+        for(int i = 0; i < sniperBulletsAmnt; i++){
+            GameObject sniperBullet = Instantiate(sniperBulletObj);
+            sniperBullet.transform.parent = gameObject.transform;
+
+            sniperBullet.SetActive(false);
+            pooledSniperBullets.Add(sniperBullet);
         }
 
         for(int i = 0; i < enemyBulletsAmnt; i++){
@@ -61,15 +73,55 @@ public class ObjectPooler : MonoBehaviour
         }
     }
 
-    public GameObject GetPooledPlayerBullet(){
-        for(int i = 0; i < pooledPlayerBullets.Count; i++){
-            if(!pooledPlayerBullets[i].activeInHierarchy){
-                return pooledPlayerBullets[i];
+    public GameObject GetPooledPlayerBullet(GunType gunType, float dmg, bool wasCrit){
+        GameObject bullet;
+        switch(gunType){
+            case GunType.Sniper:
+                for(int i = 0; i < pooledSniperBullets.Count; i++){
+                    if(!pooledSniperBullets[i].activeInHierarchy){
+                        SniperBullet s = pooledSniperBullets[i].GetComponent<SniperBullet>();
+                        s.DamageAmount = dmg;
+                        s.isCrit = wasCrit;
+                        return pooledSniperBullets[i];
+                    }
+                }
+                if(willGrow){
+                    bullet = Instantiate(sniperBulletObj);
+                    bullet.GetComponent<SniperBullet>().DamageAmount = dmg;
+                    pooledSniperBullets.Add(bullet);
+                    return bullet;
+                }
+                return null;
+            default:
+                for(int i = 0; i < pooledPlayerBullets.Count; i++){
+                    if(!pooledPlayerBullets[i].activeInHierarchy){
+                        pooledPlayerBullets[i].GetComponent<Bullet>().DamageAmount = dmg;
+                        Bullet b = pooledPlayerBullets[i].GetComponent<Bullet>();
+                        b.DamageAmount = dmg;
+                        b.isCrit = wasCrit;
+                        return pooledPlayerBullets[i];
+                    }
+                }
+                if(willGrow){
+                    bullet = Instantiate(playerBulletObj);
+                    bullet.GetComponent<Bullet>().DamageAmount = dmg;
+                    pooledPlayerBullets.Add(bullet);
+                    return bullet;
+                }
+                return null;
+        }
+        
+    }
+
+    public GameObject GetPooledSniperBullet(){
+        for(int i = 0; i < pooledSniperBullets.Count; i++){
+            if(!pooledSniperBullets[i].activeInHierarchy){
+                return pooledSniperBullets[i];
             }
         }
         if(willGrow){
-            GameObject bullet = Instantiate(playerBulletObj);
-            pooledPlayerBullets.Add(bullet);
+            GameObject bullet = Instantiate(sniperBulletObj);
+            pooledSniperBullets.Add(bullet);
             return bullet;
         }
         return null;

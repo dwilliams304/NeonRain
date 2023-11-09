@@ -75,7 +75,7 @@ public class EnemyBase : MonoBehaviour
         if(Vector2.Distance(transform.position, _player.position) < _attackRange){
             if(Time.time > lastAtk + atkSpeed){
                 lastAtk = Time.time;
-                _playerHealth.DecreaseCurrentHealth(DoDamage());
+                _playerHealth.DecreaseCurrentHealth(DoDamage(), false); //Enemies can't crit :(
             }
         }
     }
@@ -102,7 +102,7 @@ public class EnemyBase : MonoBehaviour
         return Mathf.RoundToInt(Random.Range(_minDamage, _maxDamage));
     }
 
-    void ShowDamage(float dmgAmnt){
+    void ShowDamage(float dmgAmnt, bool wasCrit){
         _damageFlash.CallDamageFlash();
         if(floatingDmgTextPref){
             Vector3 offset = new Vector3(Random.Range(-1f, 2f), dmgNumberYOffset, 0);
@@ -110,7 +110,7 @@ public class EnemyBase : MonoBehaviour
             TMP_Text textComponent = prefab.GetComponentInChildren<TMP_Text>();
             textComponent.text = dmgAmnt.ToString();
             GameStats.damageDone += dmgAmnt;
-            if(Combat.Instance.didCrit){
+            if(wasCrit){
                 textComponent.color = critColor;
                 textComponent.fontSize = 12;
             }

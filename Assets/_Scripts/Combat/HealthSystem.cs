@@ -7,7 +7,7 @@ public class HealthSystem : MonoBehaviour
     public int CurrentHealth { get; private set; }
     public int MaxHealth { get; private set; }
 
-    public delegate void TakeDamage(float amount);
+    public delegate void TakeDamage(float amount, bool wasCrit);
     public TakeDamage onDamage;
 
     public delegate void OnDeath();
@@ -47,9 +47,9 @@ public class HealthSystem : MonoBehaviour
     }
 
 
-    public void DecreaseCurrentHealth(float amount){
+    public void DecreaseCurrentHealth(float amount, bool crit){
         CurrentHealth -= Mathf.RoundToInt(amount);
-        onDamage?.Invoke(amount);
+        onDamage?.Invoke(amount, crit);
         if(CurrentHealth <= 0){
             CurrentHealth = 0;
             ChangeHealthBarValue(0);

@@ -16,6 +16,7 @@ public class Combat : MonoBehaviour
     bool isDead;
     
 #region Ranged weapon variables
+    private GunType gunType;
     private float fireRate;
     private float lastShot;
     private float reloadSpeed;
@@ -59,9 +60,11 @@ public class Combat : MonoBehaviour
     private Inventory _inventory;
     private UIManager _uiMngr;
     
-    [HideInInspector] public bool didCrit = false;
+    bool didCrit = false;
 #endregion
     
+    GameObject bullet;
+    float damage;
 
     void Awake(){
         Instance = this;
@@ -118,7 +121,7 @@ public class Combat : MonoBehaviour
         }
     }
 
-    void TakeDamage(float amnt){
+    void TakeDamage(float amnt, bool x){
         if(!isDead){
             SoundManager.Instance.PlayEffectAudio(_hurt);
             CameraShaker.Instance.ShakeCamera(4f, 0.2f);
@@ -128,6 +131,7 @@ public class Combat : MonoBehaviour
 
     //Assign all the ranged weapon data
     void AssignRangedGunData(Gun gun){
+        gunType = gun.gunType;
         fireRate = gun.fireRate;
         reloadSpeed = gun.reloadSpeed;
         reloadSpeedWait = new WaitForSeconds(reloadSpeed); //cache this anytime we swap weapons and reload speed changes
@@ -151,21 +155,17 @@ public class Combat : MonoBehaviour
         meleeCritChance = sword.critChance;
     }
 
-
-
-
     void Shoot(){
         if(currentAmmo > 0 && !isDead){ //Do we have ammo?
             if(Time.time > lastShot + (fireRate * fireRateMod)){ //If the current time is greater than the last time we shot + current weapon's fire rate, we can shoot.
                 muzzleFlash.Play(); //Play particle effect!
                 lastShot = Time.time; //Set lastShot to be equal to current time
-                GameObject bullet = ObjectPooler.current.GetPooledPlayerBullet(); //Grab a bullet from the bullet pool
+                bullet = ObjectPooler.current.GetPooledPlayerBullet(gunType, CalculateDamage(true), didCrit);
                 if(bullet == null) return; //If we don't have any bullets, do nothing (SHOULDNT HAPPEN)
                 bullet.transform.position = _firePoint.position;
                 bullet.transform.rotation = _firePoint.rotation; //Set the bullet to the firepoint's position and rotation
                 bullet.SetActive(true); //Set it active
                 bullet.GetComponent<Rigidbody2D>().AddForce(_firePoint.up * projectileSpeed, ForceMode2D.Impulse); //Add force to it
-                bullet.GetComponent<Bullet>().DamageAmount = CalculateDamage(true); //Set the calculated damage to the bullet's value.
                 currentAmmo--; //Remove ammo
                 _uiMngr.UpdateAmmo(currentAmmo, magSize); //Change the ammo text
                 SoundManager.Instance.PlayEffectAudio(_gunShot);
@@ -181,7 +181,7 @@ public class Combat : MonoBehaviour
             _uiMngr.SwingCoolDownBar(swingCooldown);
             meleeSwing.Play();
             for(int i = 0; i < _collCheck.enemies.Count; i++){
-                _collCheck.enemies[i].DecreaseCurrentHealth(CalculateDamage(false)); //damage every enemy in our melee collider!
+                _collCheck.enemies[i].DecreaseCurrentHealth(CalculateDamage(false), didCrit); //damage every enemy in our melee collider!
             }
         }
     }
