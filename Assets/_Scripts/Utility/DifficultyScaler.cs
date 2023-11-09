@@ -9,17 +9,16 @@ public class DifficultyScaler : MonoBehaviour
 
 #region Spawner Objects
 [Header("Spawner Objects")]
-    [SerializeField] private List<GameObject> StartSpawners;
-    [SerializeField] private List<GameObject> SpawnerTier1;
-    [SerializeField] private List<GameObject> SpawnerTier2;
-    [SerializeField] private List<GameObject> SpawnerTier3;
-    [SerializeField] private List<GameObject> SpawnerTier4;
-    [SerializeField] private List<GameObject> SpawnerTier5;
-    [SerializeField] private List<GameObject> SpawnerTier6;
-    [SerializeField] private List<GameObject> SpawnerTier7;
-    [SerializeField] private List<GameObject> SpawnerTier8;
-    [SerializeField] private List<GameObject> SpawnerTier9;
-    [SerializeField] private List<GameObject> SpawnerTier10;
+    [SerializeField] private GameObject _spawnableTier1;
+    [SerializeField] private GameObject _spawnableTier2;
+    [SerializeField] private GameObject _spawnableTier3;
+    [SerializeField] private GameObject _spawnableTier4;
+    [SerializeField] private GameObject _spawnableTier5;
+    [SerializeField] private GameObject _spawnableTier6;
+    [SerializeField] private GameObject _spawnableTier7;
+    [SerializeField] private GameObject _spawnableTier8;
+    [SerializeField] private GameObject _spawnableTier9;
+    [SerializeField] private GameObject _spawnableTier10;
 #endregion
 
 #region Tier Breakpoints
@@ -37,7 +36,7 @@ public class DifficultyScaler : MonoBehaviour
 #endregion
 
 
-
+    private FollowingSpawner _spawner;
     void OnEnable(){
         LevelSystem.onLevelChange += CheckDifficultyScale;
     }
@@ -57,42 +56,39 @@ public class DifficultyScaler : MonoBehaviour
 
 
     void Start(){
-        // ActivateSpawners(StartSpawners);
-        foreach(GameObject obj in StartSpawners){
-            obj.SetActive(true);
-        }
+        _spawner = FollowingSpawner.Instance;
     }
 
     void CheckDifficultyScale(int currentLevel){
         if(currentLevel == _tier10Break){
-            ActivateSpawners(SpawnerTier10);
+            _spawner.AddSpawnableEnemy(_spawnableTier10);
         }
         else if(currentLevel == _tier9Break){
-            ActivateSpawners(SpawnerTier9);
+            _spawner.AddSpawnableEnemy(_spawnableTier9);
         }
         else if(currentLevel == _tier8Break){
-            ActivateSpawners(SpawnerTier8);
+            _spawner.AddSpawnableEnemy(_spawnableTier8);
         }
         else if(currentLevel == _tier7Break){
-            ActivateSpawners(SpawnerTier7);
+            _spawner.AddSpawnableEnemy(_spawnableTier7);
         }
         else if(currentLevel == _tier6Break){
-            ActivateSpawners(SpawnerTier6);
+            _spawner.AddSpawnableEnemy(_spawnableTier6);
         }
         else if(currentLevel == _tier5Break){
-            ActivateSpawners(SpawnerTier5);
+            _spawner.AddSpawnableEnemy(_spawnableTier5);
         }
         else if(currentLevel == _tier4Break){
-            ActivateSpawners(SpawnerTier4);
+            _spawner.AddSpawnableEnemy(_spawnableTier4);
         }
         else if(currentLevel == _tier3Break){
-            ActivateSpawners(SpawnerTier3);
+            _spawner.AddSpawnableEnemy(_spawnableTier3);
         }
         else if(currentLevel == _tier2Break){
-            ActivateSpawners(SpawnerTier2);
+            _spawner.AddSpawnableEnemy(_spawnableTier2);
         }
         else if(currentLevel == _tier1Break){
-            ActivateSpawners(SpawnerTier1);
+            _spawner.AddSpawnableEnemy(_spawnableTier1);
         }
         
     }

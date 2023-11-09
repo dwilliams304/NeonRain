@@ -12,15 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2ad264402bb9674f9f3c408d9f744f7, type: 3}
   m_Name: FastEnemy
   m_EditorClassIdentifier: 
-  enemyName: Fast Enemy
-  maxHealth: 75
-  moveSpeed: 10
+  enemyName: Normal Enemy
+  maxHealth: 12
+  moveSpeed: 6
   minDamage: 3
   maxDamage: 6
   attackSpeed: 0.4
   attackRange: 2
   xpAmount: 15
-  dropChance: 10
-  corruptionDrop: 100
+  dropChance: 1
+  corruptionDrop: 2
   goldDrop: 10
   score: 1

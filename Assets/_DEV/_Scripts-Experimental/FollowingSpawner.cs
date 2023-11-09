@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class FollowingSpawner : MonoBehaviour
 {
+    public static FollowingSpawner Instance;
+
     private Transform _playerTarget;
     [SerializeField] private float _spawnInterval;
 
@@ -21,7 +23,9 @@ public class FollowingSpawner : MonoBehaviour
     [SerializeField] private List<GameObject> _spawnableEnemies;
     [SerializeField] bool _spawnersStartTheSame = false;
 
-    void Start(){
+    void Awake() => Instance = this;
+
+    void Start(){   
         _playerTarget = GameObject.FindGameObjectWithTag("Player").transform;
         if(_spawnersStartTheSame){
             foreach(Spawner spawner in spawners){
@@ -40,8 +44,11 @@ public class FollowingSpawner : MonoBehaviour
     }
 
     public void AddSpawnableEnemy(GameObject spawnable){
-        _spawnableEnemies.Add(spawnable);
+        foreach(Spawner spawner in spawners){
+            spawner.Spawnables.Add(spawnable);
+        }
     }
+
 
 
     private IEnumerator SpawnEnemies(){
@@ -59,15 +66,6 @@ public class FollowingSpawner : MonoBehaviour
                         GameStats.currentAmountOfEnemies++;
                         Instantiate(spawner.Spawnables.RandomFromList(), newLoc, Quaternion.identity);
                     }
-                    // if(ray) Debug.Log(ray.collider.tag);
-                    // Debug.Log(hitter + " " + newLoc);
-                    // if(hitter.tag == "Bounds") {
-                    //     Debug.LogError("Hit bounds, don't spawn!" + spawner._testname);
-                    //     Debug.Log("POS: " + newLoc);
-                    // }else{
-                    //     GameStats.currentAmountOfEnemies++;
-                    //     Instantiate(spawner.Spawnables.RandomFromList(), newLoc, Quaternion.identity);
-                    // }
                 }
             }
         }

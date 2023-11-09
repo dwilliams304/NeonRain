@@ -13,14 +13,14 @@ MonoBehaviour:
   m_Name: FastEnemy-Var 1
   m_EditorClassIdentifier: 
   enemyName: FastestEnemy
-  maxHealth: 5
-  moveSpeed: 25
+  maxHealth: 2
+  moveSpeed: 20
   minDamage: 1
   maxDamage: 3
   attackSpeed: 0.2
   attackRange: 1
   xpAmount: 15
-  dropChance: 10
-  corruptionDrop: 100
+  dropChance: 1
+  corruptionDrop: 2
   goldDrop: 10
   score: 2

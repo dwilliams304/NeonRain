@@ -12,7 +12,7 @@ public class LevelSystem : MonoBehaviour
     public static OnLevelChange onLevelChange;
 
     public int CurrentXP {get; private set;} = 0;
-    public int XPToNextLevel {get; private set;} = 100;
+    public int XPToNextLevel {get; private set;} = 250;
     public int CurrentLevel {get; private set;} = 1;
 
     [SerializeField] AnimationCurve XPScaler;
