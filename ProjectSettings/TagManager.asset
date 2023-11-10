@@ -10,6 +10,7 @@ TagManager:
   - Loot
   - Bounds
   - World
+  - Pingable
   layers:
   - Default
   - TransparentFX

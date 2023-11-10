@@ -18,6 +18,9 @@ public class CorruptionManager : MonoBehaviour
     public static ChangeCorruptionTier changeCorruptionTier;
     public static AddCorruption addCorruption;
 
+    public delegate void OnCorruptierTierIncrease();
+    public static OnCorruptierTierIncrease onCorruptierTierIncrease;
+
     public int currentCorruptionAmount {get; private set;} = 0;
     public int corruptionToNextTier {get; private set;} = 1000;
     [SerializeField] private AnimationCurve corruptionScaling;
@@ -32,7 +35,7 @@ public class CorruptionManager : MonoBehaviour
 
     void Start(){
         _killTimer = GetComponent<KillTimer>();
-        IncreaseCorruptionAmount(0);
+        addCorruption?.Invoke(currentCorruptionAmount, corruptionToNextTier);
         changeCorruptionTier?.Invoke(0);
         psm = PlayerStatModifier.Instance;
     }
@@ -102,6 +105,7 @@ public class CorruptionManager : MonoBehaviour
         }
         HandleTierChange();
         currentCorruptionAmount = overflow;
+        onCorruptierTierIncrease?.Invoke();
     }
 
     void GoDownATier(CorruptionTier tier, int overflow){

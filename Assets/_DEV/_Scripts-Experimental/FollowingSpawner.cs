@@ -72,9 +72,9 @@ public class FollowingSpawner : MonoBehaviour
         while(IsSpawning){ //While we are set to spawn...
             yield return wait; //Wait the set amount of time from the interval
             _amountSpawned = 0; //Set i to 0
-            while(_amountSpawned < _toSpawnEachInterval){ //While the current amount we have spawned this cycle is less than our want -> do this
-                foreach(Spawner spawner in spawners){ //Loop through all the spawners
-                    if(GameStats.currentAmountOfEnemies < GameStats.totalAllowedEnemies){ //If we don't have too many enemies
+            if(GameStats.currentAmountOfEnemies < GameStats.totalAllowedEnemies){
+                while(_amountSpawned < _toSpawnEachInterval){ //While the current amount we have spawned this cycle is less than our want -> do this
+                    foreach(Spawner spawner in spawners){ //Loop through all the spawners
                         _newXPos = spawner.SpawnLoc.position.x + Random.Range(-spawner.xRandRange, spawner.xRandRange + 1); //Generate a random pos
                         _newYPos = spawner.SpawnLoc.position.y + Random.Range(-spawner.yRandRange, spawner.yRandRange + 1);
                         _newPos.x = _newXPos;
