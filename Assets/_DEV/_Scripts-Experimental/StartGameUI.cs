@@ -27,7 +27,7 @@ public class StartGameUI : MonoBehaviour
         anim.AddClip(_fadeIn, "Fade In");
         anim.AddClip(_fadeOut, "Fade Out");
         anim.Play("Fade In");
-        _startingText.text = $"You have {Mathf.RoundToInt(delay)} seconds until game start.";
+        _startingText.text = $"You have {Mathf.RoundToInt(delay)} seconds.";
     }
 
     void StartGame(){
@@ -37,6 +37,7 @@ public class StartGameUI : MonoBehaviour
 
     IEnumerator ChangeText(){
         _startingText.text = "Good luck...";
+        _startingText.color = Color.red;
         yield return new WaitForSeconds(2f);
         anim.Play("Fade Out");
         yield return new WaitForSeconds(2f);
