@@ -1,7 +1,4 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Timers;
 using UnityEngine;
 
 public class DamageFlash : MonoBehaviour
@@ -37,7 +34,7 @@ public class DamageFlash : MonoBehaviour
     IEnumerator DoDamageFlash(){
         SetFlashColor();
 
-        float currentFlashAmnt = 0f;
+        float currentFlashAmnt;
         float elapsedTime = 0f;
 
         while(elapsedTime < _flashDuration){

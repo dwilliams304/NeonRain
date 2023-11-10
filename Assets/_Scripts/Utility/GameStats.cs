@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class GameStats : MonoBehaviour
@@ -20,6 +18,6 @@ public class GameStats : MonoBehaviour
     public static int weaponsSwapped;
     public static int abilitiesUsed;
 
-    public static int totalAllowedEnemies = 75;
+    public static int totalAllowedEnemies = 100;
     public static int currentAmountOfEnemies;
 }
