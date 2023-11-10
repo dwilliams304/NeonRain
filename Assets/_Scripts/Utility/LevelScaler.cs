@@ -5,8 +5,10 @@ public class LevelScaler : MonoBehaviour
     public static LevelScaler Instance;
     public float EnemyHealthModifier = 1f;
     public float EnemyDamageModifier = 1f;
+    public float EnemyXPDropModifier = 1f;
     [SerializeField] private AnimationCurve enemyHpScaler;
     [SerializeField] private AnimationCurve enemyDmgScaler;
+    [SerializeField] private AnimationCurve xpDropScaler;
 
 
 
@@ -25,11 +27,13 @@ public class LevelScaler : MonoBehaviour
     void ScaleEnemies(int level){
         EnemyHealthModifier = enemyHpScaler.Evaluate(level);
         EnemyDamageModifier = enemyDmgScaler.Evaluate(level);
+        EnemyXPDropModifier = xpDropScaler.Evaluate(level);
     }
 
 
     void Reset(){
         EnemyHealthModifier = 1f;
         EnemyDamageModifier = 1f;
+        EnemyXPDropModifier = 1f;
     }
 }

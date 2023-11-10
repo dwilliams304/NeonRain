@@ -80,12 +80,14 @@ public class DifficultyScaler : MonoBehaviour
         }
         else if(currentLevel == _tier4Break){
             _spawner.AddSpawnableEnemy(_spawnableTier4);
+            _spawner.IncreaseAmountSpawned();
         }
         else if(currentLevel == _tier3Break){
             _spawner.AddSpawnableEnemy(_spawnableTier3);
         }
         else if(currentLevel == _tier2Break){
             _spawner.AddSpawnableEnemy(_spawnableTier2);
+            _spawner.IncreaseAmountSpawned();
         }
         else if(currentLevel == _tier1Break){
             _spawner.AddSpawnableEnemy(_spawnableTier1);

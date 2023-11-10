@@ -54,13 +54,13 @@ MonoBehaviour:
   _minDamage: 0
   _maxDamage: 0
   _baseLuck: 1
-  _xpAmount: 0
   _attackRange: 0
   floatingDmgTextPref: {fileID: 1801837051691845774, guid: f9db660384cd000428f77b2483f47893, type: 3}
   dmgNumberYOffset: 0
   nonCritColor: {r: 1, g: 0.9815198, b: 0, a: 1}
   critColor: {r: 1, g: 0, b: 0, a: 1}
   _player: {fileID: 0}
+  _hitAudio: {fileID: 8300000, guid: e11a5a019377fbd4c81caa0adcb4c236, type: 3}
 --- !u!114 &-626739581257726993
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -34,6 +34,8 @@ public class EnemyBase : MonoBehaviour
     private AIPath path;
     // public AIDestinationSetter setter;
 
+    [SerializeField] AudioClip _hitAudio;
+
 
 
     void OnEnable(){
@@ -88,7 +90,7 @@ public class EnemyBase : MonoBehaviour
             LootManager.Instance.DropLoot(transform.position, _baseLuck);
         }
         Inventory.Instance.AddGold(_goldDrop);
-        LevelSystem.Instance.AddExperience(Mathf.RoundToInt(enemyData.xpAmount));
+        LevelSystem.Instance.AddExperience(Mathf.RoundToInt(enemyData.xpAmount * _lvlScaler.EnemyXPDropModifier));
         CorruptionManager.Instance.IncreaseCorruptionAmount(enemyData.corruptionDrop);
         // CorruptionManager.Instance.AddCorruption(_corruptionDrop);
         ScoreManager.scoreManager.AddToScore(_scoreAmnt);
@@ -103,6 +105,7 @@ public class EnemyBase : MonoBehaviour
     }
 
     void ShowDamage(float dmgAmnt, bool wasCrit){
+        SoundManager.Instance.PlayEffectAudio(_hitAudio);
         _damageFlash.CallDamageFlash();
         if(floatingDmgTextPref){
             Vector3 offset = new Vector3(Random.Range(-1f, 2f), dmgNumberYOffset, 0);

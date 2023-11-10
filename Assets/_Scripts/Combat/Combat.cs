@@ -158,6 +158,7 @@ public class Combat : MonoBehaviour
     void Shoot(){
         if(currentAmmo > 0 && !isDead){ //Do we have ammo?
             if(Time.time > lastShot + (fireRate * fireRateMod)){ //If the current time is greater than the last time we shot + current weapon's fire rate, we can shoot.
+                CameraShaker.Instance.ShakeCamera(2f, 0.1f);
                 muzzleFlash.Play(); //Play particle effect!
                 lastShot = Time.time; //Set lastShot to be equal to current time
                 bullet = ObjectPooler.current.GetPooledPlayerBullet(gunType, CalculateDamage(true), didCrit);

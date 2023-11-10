@@ -61,6 +61,14 @@ public class FollowingSpawner : MonoBehaviour
         }
     }
 
+    public void DecreaseTimeBetweenSpawns(float percentage){
+        
+    }
+
+    public void IncreaseAmountSpawned(){
+        _toSpawnEachInterval++;
+    }
+
 
 
     private IEnumerator SpawnEnemies(){

@@ -270,6 +270,10 @@ PrefabInstance:
       value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 8975534052674734087, guid: 9dab0843a80a45b40b5ff68d38e8317c, type: 3}
+      propertyPath: _hitAudio
+      value: 
+      objectReference: {fileID: 8300000, guid: e11a5a019377fbd4c81caa0adcb4c236, type: 3}
+    - target: {fileID: 8975534052674734087, guid: 9dab0843a80a45b40b5ff68d38e8317c, type: 3}
       propertyPath: enemyData
       value: 
       objectReference: {fileID: 11400000, guid: fb0904b6764a7794c923e3a3ea5c57b1, type: 2}
