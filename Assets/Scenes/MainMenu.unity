@@ -314,6 +314,8 @@ MonoBehaviour:
   _backOnHover: 1
   _soundOnHover: 1
   _backingImage: {fileID: 1093340956}
+  _originalSize: {x: 1, y: 1}
+  _toScaleTo: {x: 1.1, y: 1.1}
 --- !u!114 &10682454
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1041,6 +1043,8 @@ MonoBehaviour:
   _backOnHover: 0
   _soundOnHover: 0
   _backingImage: {fileID: 0}
+  _originalSize: {x: 1, y: 1}
+  _toScaleTo: {x: 1.1, y: 1.1}
 --- !u!1 &659019032
 GameObject:
   m_ObjectHideFlags: 0
@@ -1267,6 +1271,8 @@ MonoBehaviour:
   _backOnHover: 1
   _soundOnHover: 1
   _backingImage: {fileID: 2033873634}
+  _originalSize: {x: 1, y: 1}
+  _toScaleTo: {x: 1.1, y: 1.1}
 --- !u!1 &700433643
 GameObject:
   m_ObjectHideFlags: 0
@@ -4085,6 +4091,8 @@ MonoBehaviour:
   _backOnHover: 0
   _soundOnHover: 0
   _backingImage: {fileID: 0}
+  _originalSize: {x: 1, y: 1}
+  _toScaleTo: {x: 1.1, y: 1.1}
 --- !u!1 &1529603910
 GameObject:
   m_ObjectHideFlags: 0
@@ -4768,6 +4776,8 @@ MonoBehaviour:
   _backOnHover: 0
   _soundOnHover: 0
   _backingImage: {fileID: 0}
+  _originalSize: {x: 1, y: 1}
+  _toScaleTo: {x: 1.1, y: 1.1}
 --- !u!1 &1879339351
 GameObject:
   m_ObjectHideFlags: 0
@@ -5262,6 +5272,8 @@ MonoBehaviour:
   _backOnHover: 1
   _soundOnHover: 1
   _backingImage: {fileID: 867816414}
+  _originalSize: {x: 1, y: 1}
+  _toScaleTo: {x: 1.1, y: 1.1}
 --- !u!1 &2072637333
 GameObject:
   m_ObjectHideFlags: 0
@@ -5447,7 +5459,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: https://discord.gg/uJbgAU5N
+          m_StringArgument: https://discord.gg/GjAQJvTa
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &2101453317
@@ -5466,3 +5478,5 @@ MonoBehaviour:
   _backOnHover: 0
   _soundOnHover: 0
   _backingImage: {fileID: 0}
+  _originalSize: {x: 1, y: 1}
+  _toScaleTo: {x: 1.1, y: 1.1}

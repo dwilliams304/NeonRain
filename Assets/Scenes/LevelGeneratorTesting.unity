@@ -547,7 +547,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 554947702188765566, guid: 72c93d641862ac54d95fe87e3e361d6c, type: 3}
       propertyPath: amountOfRooms
-      value: 100
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 554947702188765566, guid: 72c93d641862ac54d95fe87e3e361d6c, type: 3}
       propertyPath: addHallwayBias

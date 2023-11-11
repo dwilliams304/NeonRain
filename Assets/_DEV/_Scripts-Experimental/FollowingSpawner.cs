@@ -56,13 +56,14 @@ public class FollowingSpawner : MonoBehaviour
     }
 
     public void AddSpawnableEnemy(GameObject spawnable){
+        if(spawnable == null) return;
         foreach(Spawner spawner in spawners){
             spawner.Spawnables.Add(spawnable);
         }
     }
 
     public void DecreaseTimeBetweenSpawns(float percentage){
-        
+
     }
 
     public void IncreaseAmountSpawned(){
