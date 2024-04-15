@@ -7,6 +7,9 @@ public class SoundManager : MonoBehaviour
     [Header("Auido Sources")]
     [SerializeField] AudioSource _musicSource, _ambienceSource, _effectsSource, _uiSource;
 
+    [SerializeField] private float _audioWaitTime;
+    private float timeSinceLastAudio;
+
 
     [Header("UI Specific Sounds")]
     [SerializeField] private AudioClip _click1;
@@ -19,6 +22,13 @@ public class SoundManager : MonoBehaviour
         }
         else{
             Destroy(gameObject);
+        }
+    }
+
+    public void PlayDelayedEffect(AudioClip clip){
+        if(Time.time > timeSinceLastAudio + _audioWaitTime){
+            timeSinceLastAudio = Time.time;
+            _effectsSource.PlayOneShot(clip);
         }
     }
 

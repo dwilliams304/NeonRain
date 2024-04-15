@@ -105,7 +105,7 @@ public class EnemyBase : MonoBehaviour
     }
 
     void ShowDamage(float dmgAmnt, bool wasCrit){
-        SoundManager.Instance.PlayEffectAudio(_hitAudio);
+        SoundManager.Instance.PlayDelayedEffect(_hitAudio);
         _damageFlash.CallDamageFlash();
         if(floatingDmgTextPref){
             Vector3 offset = new Vector3(Random.Range(-1f, 2f), dmgNumberYOffset, 0);
