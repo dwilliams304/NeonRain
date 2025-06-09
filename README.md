@@ -221,6 +221,10 @@ Here are some basic utility functions/extensions. They are decently self-explana
 
 #### GameObject Extensions
 
+GetOrAdd is generally useful to ensure that the component we are trying to access wil in fact exist. For the most part, this is used for specific things that **NEED** to exist. As an example, Entities will always need a Health class. Becuase in some way, shape or form, I am going to need to access the health for that Entity, and Entities (by definition of my game), is something that will have Health. We often create tons of prefabs for enemies, and these are all their own GameObjects, so there is always the possibility I will simply forget to add the Health.cs script onto that prefab. Yes, I can do null-checking when calling any health-related functions within the Entity class, however I could also just simply add the component, if it is not there. Because I will need to also initialize that Health system with lots of data, so I need to have that on there.
+
+Is this the only reason I use it? No, and that may not exactly be the best use-case for this. And there are going to be many different times in which I need to 100% have a different component on this script. This also helps with the potential of possibly doing something silly like adding that component multiple times in different scripts on the same object. Sure [DisallowMultipleComponent] works, as well as null checking and only adding if it's not there, but this is the same effectively, and easier to type!
+
 ```csharp
 using UnityEngine;
 
