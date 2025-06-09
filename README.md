@@ -1,20 +1,33 @@
+# Introduction
 
-# Developer's Note
+> Neon Rain is a 2D top-down action/rougelike shooter game built using the Unity game engine and C#. 
 
-This game is currently inactive. I have migrated this to a newer version of Unity, and is additionally being redone in 3D instead of 2D. The source code of the newer version is and will not be publicly accessible (sorry)! However, this repo is being changed into something different. This will now instead have samples of different kinds of gameplay mechanics from the newer version, as well as some reasoning behind certain choices. Neon Rain is also a working title, not a finalized title. While this version is inactive, all old scripts are in the LEGACY folder! So all old code is going to be there. As ugly as it can be. The exception will be Editor tools which are in the Editor folder, as well as any packages which are in the Imports folder.
+This game is a passion project of mine, as well as a huge learning experience. It helped me to better understand coding patterns, better ways of tackling problems, as well as better strategies (beyond just programming patterns) to face certain challenges. Additionally, I learned a lot in being able to break down a complex feature into code - and further how to make that code both more readable, and more scalable/modular.
 
-While the old code may not be pretty, it's nice to see sometimes how far we have come as developers! Additionally, I am unsure of how often this is going to be updated, but here and there - I will add more and more stuff.
 
 
 ## Table of Contents
 
+- [Developer's Note (please read!)](#developers-note)
 - [Legacy Features](#legacy-features)
 - [Samples](#samples)
+- [Lessons Learned](#lessons-learned)
+
+
+
+## Developer's Note
+
+This version of the game is currently inactive. I have migrated this to a newer version of Unity, and is additionally being redone in 3D instead of 2D. The source code of the newer version is, and will not be publicly accessible (sorry)! However, this repo is being changed into something different. This will now instead have samples [(in Assets/Samples)](/Assets/Samples/) of different kinds of gameplay mechanics from the newer version, as well as some reasoning behind certain design choices. Neon Rain is also a working title, not a finalized title and the newer version of this will likely be different. 
+
+While this version is inactive, all old scripts are in the [LEGACY folder](/Assets/LEGACY/)! So all old code is going to be there. As ugly as it can be. The exception will be Editor tools which are in [Assets/Editor](/Assets/Editor/), as well as any packages which are in [Assets/Imports](/Assets/Imports/).
+
+While the old code may not be pretty, it's nice to see sometimes how far we have come as developers! Additionally, I am unsure of how often this is going to be updated, but here and there - I will add more and more stuff.
+
 
 
 ## Legacy Features
 
-These are all the features that I had implemented in the Legacy version, all of which can be seen in the Assets/Legacy folder.
+These are all the features that had been implemented in the most current state of the game. (v0.501102a)
 
 - Stats (basic implementation)
 - Main menu
@@ -34,18 +47,23 @@ These are all the features that I had implemented in the Legacy version, all of 
 - End game stats
 - Editor tooling (weapon generation)
 
+
+
 ## Samples
 
-These are all the features you can currently see that are sampled from the newer codebase. As well as each explanation behind certain decisions, and why. These can all be found in Assets/Samples
+These are going to the code samples from the newer codebase of this game (which is not publicly accessible) that I have taken and put here. This will generally just cover things that I use across all games that I have developed/am developing.
 
-- [Game state](#game-state)
+These are the samples I have currently put into this codebase:
+
+- [Game State/State Machines](#game-state)
 - [Extensions (Vector, GameObject, WaitForSeconds)](#extensions)
 - [Object Pooling](#object-pooling)
 
 
+
 ## Documentation/Reasoning
 
-Here is where you can view different pieces of code, and (potentially) why I made certain choices in my patterns.
+Here is where you can view different pieces of code, and (potentially) why I made certain choices and design decisions.
 
 
 ### Game State
@@ -335,3 +353,55 @@ This was a hard task. I wanted something decently comprehensive and custom for p
 
 [Click here to view the PooledObject.cs file.](/Assets/Samples/ObjectPooling/PooledObject.cs)
 
+
+
+## Lessons Learned
+
+I have learned tons of things since starting my development journey. One of the bigger ones I believe, is how to go from gameplay idea/feature -> code. I always remember when I was younger, watchings tons and tons of YouTube tutorials, and reading tons of forum posts on how to implement a specific gameplay mechanic. As an example: health/combat. However, what many tutorials will do, is give you a fairly basic implementation of that. Where I click my mouse, it will shoot a projectile, and then that projectile will subtract health from whatever I hit. But let's say I want to go beyond that, and also calculate how far I was from the enemy, or let's say I want to shoot multiple projectiles in different directions, or let's say I want to do more than just subtract health and also additionally add some kind of poison effect to the enemy. The list can go on and on and on. 
+
+The issue really starts arising when we start trying to create something more complex than what the first tutorial taught me, and then I go watch another tutorial on the new things I want to add, and their version of the Health system is completely different! Then I need to go and change my Health system to match theirs.
+
+Beyond just being able to break down a problem, this project was a big learning experience and challenge when it comes to decoupling code and making things more modular. The biggest thing I learned, was that I needed to be consistent. In the Legacy code, you can probably easily find multiple instances where I am using event-driven logic, and then also not using it when I could. User Interface related events is where I became pretty inconsistent. In some areas, I just call invoke an event, but then also access a static Instance of another class to also do some kind of logic instead of simply just subscribing to that event across all my classes. 
+
+An example would be something like this.
+
+In my [EnemyBase](/Assets/LEGACY/_Scripts/Enemies/EnemyBase.cs) class I do this logic:
+```csharp
+    void Die(){
+        if(Extensions.Roll100(_dropChance)){
+            LootManager.Instance.DropLoot(transform.position, _baseLuck);
+        }
+        Inventory.Instance.AddGold(_goldDrop);
+        LevelSystem.Instance.AddExperience(Mathf.RoundToInt(enemyData.xpAmount * _lvlScaler.EnemyXPDropModifier));
+        CorruptionManager.Instance.IncreaseCorruptionAmount(enemyData.corruptionDrop);
+        // CorruptionManager.Instance.AddCorruption(_corruptionDrop);
+        ScoreManager.scoreManager.AddToScore(_scoreAmnt);
+        GameStats.enemiesKilled++;
+        GameStats.currentAmountOfEnemies--;
+        Destroy(gameObject);
+    }
+```
+
+And in my [HealthSystem](/Assets/LEGACY/_Scripts/Combat/HealthSystem.cs) class I do this logic:
+```csharp
+    public void DecreaseCurrentHealth(float amount, bool crit){
+        CurrentHealth -= Mathf.RoundToInt(amount);
+        onDamage?.Invoke(amount, crit);
+        if(CurrentHealth <= 0){
+            CurrentHealth = 0;
+            ChangeHealthBarValue(0);
+            onDeath?.Invoke();
+        }
+        else{
+            ChangeHealthBarValue(CurrentHealth);
+        }
+    }
+```
+
+In my EnemyBase class, I have a ScriptableObject which contains a lot of these values, and I should just realistically invoke an event called something like OnEnemyDeath, which would pass that ScriptableObject through, and then all of those classes can subscribe to that event. But instead, I was accessing a bunch of static Instances and triggering a function manually - which is both tedious, and not great. As soon as I start addding more and more things I want to happen, I have to go to me EnemyBase class, access that class I need in some way, call that function and make sure I'm passing the right arguments through. It's both not safe, and not consistent. Because I'm invoking an event in the HealthSystem class, which my EnemyBase subscribes to, and then instead of just using that event - I am calling more logic. 
+
+Not only that, but in the HealthSystem class I invoke an event onDamage in the DecreaseCurrentHealthFunction. Instead of having my UI subscribe to that event, I have a direct reference to the healthbar, in which I then change that value in the ChangeHealthbarValue function. 
+
+Again, it's really all about being consistent. As this was a pretty early on project for me - I was inconsistent in a lot of areas, causing a lot of nightmares and headaches that could have been easily avoided if I just followed certain patterns. 
+
+There are many more lessons that I have learned. I think this section is just getting a little long winded and repetitive. So this is where I'll stop.
